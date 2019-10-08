@@ -9,6 +9,22 @@ class Drill {
      */
     public static function getDrillById($id) {
         
+        $id = intval($id);
+        
+        if ($id) {
+            $db = Db::getConnection();
+            
+            $result = $db->query('SELECT * '
+                    . 'FROM drill '
+                    . 'WHERE id = ' . $id);
+            
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+            
+            $drillItem = $result->fetch();
+            
+            return $drillItem;
+        }
+        
     }
     
     /**
@@ -16,12 +32,7 @@ class Drill {
      */
     public static function getDrillList() {
         
-        $host = 'localhost';
-        $dbname = 'pvbr_test';
-        $user = 'root';
-        $password = '';
-        
-        $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+        $db = Db::getConnection();
         
         $drillList = [];
         
@@ -37,6 +48,9 @@ class Drill {
             $drillList[$i]['nld'] = $row['nld'];
             $drillList[$i]['nlm'] = $row['nlm'];
             $drillList[$i]['nls'] = $row['nls'];
+            $drillList[$i]['sld'] = $row['sld'];
+            $drillList[$i]['slm'] = $row['slm'];
+            $drillList[$i]['sls'] = $row['sls'];
             $i++;
         }
         
