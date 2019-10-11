@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>La Casa - Real Estate HTML5 Home Page Template</title>
+	<title>Полтавське ВБР</title>
 	<meta charset="utf-8">
 	<meta name="author" content="pixelhint.com">
 	<meta name="description" content="La casa free real state fully responsive html5/css3 home page website template"/>
@@ -26,7 +26,7 @@
 				<nav>
 					<ul>
 						<li><a href="/drill">Бурові</a></li>
-						<li><a href="#">Працівники</a></li>
+						<li><a href="/worker">Працівники</a></li>
 						<li><a href="#">Техніка</a></li>
 						<li><a href="#">Операції</a></li>
 						<li><a href="#">Contact</a></li>
@@ -77,37 +77,63 @@
 		</div><!--  end advanced search section  -->
 	</section><!--  end search section  -->
 
-
 	<section class="listings">
 		<div class="wrapper">
-			
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h2 class="text-center">Загальна інформація</h2>
-                                            <table class="table">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th scope="col">№</th>
-                                                        <th scope="col">Тип</th>
-                                                        <th scope="col">Назва</th>
-                                                        <th scope="col">Етап</th>
-                                                        <th scope="col">Примітка</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="table-striped">
-                                                    <?php foreach ($drillList as $drillItem): ?>
-                                                        <tr>
-                                                            <td><?=$drillItem['number']?></td>
-                                                            <td><?=$drillItem['drill_type_id']?></td>
-                                                            <td><?=$drillItem['name']?></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    <?php endforeach; ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2 class="text-center">Загальна інформація</h2>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">№</th>
+                                        <th scope="col">Тип</th>
+                                        <th scope="col">Назва</th>
+                                        <th scope="col">Етап</th>
+                                        <th scope="col">Примітка</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-striped">
+                                    <?php foreach ($drillList as $drillItem): ?>
+                                        <tr>
+                                            <td><?=$drillItem['number']?></td>
+                                            <td><?=$drillItem['drill_type_id']?></td>
+                                            <td><a href="drill/<?=$drillItem['id']?>"> <?=$drillItem['name']?></a></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+			<div class="col-sm-12">
+                            <h2 class="text-center">Інтернет</h2>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+					<th scope="col">Бурова</th>
+					<th scope="col">Стан інтернету</th>
+					<th scope="col">Комплект DataGroup</th>
+					<th scope="col">Дата зміни стану</th>
+					<th scope="col">Примітка</th>
+                                    </tr>
+				</thead>
+				<tbody class="table-striped">
+                                    <?php foreach ($drillList as $drillItem): ?>
+					<tr>
+                                            <td><a href="drill/<?=$drillItem['id']?>"> <?=$drillItem['name']?></a></td>
+                                            <td><?=$drillItem['name']?></td>
+                                            <td><?=$drillItem['name']?></td>
+                                            <td><?=$drillItem['name']?></td>
+                                            <td><?=$drillItem['name']?></td>
+					</tr>
+                                    <?php endforeach ?>
+				</tbody>
+                            </table>
+			</div>
+                    </div>
                                     
                                     
                                     <!--

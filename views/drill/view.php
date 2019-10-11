@@ -22,10 +22,10 @@
 				<a href="#" class="hamburger"></a>
 				<nav>
 					<ul>
-						<li><a href="/drill">Новости</a></li>
-						<li><a href="#">Rent</a></li>
-						<li><a href="#">Sell</a></li>
-						<li><a href="#">About</a></li>
+						<li><a href="/drill">Бурові</a></li>
+						<li><a href="/worker">Працівники</a></li>
+						<li><a href="#">Техніка</a></li>
+						<li><a href="#">Операції</a></li>
 						<li><a href="#">Contact</a></li>
 					</ul>
 					<a href="#" class="login_btn">Login</a>
