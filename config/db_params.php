@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'host' => 'localhst',
+    'host' => 'localhost',
     'dbname' => 'pvbr_test',
     'user' => 'root',
     'password' => '',

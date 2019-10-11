@@ -37,7 +37,8 @@ class Drill {
         $drillList = [];
         
         $result = $db->query('SELECT * '
-                . 'FROM drill');
+                . 'FROM drill '
+                . 'ORDER BY drill_type_id');
         
         $i = 0;
         while ($row = $result->fetch()) {
@@ -48,9 +49,9 @@ class Drill {
             $drillList[$i]['nld'] = $row['nld'];
             $drillList[$i]['nlm'] = $row['nlm'];
             $drillList[$i]['nls'] = $row['nls'];
-            $drillList[$i]['sld'] = $row['sld'];
-            $drillList[$i]['slm'] = $row['slm'];
-            $drillList[$i]['sls'] = $row['sls'];
+            $drillList[$i]['eld'] = $row['eld'];
+            $drillList[$i]['elm'] = $row['elm'];
+            $drillList[$i]['els'] = $row['els'];
             $i++;
         }
         

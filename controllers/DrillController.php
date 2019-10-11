@@ -9,7 +9,7 @@ class DrillController {
      * 
      * @return boolean
      */
-    public function actionList() {
+    public function actionIndex() {
         
         //пустая переменная типа массив для получения списка буровых
         $drillList = [];
@@ -17,11 +17,7 @@ class DrillController {
         //вызов метода модели для получения списка буровых
         $drillList = Drill::getDrillList();
         
-        echo '<pre>';
-        print_r($drillList);
-        echo '</pre>';
-        
-        echo 'Список всех буровых';
+        require_once ROOT . '/views/drill/index.php';
         
         return true;
     }
@@ -31,12 +27,8 @@ class DrillController {
         if ($id) {
             $drillItem = Drill::getDrillById($id);
             
-            echo '<pre>';
-            print_r($drillItem);
-            echo '</pre>';
+            require_once ROOT . '/views/drill/view.php';
         }
-        
-        echo 'Просмотр подробной информации о буровой c id = ' . $id;
         
         return true;
     }
