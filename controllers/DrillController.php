@@ -1,8 +1,5 @@
 <?php
 
-//подключаем файл модели
-require_once ROOT . '/models/Drill.php';
-
 class DrillController {
     
     /**

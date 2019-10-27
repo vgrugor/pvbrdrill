@@ -55,13 +55,9 @@ class Drill {
             $drillList[$i]['number'] = $row['number'];
             $drillList[$i]['type_name'] = $row['type_name'];
             $drillList[$i]['name'] = $row['name'];
-            $drillList[$i]['nld'] = $row['nld'];
-            $drillList[$i]['nlm'] = $row['nlm'];
-            $drillList[$i]['nls'] = $row['nls'];
-            $drillList[$i]['eld'] = $row['eld'];
-            $drillList[$i]['elm'] = $row['elm'];
-            $drillList[$i]['els'] = $row['els'];
-            $drillList[$i]['coordinate_stage'] = $row['coordinate_stage'];
+            $drillList[$i]['geo'] = self::convertGeoCoordinateToString($row['nld'], $row['nlm'], $row['nls'], $row['eld'], $row['elm'], $row['els']);
+            $drillList[$i]['gps'] = self::convertCoordinateGeoToGPS($row['nld'], $row['nlm'], $row['nls'], $row['eld'], $row['elm'], $row['els']);
+            $drillList[$i]['coordinate_stage'] = self::getStepOfObtainingCoordinates($row['coordinate_stage']);
             $drillList[$i]['address'] = $row['address'];
             $drillList[$i]['phone_number'] = $row['phone_number'];
             $drillList[$i]['date_building'] = $row['date_building'];
@@ -76,5 +72,67 @@ class Drill {
         
         return $drillList;
                 
+    }
+    
+    /**
+     * Преобразует геолокацию в GPS-координаты
+     * @param int $nDegress - градусы северной долготы
+     * @param int $nMinutes - минуты северной долготы
+     * @param int $nSeconds - секунды северной долготы
+     * @param int $eDegress - градусы восточной широты
+     * @param int $eMinutes - минуты восточной широты
+     * @param int $eSeconds - секунды восточной широты
+     * @return str
+     */
+    private static function convertCoordinateGeoToGPS($nDegress, $nMinutes, $nSeconds, $eDegress, $eMinutes, $eSeconds) {
+        
+        if (($nDegress + $eDegress) == 0) {
+            return '-';
+        }
+        
+        $nGps = $nDegress + ($nMinutes / 60) + ($nSeconds / 3600);
+        $eGps = $eDegress + ($eMinutes / 60) + ($eSeconds / 3600);
+        
+        $nGps = round($nGps, 6);
+        $eGps = round($eGps, 6);
+        
+        return $nGps . ', ' . $eGps;
+    }
+    
+    /**
+     * Возвращает Geo-координаты в виде строки
+     * @param int $nDegress - градусы северной долготы
+     * @param int $nMinutes - минуты северной долготы
+     * @param int $nSeconds - секунды северной долготы
+     * @param int $eDegress - градусы восточной широты
+     * @param int $eMinutes - минуты восточной широты
+     * @param int $eSeconds - секунды восточной широты
+     * @return str 
+     */
+    private static function convertGeoCoordinateToString($nDegress, $nMinutes, $nSeconds, $eDegress, $eMinutes, $eSeconds) {
+        
+        if (($nDegress + $eDegress) == 0) {
+            return '-';
+        }
+        
+        $format = "%'.02d°%'.02d'%05.2f\"N %'.02d°%'.02d'%05.2f\"E";
+        
+        $strGeo = sprintf($format, $nDegress, $nMinutes, $nSeconds, $eDegress, $eMinutes, $eSeconds);
+        
+        return $strGeo;
+    }
+    
+    /**
+     * Возвращает текстовое представление этапа получения координат
+     * @param int $steep
+     * @return string
+     */
+    private static function getStepOfObtainingCoordinates($steep) {
+        
+        if ($steep == 1) {
+            return 'При плануванні';
+        }
+        
+        return 'В бурінні';
     }
 }

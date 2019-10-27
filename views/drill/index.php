@@ -128,12 +128,12 @@
 					</thead>
 					<tbody class="table-striped">
 						<?php foreach ($drillList as $drillItem): ?>
-                                            <tr>
-                                                <td><?=$drillItem['name']?></td>
-                                                <td><?=$drillItem['name']?></td>
-                                                <td><?=$drillItem['name']?></td>
-                                                <td><?=$drillItem['coordinate_stage']?></td>
-                                            </tr>
+                                                    <tr>
+                                                        <td><?=$drillItem['name']?></td>
+                                                        <td><?=$drillItem['geo']?></td>
+                                                        <td><?=$drillItem['gps']?></td>
+                                                        <td><?=$drillItem['coordinate_stage']?></td>
+                                                    </tr>
                                                 <?php endforeach;; ?>
 					</tbody>
 				</table>

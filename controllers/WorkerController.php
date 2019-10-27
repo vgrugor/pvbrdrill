@@ -1,10 +1,11 @@
 <?php
 
-//подключаем файл модели
-require_once ROOT . '/models/Worker.php';
-
 class WorkerController {
     
+    /**
+     * Отображение информации о всех работниках
+     * @return boolean
+     */
     public function actionList() {
         
         $workerList = [];
@@ -16,6 +17,11 @@ class WorkerController {
         return true;
     }
     
+    /**
+     * Подробно о работнике по его id
+     * @param int $id
+     * @return boolean
+     */
     public function actionView($id){
         
         if ($id) {
