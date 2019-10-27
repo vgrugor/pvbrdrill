@@ -11,11 +11,7 @@ class WorkerController {
         
         $workerList = Worker::getWorkerList();
         
-        echo '<pre>';
-        print_r($workerList);
-        echo '</pre>';
-        
-        echo 'Список всех работников';
+        require_once ROOT . '/views/worker/list.php';
         
         return true;
     }
@@ -25,12 +21,8 @@ class WorkerController {
         if ($id) {
             $workerItem = Worker::getWorkerById($id);
             
-            echo '<pre>';
-            print_r($workerItem);
-            echo '</pre>';
+            require_once ROOT . '/views/worker/view.php';
         }
-        
-        echo 'Просмотр иформации о одном работнике c id = ' . $id;
         
         return true; 
     }

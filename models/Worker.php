@@ -17,6 +17,8 @@ class Worker {
                     . 'FROM worker '
                     . 'WHERE id = ' . $id);
             
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+            
             $workerItem = $result->fetch();
             
             return $workerItem;
@@ -42,7 +44,8 @@ class Worker {
             $workerList[$i]['id'] = $row['id'];
             $workerList[$i]['drill_id'] = $row['drill_id'];
             $workerList[$i]['position_id'] = $row['position_id'];
-            $workerList[$i]['name'] = $row['phone_number'];
+            $workerList[$i]['name'] = $row['name'];
+            $workerList[$i]['phone_number'] = $row['phone_number'];
             $workerList[$i]['email'] = $row['email'];
             $workerList[$i]['vpn_status_id'] = $row['vpn_status_id'];
             $workerList[$i]['date_refresh'] = $row['date_refresh'];
