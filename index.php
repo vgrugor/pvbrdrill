@@ -10,8 +10,7 @@
 
     // 2. Подключение файлов системы
     define('ROOT', dirname(__FILE__));
-    require_once ROOT . '/components/Router.php'; #подключение файла класса роутера
-    require_once ROOT . '/components/Db.php';  #подключение файла с классом для соединения с БД
+    require_once ROOT . '/components/Autoload.php';
     
     // 3. Установка соединения с БД
 
