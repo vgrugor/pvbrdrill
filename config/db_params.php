@@ -2,7 +2,7 @@
 
 return [
     'host' => 'localhost',
-    'dbname' => 'pvbr',
+    'dbname' => 'pvbr_test',
     'user' => 'root',
     'password' => '',
 ];

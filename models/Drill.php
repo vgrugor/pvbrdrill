@@ -153,6 +153,14 @@ class Drill {
         return date('d.m.Y', $timestamp);
     }
     
+    /**
+     * Возвращает этап бурения скважины
+     * @param int $dateBuilding
+     * @param int $dateDrilling
+     * @param int $dateDemount
+     * @param int $dateTransfer
+     * @return string
+     */
     private static function getStageDrilling($dateBuilding, $dateDrilling, $dateDemount, $dateTransfer) {
         
         $date = time();

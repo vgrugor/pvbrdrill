@@ -7,6 +7,6 @@
         
         '/worker/([0-9]+)' => 'worker/view/$1', //
         '/worker' => 'worker/list',  //экшен actionList в контроллере WorkerController
-        //'' => 'site/index'
+        '' => 'site/index'
     ];
 

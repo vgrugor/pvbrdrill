@@ -13,6 +13,7 @@
   <body>
       <div class="container">
             <nav class="nav">
+                <a class="nav-link" href="/">Головна</a>
                 <a class="nav-link active" href="/drill/">Бурові</a>
                 <a class="nav-link" href="/worker/">Працівники</a>
             </nav>

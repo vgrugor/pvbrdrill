@@ -17,11 +17,11 @@
           <tbody>
             <?php foreach ($workerList as $worker): ?>
                 <tr>
-                    <td><a href="/worker/<?=$worker['id']?>"><?=$worker['name']?></a></td>
-                  <td><?=$worker['drill_id']?></td>
-                  <td><?=$worker['position_id']?></td>
+                  <td><a href="/worker/<?=$worker['id']?>"><?=$worker['name']?></a></td>
+                  <td><?=$worker['drill']?></td>
+                  <td><?=$worker['position_name']?></td>
                   <td><?=$worker['email']?></td>
-                  <td><?=$worker['vpn_status_id']?></td>
+                  <td><?=$worker['vpn_status_name']?></td>
                   <td><?=$worker['date_refresh']?></td>
                   <td><?=$worker['note']?></td>
                 </tr>
