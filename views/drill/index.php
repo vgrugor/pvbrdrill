@@ -17,7 +17,7 @@
                                             <td><?=$drillItem['number']?></td>
                                             <td><?=$drillItem['type_name']?></td>
                                             <td><a href="/drill/<?=$drillItem['id']?>"> <?=$drillItem['name']?></a></td>
-                                            <td></td>
+                                            <td><?=$drillItem['stage']?></td>
                                             <td><?=$drillItem['note']?></td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -74,7 +74,7 @@
                                             <?php foreach ($drillList as $drillItem): ?>
                                             <tr>
                                                 <td><?=$drillItem['name']?></td>
-                                                <td></td>
+                                                <td><?=$drillItem['stage']?></td>
                                                 <td><?=$drillItem['date_building']?></td>
                                                 <td><?=$drillItem['date_drilling']?></td>
                                                 <td><?=$drillItem['date_demount']?></td>
@@ -105,7 +105,7 @@
                                             <tr>
                                                 <td><?=$drillItem['name']?></td>
                                                 <td><?=$drillItem['phone_number']?></td>
-                                                <td><?=$drillItem['email']?></td>
+                                                <td><a href="mailto:<?=$drillItem['email']?>"><?=$drillItem['email']?></a></td>
                                                 <td><?=$drillItem['address']?></td>
                                             </tr>
                                                 <?php endforeach; ?>
