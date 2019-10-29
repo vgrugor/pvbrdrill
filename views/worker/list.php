@@ -31,5 +31,12 @@
         </table>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-12">
+        <nav aria-label="Page navigation example">
+            <?=$pagination->get()?>
+        </nav>
+    </div>
+</div>
     
 <?php require ROOT . '/views/layouts/footer.php'; ?>

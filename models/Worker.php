@@ -2,6 +2,8 @@
 
 class Worker {
     
+    const SHOW_BY_DEFAULT = 8;  //работников на странице
+    
     /**
      * Возвращает информацию о одном работнике в виде массива
      * @param int $id
@@ -28,7 +30,9 @@ class Worker {
     /**
      * Возвращает список всех работиков в виде массива
      */
-    public static function getWorkerList() {
+    public static function getWorkerList($page) {
+        
+        $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
         
         $db = Db::getConnection();
         
@@ -49,7 +53,9 @@ class Worker {
                 . 'LEFT JOIN position '
                 . 'ON worker.position_id = position.id '
                 . 'LEFT JOIN vpn_status '
-                . 'ON worker.vpn_status_id = vpn_status.id');
+                . 'ON worker.vpn_status_id = vpn_status.id '
+                . 'LIMIT ' . self::SHOW_BY_DEFAULT
+                . ' OFFSET ' . $offset);
         
         $result->setFetchMode(PDO::FETCH_ASSOC);
         
@@ -71,7 +77,20 @@ class Worker {
         
     }
     
-    /**
+    public static function getTotalWorkers() {
+        
+        $db = Db::getConnection();
+        
+        $result = $db->query('SELECT count(id) as count FROM worker');
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $row = $result->fetch();
+        
+        return $row['count'];
+        
+    }
+
+        /**
      * Преобразовывает timestamp int в формат dd.mm.yyyy
      * @param int $timestamp
      * @return string
@@ -86,4 +105,6 @@ class Worker {
         
         return date('d.m.Y', $timestamp);
     }
+    
+    
 }

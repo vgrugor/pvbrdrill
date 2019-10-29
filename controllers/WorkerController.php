@@ -6,11 +6,14 @@ class WorkerController {
      * Отображение информации о всех работниках
      * @return boolean
      */
-    public function actionList() {
+    public function actionList($page = 1) {
         
         $workerList = [];
         
-        $workerList = Worker::getWorkerList();
+        $workerList = Worker::getWorkerList($page);
+        
+        $total = Worker::getTotalWorkers();
+        $pagination = new Pagination($total, $page, Worker::SHOW_BY_DEFAULT, 'page-');
         
         require_once ROOT . '/views/worker/list.php';
         
