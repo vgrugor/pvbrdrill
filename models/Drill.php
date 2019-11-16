@@ -14,13 +14,29 @@ class Drill {
         if ($id) {
             $db = Db::getConnection();
             
-            $result = $db->query('SELECT * '
-                    . 'FROM drill '
-                    . 'WHERE id = ' . $id);
+            $result = $db->query('SELECT '
+                . 'drill.id, number, drill_type.name as type_name, drill.name, '
+                . 'nld, nlm, nls, eld, elm, els, coordinate_stage, address, phone_number,  '
+                . 'date_building, date_drilling, date_demount, date_transfer, date_refresh, '
+                . 'email, note '
+                . 'FROM drill '
+                . 'LEFT JOIN drill_type '
+                . 'ON drill.drill_type_id = drill_type.id '
+                . 'WHERE drill.id = ' . $id);
             
             $result->setFetchMode(PDO::FETCH_ASSOC);
             
             $drillItem = $result->fetch();
+            
+            //добавляем в массив удобный вывод данных
+            $drillItem['gps'] = self::convertCoordinateGeoToGPS($drillItem['nld'], $drillItem['nlm'], $drillItem['nls'], $drillItem['eld'], $drillItem['elm'], $drillItem['els']);
+            $drillItem['geo'] = self::convertGeoCoordinateToString($drillItem['nld'], $drillItem['nlm'], $drillItem['nls'], $drillItem['eld'], $drillItem['elm'], $drillItem['els']);
+            $drillItem['coordinate_stage'] = self::getStepOfObtainingCoordinates($drillItem['coordinate_stage']);
+            $drillItem['date_building'] = self::displayDate($drillItem['date_building']);
+            $drillItem['date_drilling'] = self::displayDate($drillItem['date_drilling']);
+            $drillItem['date_demount'] = self::displayDate($drillItem['date_demount']);
+            $drillItem['date_transfer'] = self::displayDate($drillItem['date_transfer']);
+            $drillItem['date_refresh'] = self::displayDate($drillItem['date_refresh']);
             
             return $drillItem;
         }
@@ -85,7 +101,7 @@ class Drill {
      * @param int $eSeconds - секунды восточной широты
      * @return str
      */
-    private static function convertCoordinateGeoToGPS($nDegress, $nMinutes, $nSeconds, $eDegress, $eMinutes, $eSeconds) {
+    public static function convertCoordinateGeoToGPS($nDegress, $nMinutes, $nSeconds, $eDegress, $eMinutes, $eSeconds) {
         
         if (($nDegress + $eDegress) == 0) {
             return '-';
@@ -110,7 +126,7 @@ class Drill {
      * @param int $eSeconds - секунды восточной широты
      * @return str 
      */
-    private static function convertGeoCoordinateToString($nDegress, $nMinutes, $nSeconds, $eDegress, $eMinutes, $eSeconds) {
+    public static function convertGeoCoordinateToString($nDegress, $nMinutes, $nSeconds, $eDegress, $eMinutes, $eSeconds) {
         
         if (($nDegress + $eDegress) == 0) {
             return '-';
@@ -128,7 +144,7 @@ class Drill {
      * @param int $steep
      * @return string
      */
-    private static function getStepOfObtainingCoordinates($steep) {
+    public static function getStepOfObtainingCoordinates($steep) {
         
         if ($steep == 1) {
             return 'При плануванні';
@@ -142,7 +158,7 @@ class Drill {
      * @param int $timestamp
      * @return string
      */
-    private static function displayDate($timestamp) {
+    public static function displayDate($timestamp) {
         
         $timestamp = intval($timestamp);
         

@@ -28,6 +28,46 @@ class Worker {
     }
     
     /**
+     * Получить работников буровой
+     * @param int $drillId
+     */
+    public static function getWorkersByDrill($drillId)
+    {
+        $workers = [];
+        
+        $drillId = intval($drillId);
+        echo $drillId;
+        
+        if ($drillId) {
+            $db = Db::getConnection();
+            
+            $sql = 'SELECT position.name as position_name, worker.name as name, '
+                    . 'worker.phone_number, worker.email, worker.date_refresh '
+                    . 'FROM worker '
+                    . 'LEFT JOIN position '
+                    . 'ON worker.position_id = position.id '
+                    . 'WHERE drill_id = :drillId';
+            
+            $result = $db->prepare($sql);
+            $result->bindParam(':drillId', $drillId, PDO::PARAM_INT);
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+            $result->execute();
+            
+            $i = 0;
+            while ($row = $result->fetch()) {
+                $workers[$i]['name'] = $row['name'];
+                $workers[$i]['position_name'] = $row['position_name'];
+                $workers[$i]['phone_number'] = $row['phone_number'];
+                $workers[$i]['email'] = $row['email'];
+                $workers[$i]['date_refresh'] = $row['date_refresh'];
+                $i++;
+            }
+            
+            return $workers;
+        }
+    }
+
+    /**
      * Возвращает список всех работиков в виде массива
      */
     public static function getWorkerList($page) {

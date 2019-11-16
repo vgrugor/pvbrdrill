@@ -28,6 +28,7 @@ class WorkerController {
     public function actionView($id){
         
         if ($id) {
+            
             $workerItem = Worker::getWorkerById($id);
             
             require_once ROOT . '/views/worker/view.php';
