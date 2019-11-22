@@ -12,6 +12,7 @@
         '/user/login' => 'user/login',                  //страница для входа
         '/user/logout' => 'user/logout',                //экшен выхода
         
+        '/contacts' => 'site/contact',                  //форма обратной связи
         '' => 'site/index'                              //главная
     ];
 

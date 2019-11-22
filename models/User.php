@@ -21,6 +21,18 @@ class User {
     }
     
     /**
+     * Проверка email
+     */
+    public static function checkEmail($email)
+    {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
      * Проверка допустимости пароля
      * @param type $password
      * @return boolean
