@@ -140,6 +140,12 @@
 			</div>
 		</div>
 
+                <div class="row">
+			<div class="col-sm-12">
+				<h2 class="text-center">Матриця відстаней до бурових</h2>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col-sm-12">
 				<h2 class="text-center">Розміщення бурових Полтавського ВБР</h2>

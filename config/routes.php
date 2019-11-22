@@ -9,7 +9,9 @@
         '/worker/([0-9]+)' => 'worker/view/$1', //
         '/worker' => 'worker/list',                     //экшен actionList в контроллере WorkerController
         
-        'user/register' => 'user/register',             //страница для регистрации
+        '/user/login' => 'user/login',                  //страница для входа
+        '/user/logout' => 'user/logout',                //экшен выхода
+        
         '' => 'site/index'                              //главная
     ];
 

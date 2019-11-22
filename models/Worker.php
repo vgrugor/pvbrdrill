@@ -15,13 +15,27 @@ class Worker {
         if ($id) {
             $db = Db::getConnection();
             
-            $result = $db->query('SELECT * '
+            $result = $db->query('SELECT worker.name as worker_name, '
+                    . 'drill.name as drill_name, '
+                    . 'position.name as position_name,'
+                    . 'vpn_status.name as vpn_status_name, '
+                    . 'worker.phone_number as worker_phone_number, '
+                    . 'worker.email, worker.note as worker_note, '
+                    . 'vpn_status.name as vpn_name, '
+                    . 'worker.date_refresh as worker_refresh '
                     . 'FROM worker '
-                    . 'WHERE id = ' . $id);
+                    . 'LEFT JOIN drill '
+                    . 'ON worker.drill_id = drill.id '
+                    . 'LEFT JOIN position '
+                    . 'ON worker.position_id = position.id '
+                    . 'LEFT JOIN vpn_status '
+                    . 'ON worker.vpn_status_id = vpn_status.id '
+                    . 'WHERE worker.id = ' . $id);
             
             $result->setFetchMode(PDO::FETCH_ASSOC);
             
             $workerItem = $result->fetch();
+            $workerItem['worker_refresh'] = Worker::displayDate($workerItem['worker_refresh']);
             
             return $workerItem;
         }
@@ -36,7 +50,6 @@ class Worker {
         $workers = [];
         
         $drillId = intval($drillId);
-        echo $drillId;
         
         if ($drillId) {
             $db = Db::getConnection();
@@ -46,7 +59,8 @@ class Worker {
                     . 'FROM worker '
                     . 'LEFT JOIN position '
                     . 'ON worker.position_id = position.id '
-                    . 'WHERE drill_id = :drillId';
+                    . 'WHERE drill_id = :drillId '
+                    . 'ORDER BY worker.date_refresh DESC';
             
             $result = $db->prepare($sql);
             $result->bindParam(':drillId', $drillId, PDO::PARAM_INT);
@@ -59,7 +73,7 @@ class Worker {
                 $workers[$i]['position_name'] = $row['position_name'];
                 $workers[$i]['phone_number'] = $row['phone_number'];
                 $workers[$i]['email'] = $row['email'];
-                $workers[$i]['date_refresh'] = $row['date_refresh'];
+                $workers[$i]['date_refresh'] = self::displayDate($row['date_refresh']);
                 $i++;
             }
             

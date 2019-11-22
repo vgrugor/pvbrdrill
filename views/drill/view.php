@@ -130,9 +130,28 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <pre>
-                <?php print_r($workers); ?>
-            </pre>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Посада</th>
+                    <th scope="col">ПІБ</th>
+                    <th scope="col">Телефон</th>
+                    <th scope="col">email</th>
+                    <th scope="col">Дата оновлення</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($workers as $worker):?>
+                        <tr>
+                          <td><?=$worker['position_name']?></td>
+                          <td><?=$worker['name']?></td>
+                          <td><?=$worker['phone_number']?></td>
+                          <td><?=$worker['email']?></td>
+                          <td><?=$worker['date_refresh']?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+              </table>
         </div>
     </div>
     <hr>

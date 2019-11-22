@@ -12,8 +12,36 @@
   </head>
   <body>
       <div class="container">
-            <nav class="nav">
-                <a class="nav-link" href="/">Головна</a>
-                <a class="nav-link active" href="/drill">Бурові</a>
-                <a class="nav-link" href="/worker">Працівники</a>
-            </nav>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Головна</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/drill">Бурові</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/worker">Працівники</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Довідники</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Організації</a>
+                        <a class="dropdown-item" href="#">Відділи</a>
+                        <a class="dropdown-item" href="#">Підрозділи</a>
+                        <a class="dropdown-item" href="#">Посади</a>
+                        <a class="dropdown-item" href="#">Типи бурових</a>
+                        <a class="dropdown-item" href="#">Статуси vpn</a>
+                        <a class="dropdown-item" href="#">Статуси інтернету</a>
+                    </div>
+                </li>
+            </ul>
+            
+            <div class="row justify-content-end">
+                <div class="col-sm-2 text-right">
+                    <?php if (User::isGuest()): ?>
+                        <a href="/user/login">Вхід</a>
+                    <?php else: ?>
+                        <a href="/user/logout">Вихід</a>
+                    <?php endif; ?>
+                </div>
+            </div>
