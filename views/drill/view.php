@@ -144,7 +144,7 @@
                     <?php foreach ($workers as $worker):?>
                         <tr>
                           <td><?=$worker['position_name']?></td>
-                          <td><?=$worker['name']?></td>
+                          <td><a href="/worker/<?=$worker['id']?>"><?=$worker['name']?></a></td>
                           <td><?=$worker['phone_number']?></td>
                           <td><?=$worker['email']?></td>
                           <td><?=$worker['date_refresh']?></td>
@@ -160,4 +160,5 @@
             <h2>Забезпечення комп'ютерами:</h2>
         </div>
     </div>
+    
 <?php require ROOT . '/views/layouts/footer.php'; ?>

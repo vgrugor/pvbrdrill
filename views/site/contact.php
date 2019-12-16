@@ -6,6 +6,11 @@
             <?php if ($result): ?>
                 <p>Повідомлення успішно відправлено!</p>
             <?php else: ?>
+                
+
+                <h1>Створити повідомлення</h1>
+                <p>Повідомлення та пропозиції</p>
+                <br>
                 <?php if (isset($errors)  && is_array($errors)): ?>
                     <ul>
                         <?php foreach ($errors as $error): ?>
@@ -13,10 +18,7 @@
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
-
-                <h1>Створити повідомлення</h1>
-                <p>Повідомлення та пропозиції</p>
-                <br>
+                
                 <form action="#" method="post">
                     <div class="form-group">
                         <label for="userEmail">Ваш email</label>

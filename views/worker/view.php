@@ -5,6 +5,23 @@
         <h1><?=$workerItem['worker_name']?></h1>
     </div>
 </div>
+<br/>
+<div class="row">
+    <div class="col-sm-4">
+        <p><strong>Транслітерація:</strong></p>
+    </div>
+    <div class="col">
+        <?=Worker::transliterate($workerItem['worker_name'])?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <p><strong>Обліковий запис в AD:</strong></p>
+    </div>
+    <div class="col">
+        
+    </div>
+</div>
 <hr>
 <div class="row">
     <div class="col-sm-4">
@@ -27,7 +44,7 @@
         <p><strong>Бурова:</strong></p>
     </div>
     <div class="col">
-        <?=$workerItem['drill_name']?>
+        <a href="/drill/<?=$workerItem['drill_id']?>"><?=$workerItem['drill_name']?></a>
     </div>
 </div>
 <div class="row">
@@ -84,6 +101,15 @@
 <div class="row">
     <div class="col-sm-4">
         <p><strong>Працюэ за ПК:</strong></p>
+    </div>
+    <div class="col">
+        
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-sm-4">
+        <p><strong>Користувача налаштовано на ПК:</strong></p>
     </div>
     <div class="col">
         

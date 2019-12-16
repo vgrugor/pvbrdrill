@@ -1,4 +1,5 @@
 <?php require ROOT . '/views/layouts/header.php'; ?>
+
                     <div class="row">
                          <div class="col-sm-12">
                             <table class="table">
@@ -73,7 +74,7 @@
 					<tbody class="table-striped">
                                             <?php foreach ($drillList as $drillItem): ?>
                                             <tr>
-                                                <td><?=$drillItem['name']?></td>
+                                                <td><a href="drill/<?=$drillItem['id']?>"> <?=$drillItem['name']?></a></td>
                                                 <td><?=$drillItem['stage']?></td>
                                                 <td><?=$drillItem['date_building']?></td>
                                                 <td><?=$drillItem['date_drilling']?></td>
@@ -103,7 +104,7 @@
 					<tbody class="table-striped">
 						<?php foreach ($drillList as $drillItem): ?>
                                             <tr>
-                                                <td><?=$drillItem['name']?></td>
+                                                <td><a href="drill/<?=$drillItem['id']?>"> <?=$drillItem['name']?></a></td>
                                                 <td><?=$drillItem['phone_number']?></td>
                                                 <td><a href="mailto:<?=$drillItem['email']?>"><?=$drillItem['email']?></a></td>
                                                 <td><?=$drillItem['address']?></td>
@@ -129,7 +130,7 @@
 					<tbody class="table-striped">
 						<?php foreach ($drillList as $drillItem): ?>
                                                     <tr>
-                                                        <td><?=$drillItem['name']?></td>
+                                                        <td><a href="drill/<?=$drillItem['id']?>"> <?=$drillItem['name']?></a></td>
                                                         <td><?=$drillItem['geo']?></td>
                                                         <td><?=$drillItem['gps']?></td>
                                                         <td><?=$drillItem['coordinate_stage']?></td>
@@ -155,5 +156,6 @@
 				</figure>
 			</div>
 		</div>
+
 <?php require ROOT . '/views/layouts/footer.php'; ?>
 
