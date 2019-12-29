@@ -11,7 +11,7 @@
         <p><strong>Транслітерація:</strong></p>
     </div>
     <div class="col">
-        <?=Worker::transliterate($workerItem['worker_name'])?>
+        <?=Worker::getTranslitName($workerItem['worker_name'])?>
     </div>
 </div>
 <div class="row">
@@ -115,5 +115,37 @@
         
     </div>
 </div>
+<hr>
+<div class="row">
+    <div class="col-sm-12">
+        <a href="#" data-toggle="collapse" data-target="#hide-me">Підпис для пошти</a>
+        <div id="hide-me" class="collapse in">
+            <p>
+                З повагою,<br>
+                <?=$workerItem['worker_name']?><br>
+                <?=$workerItem['position_name']?> 
+                <?=$workerItem['drill_name']?>
+            <p>
+            
+            <p>
+                Полтавське ВБР<br>
+                БУ «Укрбургаз» <br>
+                АТ «Укргазвидобування»
+            </p>
+            <img src="/template/images/worker/view/logo.jpg">
+
+            <p>
+                вул. Ковалівська, 5<br>
+                м. Полтава, 36015, а/с 1715, Україна
+            </p>
+
+            <p>
+                Тел.: <?=$workerItem['worker_phone_number']?><br>
+                <?=$workerItem['email']?>
+            </p>
+        </div>
+    </div>
+</div>
+
     
 <?php require ROOT . '/views/layouts/footer.php'; ?>

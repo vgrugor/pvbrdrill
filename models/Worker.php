@@ -6,7 +6,8 @@ class Worker {
     
     /**
      * Возвращает информацию о одном работнике в виде массива
-     * @param int $id
+     * @param int $id Ид сотрудника
+     * @return array $workerItem Массив с информацией о одном работнике
      */
     public static function getWorkerById($id) {
         
@@ -43,8 +44,9 @@ class Worker {
     }
     
     /**
-     * Получить работников буровой
-     * @param int $drillId
+     * Получить работников определенной буровой
+     * @param int $drillId Ид необходимой буровой
+     * @return array $workers Все работники определенной буровой
      */
     public static function getWorkersByDrill($drillId)
     {
@@ -86,6 +88,8 @@ class Worker {
 
     /**
      * Возвращает список всех работиков в виде массива
+     * @param int $page Номер страницы в списке сотрудников
+     * @return array $workerList Список всех работников (постранично)
      */
     public static function getWorkerList($page) {
         
@@ -134,6 +138,10 @@ class Worker {
         
     }
     
+    /**
+     * Общее количество работников
+     * @return int $row['count'] Количество работников
+     */
     public static function getTotalWorkers() {
         
         $db = Db::getConnection();
@@ -147,11 +155,11 @@ class Worker {
         
     }
 
-        /**
-     * Преобразовывает timestamp int в формат dd.mm.yyyy
-     * @param int $timestamp
-     * @return string
-     */
+    /**
+    * Преобразовывает timestamp int в формат dd.mm.yyyy
+    * @param int $timestamp Таймштамп времени
+    * @return string $date Дата в формате dd.mm.yyyy
+    */
     private static function displayDate($timestamp) {
         
         $timestamp = intval($timestamp);
@@ -160,15 +168,18 @@ class Worker {
             return '-';
         }
         
-        return date('d.m.Y', $timestamp);
+        $date = date('d.m.Y', $timestamp);
+        
+        return $date;
     }
     
     /**
      * Транслитерация ФИО сотрудника
-     * @param str $workerName
-     * @return type
+     * @param str $workerName ФИО сотрудника
+     * @return String|Bool $translitWorkerName. Если удалось преобразовать - 
+     * Имя.Фамилия латиницей (string), если нет - false
      */
-    public static function transliterate($workerName)
+    public static function getTranslitName($workerName)
     {
         $converter = [
             "а" => "a",             "б" => "b",             "в" => "v", 
@@ -200,26 +211,36 @@ class Worker {
             " " => ".",             "." => "."
         ];
         
-        $nameForTranslit = self::getNameForTransliterate($workerName);
-        
-        $result = strtr($nameForTranslit, $converter);
-        
-        return $result;
-    }
-    
-    /**
-     * Преобразование Фамилия Имя в Имя Фамилия для транслитерации (учетной записи)
-     * @param str $workerName
-     * @return boolean|string
-     */
-    public static function getNameForTransliterate($workerName)
-    {
+        /*
+        //преобразуем строку в массив
         $workerNameArray = explode(' ', $workerName);
         
+        //если в массиве есть хотя бы имя и фамилия, разделенный пробелом
         if (count($workerNameArray) > 1) {
+            //правильная последовательность имя фамилия
             $nameForTransliterate = $workerNameArray[1] . ' ' . $workerNameArray[0];
-            return $nameForTransliterate;
+            
+            $result = strtr($nameForTransliterate, $converter);
+            
+            return $result;
         }
+        */
+        //преобразуем строку в массив
+        $dividedWorkerNameArray = explode(' ', $workerName);
+        
+        //если в массиве есть хотя бы имя и фамилия, разделенный пробелом
+        if (count($dividedWorkerNameArray) > 1) {
+            list($lastName, $firstName) = $dividedWorkerNameArray;
+            
+            //правильная последовательность: имя фамилия
+            $workerNameForTranslit = $firstName . ' ' . $lastName;
+        
+            $translitWorkerName = strtr($workerNameForTranslit, $converter);
+            
+            return $translitWorkerName;
+        }
+        
         return false;
     }
+    
 }
