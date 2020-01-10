@@ -92,4 +92,41 @@ class User {
         return false;
     }
     
+    /**
+     * Проверка, вошел ли пользователь на сайт
+     * @return int <p>id пользователя</p>
+     */
+    public static function checkLogged()
+    {
+        if (isset($_SESSION['userId'])) {
+            return $_SESSION['userId'];
+        }
+        
+        header("Location: /user/login");
+    }
+    
+    /**
+     * Получение информации о пользователе по его id
+     * @param type $userId
+     * @return 
+     */
+    public static function getUserById($userId)
+    {
+        $userId = intval($userId);
+        
+        if ($userId) {
+            
+            $db = Db::getConnection();
+            
+            $sql = 'SELECT * FROM users WHERE id = :userId';
+            
+            $result = $db->prepare($sql);
+            $result->bindParam(':userId', $userId, PDO::PARAM_INT);
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+            $result->execute();
+            
+            return $result->fetch();
+        }
+    }
+    
 }

@@ -13,6 +13,9 @@
         '/user/logout' => 'user/logout',                //экшен выхода
         
         '/contacts' => 'site/contact',                  //форма обратной связи
+        
+        '/admin' => 'admin/index',                      //главная админки
+        
         '' => 'site/index'                              //главная
     ];
 

@@ -37,6 +37,9 @@
                         <a class="dropdown-item" href="#">Статуси інтернету</a>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Адміністрування</a>
+                </li>
             </ul>
             
             <div class="row justify-content-end">
