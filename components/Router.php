@@ -16,7 +16,7 @@ class Router {
     private function getURI(){
         
         if (!empty($_SERVER['REQUEST_URI'])) {
-            return trim($_SERVER['REQUEST_URI']);
+            return trim($_SERVER['REQUEST_URI'], '/');
         }
     }
 
@@ -46,7 +46,7 @@ class Router {
                 //Получаем имя экшена, удаляем его из массива $segments
                 //Делаем первую букву второго слова большой
                 $actionName = 'action' . ucfirst(array_shift($segments));
-                
+                 
                 //оставшиеся в массиве элементы будут переданы как параметры
                 $parameters = $segments;
                 

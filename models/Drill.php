@@ -194,4 +194,30 @@ class Drill {
         
         return  'Планується';
     }
+    
+    /**
+     * Получение краткой информации о буровых
+     * @return array <p>Массив с информацией о буровых</p>
+     */
+    public static function getDrillsList()
+    {
+        $drillsList = [];
+        
+        $db = Db::getConnection();
+        
+        $sql = 'SELECT id, number, name, note FROM drill ORDER BY id ASC';
+        
+        $result = $db->query($sql);
+        
+        $i=0;
+        while ($row = $result->fetch()) {
+            $drillsList[$i]['id'] = $row['id'];
+            $drillsList[$i]['number'] = $row['number'];
+            $drillsList[$i]['name'] = $row['name'];
+            $drillsList[$i]['note'] = $row['note'];
+            $i++;
+        }
+        
+        return $drillsList;
+    }
 }

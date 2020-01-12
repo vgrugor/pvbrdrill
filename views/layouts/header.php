@@ -7,7 +7,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <!--Подключени е иконок https://fontawesome.com/icons?d=gallery&m=free-->
+    <script src="https://kit.fontawesome.com/0f39bd7c71.js" crossorigin="anonymous"></script>
     <title>Полтавське ВБР</title>
   </head>
   <body>
@@ -17,10 +18,10 @@
                     <a class="nav-link active" href="/">Головна</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/drill">Бурові</a>
+                    <a class="nav-link" href="/drilllist">Бурові</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/worker">Працівники</a>
+                    <a class="nav-link" href="/workerlist">Працівники</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/contacts">Зворотній зв'язок</a>
