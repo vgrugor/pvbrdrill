@@ -5,7 +5,7 @@
         <h4 class="text-center">Вітаємо, адміністратор!</h4>
         <ul>
             <li><a href="/admin/organization">Керування організаціями</a></li>
-            <li><a href="#">Керування відділами</a></li>
+            <li><a href="/admin/department">Керування відділами</a></li>
             <li><a href="#">Керування підрозділами</a></li>
             <li><a href="#">Керування посадами</a></li>
             <li><a href="#">Керування працівниками</a></li>

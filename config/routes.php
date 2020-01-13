@@ -15,7 +15,11 @@
         'contacts' => 'site/contact',                  //форма обратной связи
         
         'admin/drill' => 'AdminDrill/index',           //Админка со списком буровых
+        
         'admin/organization' => 'AdminOrganization/index',  //Админка со списком организаций
+        
+        'admin/department' => 'AdminDepartment/index',      //Админка со списком отделов
+        
         'admin' => 'admin/index',                      //главная админки
         
         '' => 'site/index'                              //главная
