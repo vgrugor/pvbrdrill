@@ -1,6 +1,18 @@
 <?php require_once ROOT . '/views/layouts/header.php'; ?>
     <div class="row">
         <div class="col-sm-12">
+            <h2 class="text-center">Керування організаціями</h2>
+                <br/>
+                <p class="text-right">
+                    <a href="/admin/organization/create">
+                        <i class="fas fa-plus-circle"></i>
+                        Додати організацію
+                    </a>
+                </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
             <table class="table">
                 <thead>
                     <tr>
