@@ -19,6 +19,7 @@
                     <th scope="col">id</th>
                     <th scope="col">Організація</th>
                     <th scope="col">Відділ</th>
+                    <th scope="col">Примітка</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -29,6 +30,7 @@
                     <th scope="row"><?=$department['id']?></th>
                     <td><?=$department['organization']?></td>
                     <td><?=$department['name']?></td>
+                    <td><?=$department['note']?></td>
                     <td>
                         <a href="/admin/department/update/<?=$department['id']?>" title="Редагувати"><i class="far fa-edit"></i></a>
                     </td>

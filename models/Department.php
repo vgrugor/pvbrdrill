@@ -19,6 +19,7 @@ class Department {
         
         $sql = 'SELECT department.id as dep_id, '
                 . 'department.name as dep_name, '
+                . 'department.note as dep_note, '
                 . 'organization.name as org_name '
                 . 'FROM department '
                 . 'LEFT JOIN organization '
@@ -34,6 +35,7 @@ class Department {
             $departments[$i]['id'] = $row['dep_id'];
             $departments[$i]['organization'] = $row['org_name'];
             $departments[$i]['name'] = $row['dep_name'];
+            $departments[$i]['note'] = $row['dep_note'];
             $i++;
         }
         return $departments;
