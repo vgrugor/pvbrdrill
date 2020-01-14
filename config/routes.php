@@ -22,6 +22,8 @@
         
         'admin/division' => 'AdminDivision/index',      //Админка со списком подразделений
         
+        'admin/position' => 'AdminPosition/index',      //Админка со списком должностей
+        
         'admin' => 'admin/index',                       //главная админки
         
         '' => 'site/index'                              //главная

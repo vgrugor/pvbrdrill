@@ -7,7 +7,7 @@
             <li><a href="/admin/organization">Керування організаціями</a></li>
             <li><a href="/admin/department">Керування відділами</a></li>
             <li><a href="/admin/division">Керування підрозділами</a></li>
-            <li><a href="#">Керування посадами</a></li>
+            <li><a href="/admin/position">Керування посадами</a></li>
             <li><a href="#">Керування працівниками</a></li>
             <li><a href="/admin/drill">Керування буровими</a></li>
             <li><a href="#">Типи бурових</a></li>
