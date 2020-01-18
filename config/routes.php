@@ -33,6 +33,8 @@
         
         'admin/vpnstatus' => 'AdminVpnStatus/index',    //Админка со списком работников
         
+        'admin/user' => 'AdminUser/index',              //Админка со списком работников
+        
         'admin' => 'admin/index',                       //главная админки
         
         '' => 'site/index'                              //главная

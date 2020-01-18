@@ -129,4 +129,30 @@ class User {
         }
     }
     
+    /**
+     * Получение списка пользователей
+     * @return array
+     */
+    public static function getUsersList()
+    {
+        $db = Db::getConnection();
+        
+        $users = [];
+        
+        $sql = 'SELECT id, login, password, role FROM users ORDER BY id ASC';
+        
+        $result = $db->query($sql);
+        
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $i=0;
+        while ($row = $result->fetch()) {
+            $users[$i]['id'] = $row['id'];
+            $users[$i]['login'] = $row['login'];
+            $users[$i]['password'] = $row['password'];
+            $users[$i]['role'] = $row['role'];
+            $i++;
+        }
+        return $users;
+    }
 }
