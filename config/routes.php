@@ -29,6 +29,8 @@
         'admin/worker/page-([0-9]+)' => 'AdminWorker/index/$1',     //Админка со списком работников постранично
         'admin/worker' => 'AdminWorker/index',          //Админка со списком работников
         
+        'admin/internetstatus' => 'AdminInternetStatus/index',  //Админка со списком состояний для интернета на буровой
+        
         'admin' => 'admin/index',                       //главная админки
         
         '' => 'site/index'                              //главная

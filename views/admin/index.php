@@ -11,7 +11,7 @@
             <li><a href="/admin/worker">Керування працівниками</a></li>
             <li><a href="/admin/drill">Керування буровими</a></li>
             <li><a href="/admin/drilltype">Типи бурових</a></li>
-            <li><a href="#">Статуси інтернету</a></li>
+            <li><a href="/admin/internetstatus">Статуси інтернету</a></li>
             <li><a href="#">Статуси для vpn</a></li>
             <li><a href="#"></a></li>
         </ul>

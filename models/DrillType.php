@@ -17,7 +17,7 @@ class DrillType {
         
         $drillTypes = [];
         
-        $sql = 'SELECT id, name FROM drill_type';
+        $sql = 'SELECT id, name FROM drill_type ORDER BY id ASC';
         
         $result = $db->query($sql);
         
