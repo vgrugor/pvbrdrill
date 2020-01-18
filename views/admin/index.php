@@ -12,8 +12,8 @@
             <li><a href="/admin/drill">Керування буровими</a></li>
             <li><a href="/admin/drilltype">Типи бурових</a></li>
             <li><a href="/admin/internetstatus">Статуси інтернету</a></li>
-            <li><a href="#">Статуси для vpn</a></li>
-            <li><a href="#"></a></li>
+            <li><a href="/admin/vpnstatus">Статуси для vpn</a></li>
+            <li><a href="#">Керування користувачами сайту</a></li>
         </ul>
     </div>
 </div>

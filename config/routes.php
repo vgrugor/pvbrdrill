@@ -31,6 +31,8 @@
         
         'admin/internetstatus' => 'AdminInternetStatus/index',  //Админка со списком состояний для интернета на буровой
         
+        'admin/vpnstatus' => 'AdminVpnStatus/index',    //Админка со списком работников
+        
         'admin' => 'admin/index',                       //главная админки
         
         '' => 'site/index'                              //главная
