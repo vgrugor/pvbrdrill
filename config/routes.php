@@ -14,6 +14,8 @@
         
         'contacts' => 'site/contact',                   //форма обратной связи
         
+        'admin/drilltype' => 'AdminDrillType/index',    //Админка со списком типов буровых
+        
         'admin/drill' => 'AdminDrill/index',           //Админка со списком буровых
         
         'admin/organization' => 'AdminOrganization/index',  //Админка со списком организаций
