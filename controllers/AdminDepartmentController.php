@@ -21,4 +21,26 @@ class AdminDepartmentController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Удаление отдела по его id
+     * @param int $id <p>id отдела, который нужно удалить</p>
+     * @return boolean
+     */
+    public function actionDelete($id)
+    {
+        self::checkAdmin();
+        
+        $department = Department::getDepartmentById($id);
+        
+        if (isset($_POST['submit'])) {
+            Department::deleteDepartmentById($id);
+            
+            header("Location: /admin/department");
+        }
+        
+        require_once ROOT . '/views/admin_department/delete.php';
+        
+        return true;
+    }
 }

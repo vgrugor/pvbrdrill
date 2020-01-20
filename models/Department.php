@@ -40,4 +40,42 @@ class Department {
         }
         return $departments;
     }
+    
+    /**
+     * Получить информацию об отделе по его id
+     * @param int $id <p>id отдела, информацию о котором нужно получить</p>
+     * @return array <p>массив с информацией об отделе</p>
+     */
+    public static function getDepartmentById($id)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'SELECT id, name, phone_number, note '
+                . 'FROM department '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+        
+        return $result->fetch();
+    }
+
+        /**
+     * Удалить отдел по его id
+     * @param int $id <p>id отдела, который нужно удалить</p>
+     * @return bool
+     */
+    public static function deleteDepartmentById($id)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'DELETE FROM department WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        
+        return $result->execute();
+    }
 }
