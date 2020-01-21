@@ -32,7 +32,7 @@
                         <td><?=$worker['position_name']?></td>
                         <td><?=$worker['name']?></td>
                         <td><?=$worker['note']?></td>
-                        <td><a href="#" title="Створити заявку">VPN</a></td>
+                        <td><a href="#" title="Створити заявку/">VPN</a></td>
                         <td>
                             <a href="/admin/organization/update/<?=$organization['id']?>" title="Редагувати"><i class="far fa-edit"></i></a>
                         </td>

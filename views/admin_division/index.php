@@ -1,7 +1,21 @@
 <?php require_once ROOT . '/views/layouts/header.php'; ?>
-
 <div class="row">
     <div class="col-sm-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/admin">Адміністрування</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Керування підрозділами
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <br/>
         <h2 class="text-center">Керування підрозділами</h2>
         <p class="text-right">
             <a href="/admin/division/create">
@@ -31,8 +45,12 @@
                     <td><?=$division['department']?></td>
                     <td><?=$division['name']?></td>
                     <td><?=$division['note']?></td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        <a href="/admin/division/update/<?=$division['id']?>" title="Редагувати"><i class="far fa-edit"></i></a>
+                    </td>
+                    <td>
+                        <a href="/admin/division/delete/<?=$division['id']?>" title="Видалити"><i class="far fa-trash-alt"></i></a>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
