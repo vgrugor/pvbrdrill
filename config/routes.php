@@ -27,6 +27,7 @@
         'admin/division/delete/([0-9]+)' => 'AdminDivision/delete/$1',       //Удаление подразделения
         'admin/division' => 'AdminDivision/index',      //Админка со списком подразделений
         
+        'admin/position/delete/([0-9]+)' => 'AdminPosition/delete/$1',      //Удаление должностей
         'admin/position' => 'AdminPosition/index',      //Админка со списком должностей
         
         'admin/worker/page-([0-9]+)' => 'AdminWorker/index/$1',     //Админка со списком работников постранично

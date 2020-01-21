@@ -21,4 +21,26 @@ class AdminPositionController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница удаления должности
+     * @param int $id <p>id должности, которую следует удалить</p>
+     * @return boolean
+     */
+    public function actionDelete($id)
+    {
+        self::checkAdmin();
+        
+        $position = Position::getPositionById($id);
+        
+        if (isset($_POST['submit'])) {
+            Position::deletePositionById($id);
+            
+            header('Location: /admin/position');
+        }
+        
+        require_once ROOT . '/views/admin_position/delete.php';
+        
+        return true;
+    }
 }
