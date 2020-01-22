@@ -25,4 +25,26 @@ class AdminWorkerController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница удаления работника
+     * @param type $id <p>id работника, которого нужно удалить</p>
+     * @return boolean
+     */
+    public function actionDelete($id)
+    {
+        self::checkAdmin();
+        
+        $worker = Worker::getWorkerById($id);
+        
+        if (isset($_POST['submit'])) {
+            Worker::deleteWorkerById($id);
+            
+            header("Location: /admin/worker");
+        }
+        
+        require_once ROOT . '/views/admin_worker/delete.php';
+        
+        return true;
+    }
 }

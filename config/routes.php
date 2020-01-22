@@ -31,6 +31,7 @@
         'admin/position' => 'AdminPosition/index',      //Админка со списком должностей
         
         'admin/worker/page-([0-9]+)' => 'AdminWorker/index/$1',     //Админка со списком работников постранично
+        'admin/worker/delete/([0-9]+)' => 'AdminWorker/delete/$1',  //Удаление работников
         'admin/worker' => 'AdminWorker/index',          //Админка со списком работников
         
         'admin/internetstatus' => 'AdminInternetStatus/index',  //Админка со списком состояний для интернета на буровой

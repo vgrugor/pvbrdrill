@@ -2,7 +2,7 @@
     
 <div class="row">
     <div class="col">
-        <h1><?=$workerItem['worker_name']?></h1>
+        <h1><?=$workerItem['name']?></h1>
     </div>
 </div>
 <br/>
@@ -11,7 +11,7 @@
         <p><strong>Транслітерація:</strong></p>
     </div>
     <div class="col">
-        <?=Worker::getTranslitName($workerItem['worker_name'])?>
+        <?=Worker::getTranslitName($workerItem['name'])?>
     </div>
 </div>
 <div class="row">
@@ -44,7 +44,7 @@
         <p><strong>Бурова:</strong></p>
     </div>
     <div class="col">
-        <a href="/drill/<?=$workerItem['drill_id']?>"><?=$workerItem['drill_name']?></a>
+        <a href="/drill/<?=$workerItem['drill_id']?>"><?=$workerItem['drill']?></a>
     </div>
 </div>
 <div class="row">
@@ -52,7 +52,7 @@
         <p><strong>Посада:</strong></p>
     </div>
     <div class="col">
-        <?=$workerItem['position_name']?>
+        <?=$workerItem['position']?>
     </div>
 </div>
 <hr>
@@ -61,7 +61,7 @@
         <p><strong>Номер телефону:</strong></p>
     </div>
     <div class="col">
-        <?=$workerItem['worker_phone_number']?>
+        <?=$workerItem['phone_number']?>
     </div>
 </div>
 <div class="row">
@@ -77,7 +77,7 @@
         <p><strong>vpn:</strong></p>
     </div>
     <div class="col">
-        <?=$workerItem['vpn_name']?>
+        <?=$workerItem['vpn_status']?>
     </div>
 </div>
 <hr>
@@ -86,7 +86,7 @@
         <p><strong>Примітка:</strong></p>
     </div>
     <div class="col">
-        <?=$workerItem['worker_note']?>
+        <?=$workerItem['note']?>
     </div>
 </div>
 <div class="row">
@@ -122,9 +122,9 @@
         <div id="hide-me" class="collapse in">
             <p>
                 З повагою,<br>
-                <?=$workerItem['worker_name']?><br>
-                <?=$workerItem['position_name']?> 
-                <?=$workerItem['drill_name']?>
+                <?=$workerItem['name']?><br>
+                <?=$workerItem['position']?> 
+                <?=$workerItem['drill']?>
             <p>
             
             <p>
@@ -140,7 +140,7 @@
             </p>
 
             <p>
-                Тел.: <?=$workerItem['worker_phone_number']?><br>
+                Тел.: <?=$workerItem['phone_number']?><br>
                 <?=$workerItem['email']?>
             </p>
         </div>
