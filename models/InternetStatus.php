@@ -31,4 +31,39 @@ class InternetStatus {
         }
         return $internetStatuses;
     }
+    
+    /**
+     * Получение информации о статусе интернета по его id
+     * @param int $id <p>id статуса интернета, который необходимо удалить</p>
+     * @return array <p>массив с информацией о статусе интернета</p>
+     */
+    public static function getInternetStatusById($id)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'SELECT id, name FROM internet_status WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+        
+        return $result->fetch();
+    }
+    
+    /**
+     * Удаление статуса интернета по его id
+     * @param int $id <p>id статуса интернета, который нужно удалить</p>
+     * @return boolean <p>результат выполнения запроса DELETE</p>
+     */
+    public static function deleteInternetStatusById($id)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'DELETE FROM internet_status WHERE id = :id';
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        
+        return $result->execute();
+    }
 }
