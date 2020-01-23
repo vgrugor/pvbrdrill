@@ -15,7 +15,7 @@ class Drill {
             $db = Db::getConnection();
             
             $result = $db->query('SELECT '
-                . 'drill.id, number, drill_type.name as type_name, drill.name, '
+                . 'drill.id, number, drill_type.name as type, drill.name, '
                 . 'nld, nlm, nls, eld, elm, els, coordinate_stage, address, phone_number,  '
                 . 'date_building, date_drilling, date_demount, date_transfer, date_refresh, '
                 . 'email, note '
@@ -219,5 +219,22 @@ class Drill {
         }
         
         return $drillsList;
+    }
+    
+    /**
+     * Удаление буровой по ее id
+     * @param int $id <p>id буровой, которую необходимо удалить</p>
+     * @return boolean <p>результат выполнения запроса DELETE</p>
+     */
+    public static function deleteDrillById($id)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'DELETE FROM drill WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        
+        return $result->execute();
     }
 }

@@ -11,7 +11,7 @@
             <p><strong>Тип:</strong></p>
         </div>
         <div class="col">
-            <?=$drillItem['type_name']?>
+            <?=$drillItem['type']?>
         </div>
     </div>
     <div class="row">

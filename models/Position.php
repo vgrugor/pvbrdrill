@@ -46,4 +46,52 @@ class Position {
         }
         return $positions;
     }
+    
+    /**
+     * Получение должности по ее id
+     * @param int $id <p>id должности, информацию о которой необходимо получить</p>
+     * @return array <p>массив с информацией о должности</p>
+     */
+    public static function getPositionById($id)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'SELECT position.id as pos_id, '
+                . 'position.name as pos_name, '
+                . 'organization.name as org_name,'
+                . 'department.name as dep_name, '
+                . 'division.name as div_name '
+                . 'FROM position '
+                . 'LEFT JOIN organization '
+                . 'ON position.organization_id = organization.id '
+                . 'LEFT JOIN department '
+                . 'ON position.department_id = department.id '
+                . 'LEFT JOIN division '
+                . 'ON position.division_id = division.id '
+                . 'WHERE position.id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+        
+        return $result->fetch();
+    }
+    
+    /**
+     * Удаление должности по ее id
+     * @param int $id <p>id должности, которую необходимо удалить</p>
+     * @return bool <p>результат выполнения запроса DELETE</p>
+     */
+    public static function deletePositionById($id)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'DELETE FROM position WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        
+        return $result->execute();
+    }
 }

@@ -1,8 +1,22 @@
 <?php require_once ROOT . '/views/layouts/header.php'; ?>
 <div class="row">
     <div class="col-sm-12">
-        <h2 class="text-center">Керування посадами</h2>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/admin">Адміністрування</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Керування посадами
+                </li>
+            </ol>
+        </nav>
         <br/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="text-center">Керування посадами</h2>
         <p class="text-right">
             <a href="/admin/organization/create">
                 <i class="fas fa-plus-circle"></i>
@@ -34,10 +48,10 @@
                     <td><?=$position['division']?></td>
                     <td><?=$position['name']?></td>
                     <td>
-                        <a href="/admin/organization/update/<?=$organization['id']?>" title="Редагувати"><i class="far fa-edit"></i></a>
+                        <a href="/admin/position/update/<?=$position['id']?>" title="Редагувати"><i class="far fa-edit"></i></a>
                     </td>
                     <td>
-                        <a href="/admin/organization/delete/<?=$organization['id']?>" title="Видалити"><i class="far fa-trash-alt"></i></a>
+                        <a href="/admin/position/delete/<?=$position['id']?>" title="Видалити"><i class="far fa-trash-alt"></i></a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

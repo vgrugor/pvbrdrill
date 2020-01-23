@@ -17,13 +17,12 @@ class Worker {
             $db = Db::getConnection();
             
             $result = $db->query('SELECT drill.id as drill_id, '
-                    . 'worker.name as worker_name, '
-                    . 'drill.name as drill_name, '
-                    . 'position.name as position_name,'
-                    . 'vpn_status.name as vpn_status_name, '
-                    . 'worker.phone_number as worker_phone_number, '
-                    . 'worker.email, worker.note as worker_note, '
-                    . 'vpn_status.name as vpn_name, '
+                    . 'worker.name as name, '
+                    . 'drill.name as drill, '
+                    . 'position.name as position,'
+                    . 'vpn_status.name as vpn_status, '
+                    . 'worker.phone_number as phone_number, '
+                    . 'worker.email, worker.note as note, '
                     . 'worker.date_refresh as worker_refresh '
                     . 'FROM worker '
                     . 'LEFT JOIN drill '
@@ -241,6 +240,22 @@ class Worker {
         }
         
         return false;
+    }
+    
+    /**
+     * Удаление работника по его id
+     * @param int $id <p>id работника, которого нужно удалить</p>
+     * @return bool <p>результат выполнения запроса DELETE</p>
+     */
+    public static function deleteWorkerById($id)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'DELETE FROM worker WHERE id = :id';
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        
+        return $result->execute();
     }
     
 }

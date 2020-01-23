@@ -16,6 +16,7 @@
         
         'admin/drilltype' => 'AdminDrillType/index',    //Админка со списком типов буровых
         
+        'admin/drill/delete/([0-9]+)' => 'AdminDrill/delete/$1',    //Удаление буровых
         'admin/drill' => 'AdminDrill/index',           //Админка со списком буровых
         
         'admin/organization/delete/([0-9]+)' => 'AdminOrganization/delete/$1',  //Удаление организации
@@ -27,9 +28,11 @@
         'admin/division/delete/([0-9]+)' => 'AdminDivision/delete/$1',       //Удаление подразделения
         'admin/division' => 'AdminDivision/index',      //Админка со списком подразделений
         
+        'admin/position/delete/([0-9]+)' => 'AdminPosition/delete/$1',      //Удаление должностей
         'admin/position' => 'AdminPosition/index',      //Админка со списком должностей
         
         'admin/worker/page-([0-9]+)' => 'AdminWorker/index/$1',     //Админка со списком работников постранично
+        'admin/worker/delete/([0-9]+)' => 'AdminWorker/delete/$1',  //Удаление работников
         'admin/worker' => 'AdminWorker/index',          //Админка со списком работников
         
         'admin/internetstatus' => 'AdminInternetStatus/index',  //Админка со списком состояний для интернета на буровой
