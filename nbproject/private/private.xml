@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/OServer/OSPanel/domains/pvbrdrill/config/routes.php</file>
-            <file>file:/C:/OServer/OSPanel/domains/pvbrdrill/controllers/AdminDrillTypeController.php</file>
-            <file>file:/C:/OServer/OSPanel/domains/pvbrdrill/views/admin_drilltype/index.php</file>
-            <file>file:/C:/OServer/OSPanel/domains/pvbrdrill/views/admin_drilltype/delete.php</file>
-            <file>file:/C:/OServer/OSPanel/domains/pvbrdrill/models/DrillType.php</file>
+            <file>file:/C:/OSPanel/domains/pvbrdrill/views/admin_worker/delete.php</file>
+            <file>file:/C:/OSPanel/domains/pvbrdrill/views/admin_worker/index.php</file>
+            <file>file:/C:/OSPanel/domains/pvbrdrill/config/routes.php</file>
+            <file>file:/C:/OSPanel/domains/pvbrdrill/views/worker/view.php</file>
+            <file>file:/C:/OSPanel/domains/pvbrdrill/controllers/AdminWorkerController.php</file>
+            <file>file:/C:/OSPanel/domains/pvbrdrill/models/Worker.php</file>
         </group>
     </open-files>
 </project-private>

@@ -39,6 +39,7 @@
         'admin/internetstatus/delete/([0-9]+)' => 'AdminInternetStatus/delete/$1',    //Удаление статуса интернета
         'admin/internetstatus' => 'AdminInternetStatus/index',  //Админка со списком состояний для интернета на буровой
         
+        'admin/vpnstatus/delete/([0-9]+)' => 'AdminVpnStatus/delete/$1',    //удаление статуса vpn
         'admin/vpnstatus' => 'AdminVpnStatus/index',    //Админка со списком работников
         
         'admin/user' => 'AdminUser/index',              //Админка со списком работников
