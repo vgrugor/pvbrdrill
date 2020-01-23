@@ -14,6 +14,7 @@
         
         'contacts' => 'site/contact',                   //форма обратной связи
         
+        'admin/drilltype/delete/([0-9]+)' => 'AdminDrilltype/delete/$1',    //Удаление типов буровых
         'admin/drilltype' => 'AdminDrillType/index',    //Админка со списком типов буровых
         
         'admin/drill/delete/([0-9]+)' => 'AdminDrill/delete/$1',    //Удаление буровых

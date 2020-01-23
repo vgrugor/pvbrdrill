@@ -21,4 +21,26 @@ class AdminDrillTypeController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница удаления типа буровой
+     * @param int $id <p>id типа буровой, который нужно удалить</p>
+     * @return boolean
+     */
+    public function actionDelete($id)
+    {
+        self::checkAdmin();
+        
+        $drillType = DrillType::getDrillTypeById($id);
+        
+        if (isset($_POST['submit'])) {
+            DrillType::deleteDrillTypeById($id);
+            
+            header('Location: /admin/drilltype');
+        }
+        
+        require_once ROOT . '/views/admin_drilltype/delete.php';
+        
+        return true;
+    }
 }
