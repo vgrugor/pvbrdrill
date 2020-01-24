@@ -30,4 +30,40 @@ class VpnStatus {
         }
         return $vpnStatuses;
     }
+    
+    /**
+     * Получение информации о статусе VPN по его id
+     * @param int $id <p>id статуса vpn, информацию о котором нужно получить</p>
+     * @return array <p>массив с информацией о статусе vpn</p>
+     */
+    public static function getVpnStatusById($id)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'SELECT id, name FROM vpn_status WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+        
+        return $result->fetch();
+    }
+    
+    /**
+     * Удаление статуса VPN по его id
+     * @param int $id <p>id статуса VPN, который следует удалить</p>
+     * @return boolean
+     */
+    public static function deleteVpnStatusById($id)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'DELETE FROM vpn_status WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        
+        return $result->execute();
+    }
 }

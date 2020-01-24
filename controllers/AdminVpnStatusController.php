@@ -21,4 +21,26 @@ class AdminVpnStatusController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница удаления статуса vpn
+     * @param int $id <p>id статуса vpn, который необходимо удалить</p>
+     * @return boolean
+     */
+    public function actionDelete($id)
+    {
+        self::checkAdmin();
+        
+        $vpnStatus = VpnStatus::getVpnStatusById($id);
+        
+        if (isset($_POST['submit'])) {
+            VpnStatus::deleteVpnStatusById($id);
+            
+            header('Location: /admin/vpnstatus');
+        }
+        
+        require_once ROOT . '/views/admin_vpnstatus/delete.php';
+        
+        return true;
+    }
 }

@@ -155,4 +155,21 @@ class User {
         }
         return $users;
     }
+    
+    /**
+     * Удаление пользователя по его id
+     * @param int $id <p>id пользователя, которого необходимо удалить</p>
+     * @return boolean <p>результат выполнения запроса DELETE</p>
+     */
+    public static function deleteUserById($id)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'DELETE FROM users WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        
+        return $result->execute();
+    }
 }
