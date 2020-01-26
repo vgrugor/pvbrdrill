@@ -43,4 +43,34 @@ class AdminVpnStatusController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница создания нового статуса для vpn
+     * @return boolean
+     */
+    public function actionCreate()
+    {
+        self::checkAdmin();
+        
+        if (isset($_POST['submit'])) {
+            $errors = false;
+            
+            $options['name'] = $_POST['name'];
+            
+            if (!Validator::validationVpnStatusName($options['name'])) {
+                $errors[] = 'Статус для VPN має бути довшим 4-ох символів.';
+                echo Validator::validationVpnStatusName($options['name']);
+            }
+            
+            if ($errors == false) {
+                VpnStatus::createVpnStatus($options);
+                
+                header('Location: /admin/vpnstatus');
+            }
+        }
+        
+        require_once ROOT . '/views/admin_vpnstatus/create.php';
+        
+        return true;
+    }
 }

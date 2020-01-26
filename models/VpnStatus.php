@@ -66,4 +66,21 @@ class VpnStatus {
         
         return $result->execute();
     }
+    
+    /**
+     * Добавление нового статуса для VPN
+     * @param array $options <p>массив со свойствами нового статуса</p>
+     * @return boolean <p>результат выполнения запроса INSERT</p>
+     */
+    public static function createVpnStatus($options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'INSERT INTO vpn_status (name) VALUES (:name)';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
 }
