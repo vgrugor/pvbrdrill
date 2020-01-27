@@ -66,4 +66,21 @@ class InternetStatus {
         
         return $result->execute();
     }
+    
+    /**
+     * Создание нового статуса интернета
+     * @param array $options <p>свойства нового статуса интернета</p>
+     * @return boolean <p>результат выполнения запроса INSERT</p>
+     */
+    public static function createInternetStatus($options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'INSERT INTO internet_status (name) VALUES (:name)';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
 }

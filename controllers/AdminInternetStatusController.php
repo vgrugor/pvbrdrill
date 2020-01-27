@@ -43,4 +43,33 @@ class AdminInternetStatusController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница создания нового статуса интернета
+     * @return boolean
+     */
+    public function actionCreate()
+    {
+        self::checkAdmin();
+        
+        if (isset($_POST['submit'])) {
+            $options['name'] = $_POST['name'];
+            
+            $errors = false;
+            
+            if (!Validator::validationInternetStatusName($options['name'])) {
+                $errors[] = 'Довжина назви статусу інтернету має перевищувати 4 символи.';
+            }
+            
+            if ($errors == false) {
+                InternetStatus::createInternetStatus($options);
+                
+                header('Location: /admin/internetstatus');
+            }
+        }
+        
+        require_once ROOT . '/views/admin_internetstatus/create.php';
+        
+        return true;
+    }
 }
