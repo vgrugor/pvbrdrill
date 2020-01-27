@@ -32,4 +32,17 @@ class Validator {
         }
         return false;
     }
+    
+    /**
+     * Валидация названия типа буровой
+     * @param string $drillTypeName <p>название нового типа буровых</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationDrillTypeName($drillTypeName)
+    {
+        if (mb_strlen($drillTypeName) > 4 && mb_strlen($drillTypeName) < 11) {
+            return true;
+        }
+        return false;
+    }
 }

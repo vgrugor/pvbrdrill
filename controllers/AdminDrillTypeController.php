@@ -43,4 +43,35 @@ class AdminDrillTypeController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница создания типа буровой
+     * @return boolean
+     */
+    public function actionCreate()
+    {
+        self::checkAdmin();
+        
+        $options['name'] = '';
+        
+        if (isset($_POST['submit'])) {
+            $options['name'] = $_POST['name'];
+            
+            $errors = false;
+            
+            if (!Validator::validationDrillTypeName($options['name'])) {
+                $errors[] = 'Назва типу бурової має бути в межах від 4-х до 10 символів';
+            }
+            
+            if ($errors == false) {
+                DrillType::createDrillType($options);
+                
+                header("Location: /admin/drilltype");
+            }
+        }
+        
+        require_once ROOT . '/views/admin_drilltype/create.php';
+        
+        return true;
+    }
 }

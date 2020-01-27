@@ -66,4 +66,21 @@ class DrillType {
         
         return $result->execute();
     }
+    
+    /**
+     * Создание типа буровой
+     * @param array $options <p>Массив с информацией о новом типе буровой</p>
+     * @return boolean <p>результат выполнения запроса INSERT</p>
+     */
+    public static function createDrillType($options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'INSERT INTO drill_type (name) VALUES (:name)';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
 }
