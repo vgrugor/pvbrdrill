@@ -14,7 +14,8 @@ class Validator {
      */
     public static function validationVpnStatusName($vpnName)
     {
-        if (mb_strlen($vpnName) > 4) {
+        $lenVpn = mb_strlen($vpnName);
+        if ($lenVpn > 4 && $lenVpn < 51) {
             return true;
         }
         return false;
@@ -27,7 +28,8 @@ class Validator {
      */
     public static function validationInternetStatusName($internetStatusName)
     {
-        if (mb_strlen($internetStatusName) > 4) {
+        $lenInternetStatus = mb_strlen($internetStatusName);
+        if ($lenInternetStatus > 4 && $lenInternetStatus < 51) {
             return true;
         }
         return false;
@@ -40,7 +42,8 @@ class Validator {
      */
     public static function validationDrillTypeName($drillTypeName)
     {
-        if (mb_strlen($drillTypeName) > 4 && mb_strlen($drillTypeName) < 11) {
+        $lenDrillType = mb_strlen($drillTypeName);
+        if ($lenDrillType > 4 && $lenDrillType < 11) {
             return true;
         }
         return false;

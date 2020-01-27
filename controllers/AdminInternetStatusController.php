@@ -58,7 +58,7 @@ class AdminInternetStatusController extends AdminBase {
             $errors = false;
             
             if (!Validator::validationInternetStatusName($options['name'])) {
-                $errors[] = 'Довжина назви статусу інтернету має перевищувати 4 символи.';
+                $errors[] = 'Довжина назви статусу інтернету має бути в межах від 4-х до 50-и символи.';
             }
             
             if ($errors == false) {
