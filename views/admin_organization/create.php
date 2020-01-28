@@ -1,4 +1,4 @@
-<?php require_once ROOT . '/views/layouts/header.php'; ?>
+<?php require_once $this->getAdminHeader() ?>
 <div class="row">
     <div class="col">
         <nav aria-label="breadcrumb">
@@ -48,5 +48,5 @@
         </form>
     </div>
 </div>
-<?php require_once ROOT . '/views/layouts/footer.php'; ?>
+<?php require_once $this->getAdminFooter(); ?>
 

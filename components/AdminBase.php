@@ -23,4 +23,14 @@ class AdminBase {
         
         die('У Вас недостатньо прав!!!');
     }
+    
+    public function getAdminHeader()
+    {
+        return ROOT . '/views/layouts/header.php';
+    }
+    
+    public function getAdminFooter()
+    {
+        return ROOT . '/views/layouts/footer.php';
+    }
 }
