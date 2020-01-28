@@ -21,6 +21,7 @@
         'admin/drill/delete/([0-9]+)' => 'AdminDrill/delete/$1',            //Удаление буровых
         'admin/drill' => 'AdminDrill/index',                                //Админка со списком буровых
         
+        'admin/organization/create' => 'AdminOrganization/create',    //создание организации
         'admin/organization/delete/([0-9]+)' => 'AdminOrganization/delete/$1',  //Удаление организации
         'admin/organization' => 'AdminOrganization/index',                  //Админка со списком организаций
         

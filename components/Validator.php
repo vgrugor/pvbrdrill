@@ -15,7 +15,7 @@ class Validator {
     public static function validationVpnStatusName($vpnName)
     {
         $lenVpn = mb_strlen($vpnName);
-        if ($lenVpn > 4 && $lenVpn < 51) {
+        if ($lenVpn > 4 && $lenVpn <= 50) {
             return true;
         }
         return false;
@@ -29,7 +29,7 @@ class Validator {
     public static function validationInternetStatusName($internetStatusName)
     {
         $lenInternetStatus = mb_strlen($internetStatusName);
-        if ($lenInternetStatus > 4 && $lenInternetStatus < 51) {
+        if ($lenInternetStatus > 4 && $lenInternetStatus <= 50) {
             return true;
         }
         return false;
@@ -43,7 +43,35 @@ class Validator {
     public static function validationDrillTypeName($drillTypeName)
     {
         $lenDrillType = mb_strlen($drillTypeName);
-        if ($lenDrillType > 4 && $lenDrillType < 11) {
+        if ($lenDrillType > 4 && $lenDrillType <= 10) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Валидация названия организации
+     * @param string $organizationName <p>название организации</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationOrganizationName($organizationName) 
+    {
+        $lenOrganization = mb_strlen($organizationName);
+        if ($lenOrganization > 4 && $lenOrganization <= 50) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Валидация адреса организации
+     * @param string $addressOrganization <p>адрес организации</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationAddressOrganization($addressOrganization)
+    {
+        $lenAddressOrganization = mb_strlen($addressOrganization);
+        if ($lenAddressOrganization > 4 && $lenAddressOrganization <= 200) {
             return true;
         }
         return false;

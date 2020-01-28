@@ -43,4 +43,43 @@ class AdminOrganizationController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница создания организации
+     * @return boolean
+     */
+    public function actionCreate()
+    {
+        self::checkAdmin();
+        
+        $options['name'] = '';
+        $options['address'] = '';
+        $options['note'] = '';
+        
+        if (isset($_POST['submit'])) {
+            $options['name'] = $_POST['name'];
+            $options['address'] = $_POST['address'];
+            $options['note'] = $_POST['note'];
+            
+            $errors = false;
+            
+            if (!Validator::validationOrganizationName($options['name'])) {
+                $errors[] = 'Назва організації має містити від 5 до 50 символів.';
+            }
+            
+            if (!Validator::validationAddressOrganization($options['address'])) {
+                $errors[] = 'Адреса має містити від 5 до 200 символів.';
+            }
+            
+            if ($errors == false) {
+                Organization::createOrganization($options);
+                
+                header('Location: /admin/organization');
+            }
+        }
+        
+        require_once ROOT . '/views/admin_organization/create.php';
+        
+        return true;
+    }
 }

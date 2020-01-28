@@ -69,4 +69,24 @@ class Organization {
         
         return $result->execute();
     }
+    
+    /**
+     * Добавление новой организации
+     * $param array $options <p>свойства новой организации</p>
+     * $return boolean <p>результат выполнения запроса INSERT</p>
+     */
+    public static function createOrganization($options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'INSERT INTO organization (name, address, note) '
+                . 'VALUES (:name, :address, :note)';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':address', $options['address'], PDO::PARAM_STR);
+        $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
 }
