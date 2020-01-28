@@ -71,7 +71,7 @@ class Validator {
     public static function validationAddressOrganization($addressOrganization)
     {
         $lenAddressOrganization = mb_strlen($addressOrganization);
-        if ($lenAddressOrganization > 4 && $lenAddressOrganization <= 200) {
+        if ($lenAddressOrganization <= 200) {
             return true;
         }
         return false;

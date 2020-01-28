@@ -68,7 +68,7 @@ class AdminOrganizationController extends AdminBase {
             }
             
             if (!Validator::validationAddressOrganization($options['address'])) {
-                $errors[] = 'Адреса має містити від 5 до 200 символів.';
+                $errors[] = 'Адреса має містити до 200 символів.';
             }
             
             if ($errors == false) {
