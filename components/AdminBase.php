@@ -24,11 +24,19 @@ class AdminBase {
         die('У Вас недостатньо прав!!!');
     }
     
+    /**
+     * Получить путь к файлу header для админпанели
+     * @return string <p>путь к вайлу с header</p>
+     */
     public function getAdminHeader()
     {
         return ROOT . '/views/layouts/header.php';
     }
     
+    /**
+     * Получить путь к файлу footer для админпанели
+     * @return string <p>путь к вайлу с footer</p>
+     */
     public function getAdminFooter()
     {
         return ROOT . '/views/layouts/footer.php';
