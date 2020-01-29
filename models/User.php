@@ -172,4 +172,23 @@ class User {
         
         return $result->execute();
     }
+    
+    /**
+     * Добавление нового пользователя
+     * @param array $options <p>свойства пользователя</p>
+     * @return boolean <p>результат выполнения запроса INSERT</p>
+     */
+    public static function createUser($options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'INSERT INTO users (login, password, role) '
+                . 'VALUES (:login, :password, :role)';
+        $result = $db->prepare($sql);
+        $result->bindParam(':login', $options['login'], PDO::PARAM_STR);
+        $result->bindParam(':password', $options['password'], PDO::PARAM_STR);
+        $result->bindParam(':role', $options['role'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
 }

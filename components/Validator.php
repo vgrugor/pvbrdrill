@@ -105,4 +105,32 @@ class Validator {
         }
         return false;
     }
+    
+    /**
+     * Валидация логина
+     * @param type $login <p>логин пользователя</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationUserLogin($login)
+    {
+        $lenLogin = mb_strlen($login);
+        if ($lenLogin > 4 && $lenLogin <= 20) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Валидация пароля пользователя
+     * @param string $password <p>пароль</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationPassword($password)
+    {
+        $lenPassword = mb_strlen($password);
+        if ($lenPassword > 4 && $lenPassword <= 15) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -47,6 +47,7 @@
         'admin/vpnstatus/delete/([0-9]+)' => 'AdminVpnStatus/delete/$1',    //удаление статуса vpn
         'admin/vpnstatus' => 'AdminVpnStatus/index',                        //Админка со списком работников
         
+        'admin/user/create' => 'AdminUser/create',                          //добавление пользователя
         'admin/user/delete/([0-9]+)' => 'AdminUser/delete/$1',              //удаление пользователя
         'admin/user' => 'AdminUser/index',                                  //Админка со списком работников
         
