@@ -76,4 +76,33 @@ class Validator {
         }
         return false;
     }
+    
+    /**
+     * Валидация названия отдела
+     * @param string $departmentName <p>название нового отдела</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationDepartmentName($departmentName)
+    {
+        $lenDepartmentName = mb_strlen($departmentName);
+        
+        if ($lenDepartmentName > 4 && $lenDepartmentName <= 100) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Валидация мобильного телефона (ХХХ)ХХХ-ХХ-ХХ
+     * @param string $phoneNumber <p>номер телефона</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationPhoneNumber($phoneNumber)
+    {
+        $pattern = "~^\([0-9]{3}\)[0-9]{3}-[0-9]{2}-[0-9]{2}$~";
+        if (preg_match($pattern, $phoneNumber) || $phoneNumber == "") {
+            return true;
+        }
+        return false;
+    }
 }
