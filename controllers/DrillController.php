@@ -27,7 +27,10 @@ class DrillController {
     public function actionView($id) {
         
         if ($id) {
+            
             $drillItem = Drill::getDrillById($id);
+            
+            $workers = Worker::getWorkersByDrill($id);
             
             require_once ROOT . '/views/drill/view.php';
         }
