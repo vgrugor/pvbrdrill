@@ -71,7 +71,7 @@ class AdminDepartmentController extends AdminBase {
                 $errors[] = 'Назва організації має містити від 5 до 100 символів';
             }
             
-            if (!Validator::validationPhoneNumber($options['phone_number'])) {
+            if (!Validator::validationMobilePhoneNumber($options['phone_number'])) {
                 $errors[] = 'Номер телефону не відповідає встановленому формату';
             }
             

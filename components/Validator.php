@@ -97,7 +97,7 @@ class Validator {
      * @param string $phoneNumber <p>номер телефона</p>
      * @return boolean <p>true - прошло валидацию, false - не прошел</p>
      */
-    public static function validationPhoneNumber($phoneNumber)
+    public static function validationMobilePhoneNumber($phoneNumber)
     {
         $pattern = "~^\([0-9]{3}\)[0-9]{3}-[0-9]{2}-[0-9]{2}$~";
         if (preg_match($pattern, $phoneNumber) || $phoneNumber == "") {
