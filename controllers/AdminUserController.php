@@ -72,7 +72,9 @@ class AdminUserController extends AdminBase {
             }
             
             if (User::checkUserExists($options['login'], $options['password'])) {
-                $errors[] = 'Вказаного користувача вже зареєстровано';
+                $errors[] = 'Користувача з таким логіном і паролем вже зареєстровано';
+            } elseif (User::checkLoginExists($options['login'])) {
+                $errors[] = 'Користувач з таким логіном вже існує';
             }
             
             if ($errors == false) {

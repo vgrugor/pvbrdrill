@@ -191,4 +191,26 @@ class User {
         
         return $result->execute();
     }
+    
+    /**
+     * Проверка существования логина в БД
+     * @param string $login <p>логин</p>
+     * @return integer|boolean <p>id пользователя или false</p>
+     */
+    public static function checkLoginExists($login)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'SELECT id FROM users WHERE login = :login';
+        
+        $result = $db->prepare($sql);
+        
+        $result->bindParam(':login', $login, PDO::PARAM_STR);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+        
+        $userId = $result->fetch();
+        
+        return $userId['id'];
+    }
 }
