@@ -133,4 +133,102 @@ class Validator {
         }
         return false;
     }
+    
+    /**
+     * Валидация номера буровой
+     * @param string $drillNumber <p>номер буровой</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationDrillNumber($drillNumber)
+    {
+        $pattern = "~[0-9]{2,3}[a-zA-z]~";
+        if (preg_match($pattern, $drillNumber) || $drillNumber == '') {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Валидация имени буровой
+     * @param string $drillName <p>название буровой</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationDrillName($drillName)
+    {
+        $lenDrillName = mb_strlen($drillName);
+        if ($lenDrillName >= 6 && $lenDrillName <=50) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Валидация координат (градусов)
+     * @param string $degrees <p>градусы координат</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationCoordinateDegrees($degrees)
+    {
+        $degrees = intval($degrees);
+        if ($degrees >=0 && $degrees <=359) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Валидация координат (минуты)
+     * @param string $minutes <p>минуты координат</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationCoordinateMinutes($minutes)
+    {
+        $minutes = intval($minutes);
+        if ($minutes >= 0 || $minutes <= 59) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Валидация координат (секунды)
+     * @param string $seconds <p>секунды координат</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationCoordinateSeconds($seconds)
+    {
+        $seconds = floatval($seconds);
+        if ($seconds >=0 || $seconds <= 59.99) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Валидация дат
+     * @param string $date <p>дата в формате дд.мм.гггг</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationDate($date)
+    {
+        $pattern = "~[0-9]{4}-[0-9]{2}-[0-9]{2}~";
+        if (preg_match($pattern, $date) || $date == '') {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Валидация email пользователя
+     * @param string $email <p>email пользователя</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    public static function validationEmail($email)
+    {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) || $email == '' ) {
+            return true;
+        }
+        return false;
+    }
+
 }

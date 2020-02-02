@@ -53,6 +53,8 @@ class AdminDrillController extends AdminBase {
     {
         self::checkAdmin();
         
+        $drillTypeList = DrillType::getDrillTypesList();
+        
         $options['number'] = '';
         $options['drill_type_id'] = '';
         $options['name'] = '';
@@ -133,38 +135,38 @@ class AdminDrillController extends AdminBase {
             }
             
             if (!Validator::validationDate($options['date_building'])) {
-                $errors[] = '';
+                $errors[] = 'Дата початку монтажу повинна відповідати формату дд.мм.рррр';
             }
             
             if (!Validator::validationDate($options['date_drilling'])) {
-                $errors[] = '';
+                $errors[] = 'Дата початку буріння повинна відповідати формату дд.мм.рррр';
             }
             
             if (!Validator::validationDate($options['date_demount'])) {
-                $errors[] = '';
+                $errors[] = 'Дата початку демонтажу повинна відповідати формату дд.мм.рррр';
             }
             
             if (!Validator::validationDate($options['date_transfer'])) {
-                $errors[] = '';
+                $errors[] = 'Дата передачі бурової замовнику повинна відповідати формату дд.мм.рррр';
             }
             
             if (!Validator::validationDate($options['date_refresh'])) {
-                $errors[] = '';
+                $errors[] = 'Дата оновлення інформації повинна відповідати формату дд.мм.рррр';
             }
             
             if (!Validator::validationEmail($options['email'])) {
-                $errors[] = '';
+                $errors[] = 'Некоректний email';
             }
             
             if ($errors == false) {
                 Drill::createDrill($options);
                 
                 header('Location: /admin/drill');
-            }
-            require_once ROOT . '/views/admin_drill/create.php';
-            
-            return true;
+            }    
         }
+        require_once ROOT . '/views/admin_drill/create.php';
+            
+        return true;
     }
 }
 
