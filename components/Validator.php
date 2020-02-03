@@ -141,7 +141,7 @@ class Validator {
      */
     public static function validationDrillNumber($drillNumber)
     {
-        $pattern = "~[0-9]{2,3}[a-zA-z]~";
+        $pattern = "~[0-9]{2,3}[a-zA-Z]~";
         if (preg_match($pattern, $drillNumber) || $drillNumber == '') {
             return true;
         }
@@ -169,6 +169,9 @@ class Validator {
      */
     public static function validationCoordinateDegrees($degrees)
     {
+        if (preg_match("~[a-zA-Zа-яА-Я]+~", $degrees)) {
+            return false;
+        }
         $degrees = intval($degrees);
         if ($degrees >=0 && $degrees <=359) {
             return true;
@@ -183,6 +186,9 @@ class Validator {
      */
     public static function validationCoordinateMinutes($minutes)
     {
+        if (preg_match("~[a-zA-ZА-Яа-я]+~", $minutes)) {
+            return false;
+        }
         $minutes = intval($minutes);
         if ($minutes >= 0 || $minutes <= 59) {
             return true;
@@ -197,6 +203,9 @@ class Validator {
      */
     public static function validationCoordinateSeconds($seconds)
     {
+        if (preg_match("~[a-zA-Zа-яА-Я]~", $seconds)) {
+            return false;
+        }
         $seconds = floatval($seconds);
         if ($seconds >=0 || $seconds <= 59.99) {
             return true;
