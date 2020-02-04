@@ -7,6 +7,12 @@
  */
 class AdminBase {
     
+    public $validator;
+    
+    public function __construct() {
+        $this->validator = new Validator2;;
+    }
+
     /**
      * Проверка, является ли пользователь администратором
      * @return boolean <p>Если да, то true</p>
