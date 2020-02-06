@@ -10,7 +10,7 @@ class AdminBase {
     public $validator;
     
     public function __construct() {
-        $this->validator = new Validator2;;
+        $this->validator = new Validator2;
     }
 
     /**
