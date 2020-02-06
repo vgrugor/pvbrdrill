@@ -63,11 +63,11 @@ class AdminOrganizationController extends AdminBase {
             
             $errors = false;
             
-            if (!Validator::validationOrganizationName($options['name'])) {
+            if (!$this->validator->make($options['name'], ['string', 5, 50])) {
                 $errors[] = 'Назва організації має містити від 5 до 50 символів.';
             }
             
-            if (!Validator::validationAddressOrganization($options['address'])) {
+            if (!$this->validator->make($options['address'], ['string', 0, 200])) {
                 $errors[] = 'Адреса має містити до 200 символів.';
             }
             

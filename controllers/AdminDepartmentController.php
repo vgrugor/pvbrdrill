@@ -67,11 +67,11 @@ class AdminDepartmentController extends AdminBase {
             
             $errors = false;
             
-            if(!Validator::validationDepartmentName($options['name'])) {
+            if(!$this->validator->make($options['name'], ['string', 5, 100])) {
                 $errors[] = 'Назва організації має містити від 5 до 100 символів';
             }
             
-            if (!Validator::validationMobilePhoneNumber($options['phone_number'])) {
+            if (!$this->validator->make($options['phone_number'], ['mobileNumber'])) {
                 $errors[] = 'Номер телефону не відповідає встановленому формату';
             }
             
