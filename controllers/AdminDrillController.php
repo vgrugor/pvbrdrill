@@ -98,63 +98,63 @@ class AdminDrillController extends AdminBase {
             
             $errors = false;
             
-            if (!Validator::validationDrillNumber($options['number'])) {
-                $errors[] = 'Номер бурової має починатися мінімум з 2-ох цифр і містити від 3-ох до 5-и символів';
+            if (!$this->validator->make($options['number'], ['string', 0, 5])) {
+                $errors[] = 'Номер бурової має містити до 5-и символів';
             }
             
-            if (!Validator::validationDrillName($options['name'])) {
+            if (!$this->validator->make($options['name'], ['string', 6, 50])) {
                 $errors[] = 'Назва бурової має містити від 6 до 50 символів';
             }
             
-            if (!Validator::validationCoordinateDegrees($options['nld'])) {
-                $errors[] = 'Градуси північної широти мають бути цілим числом від 0 до 359';
+            if (!$this->validator->make($options['nld'], ['numeric', 0, 359])) {
+                $errors[] = 'Градуси північної широти мають бути числом від 0 до 359';
             }
             
-            if (!Validator::validationCoordinateMinutes($options['nlm'])) {
-                $errors[] = 'Мінути північної широти мають бути цілим числом від 0 до 59';
+            if (!$this->validator->make($options['nlm'], ['numeric', 0, 59])) {
+                $errors[] = 'Мінути північної широти мають бути числом від 0 до 59';
             }
             
-            if (!Validator::validationCoordinateSeconds($options['nls'])) {
+            if (!$this->validator->make($options['nls'], ['numeric', 0, 59])) {
                 $errors[] = 'Секунди північної широти мають бути числом від 0 до 59';
             }
             
-            if (!Validator::validationCoordinateDegrees($options['eld'])) {
+            if (!$this->validator->make($options['eld'], ['numeric', 0, 359])) {
                 $errors[] = 'Градуси східної довготи мають бути цілим числом від 0 до 359';
             }
             
-            if (!Validator::validationCoordinateMinutes($options['elm'])) {
-                $errors[] = 'Мінути східної довготи мають бути цілим числом від 0 до 59';
+            if (!$this->validator->make($options['elm'],['numeric', 0, 59])) {
+                $errors[] = 'Мінути східної довготи мають бути числом від 0 до 59';
             }
             
-            if (!Validator::validationCoordinateSeconds($options['els'])) {
+            if (!$this->validator->make($options['els'], ['numeric', 0, 59])) {
                 $errors[] = 'Секунди східної довготи мають бути числом від 0 до 59';
             }
             
-            if (!Validator::validationMobilePhoneNumber($options['phone_number'])) {
+            if (!$this->validator->make($options['phone_number'], ['MobileNumber'])) {
                 $errors[] = 'Номер телефону не відповідає встановленому формату';
             }
             
-            if (!Validator::validationDate($options['date_building'])) {
+            if (!$this->validator->make($options['date_building'],['date'])) {
                 $errors[] = 'Дата початку монтажу повинна відповідати формату дд.мм.рррр';
             }
             
-            if (!Validator::validationDate($options['date_drilling'])) {
+            if (!$this->validator->make($options['date_drilling'], ['date'])) {
                 $errors[] = 'Дата початку буріння повинна відповідати формату дд.мм.рррр';
             }
             
-            if (!Validator::validationDate($options['date_demount'])) {
+            if (!$this->validator->make($options['date_demount'], ['date'])) {
                 $errors[] = 'Дата початку демонтажу повинна відповідати формату дд.мм.рррр';
             }
             
-            if (!Validator::validationDate($options['date_transfer'])) {
+            if (!$this->validator->make($options['date_transfer'], ['date'])) {
                 $errors[] = 'Дата передачі бурової замовнику повинна відповідати формату дд.мм.рррр';
             }
             
-            if (!Validator::validationDate($options['date_refresh'])) {
+            if (!$this->validator->make($options['date_refresh'], ['date'])) {
                 $errors[] = 'Дата оновлення інформації повинна відповідати формату дд.мм.рррр';
             }
             
-            if (!Validator::validationEmail($options['email'])) {
+            if (!$this->validator->make($options['email'], ['email'])) {
                 $errors[] = 'Некоректний email';
             }
             

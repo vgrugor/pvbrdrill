@@ -63,11 +63,11 @@ class AdminUserController extends AdminBase {
             
             $errors = false;
             
-            if (!Validator::validationUserLogin($options['login'])) {
+            if (!$this->validator->make($options['login'], ['string', 5, 20])) {
                 $errors[] = 'Логін має містити від 5 до 20 символів';
             }
             
-            if (!Validator::validationPassword($options['password'])) {
+            if (!$this->validator->make($options['password'], ['string', 5, 15])) {
                 $errors[] = 'Пароль має містити від 5 до 15 символів';
             }
             

@@ -59,7 +59,7 @@ class AdminDrillTypeController extends AdminBase {
             
             $errors = false;
             
-            if (!Validator::validationDrillTypeName($options['name'])) {
+            if (!$this->validator->make($options['name'], ['string', 4, 10])) {
                 $errors[] = 'Назва типу бурової має бути в межах від 4-х до 10 символів';
             }
             
