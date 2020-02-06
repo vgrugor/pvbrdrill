@@ -8,9 +8,11 @@
 class AdminBase {
     
     public $validator;
-    
+    public $breadcrumb;
+
     public function __construct() {
         $this->validator = new Validator;
+        $this->breadcrumb = new Breadcrumb();
     }
 
     /**

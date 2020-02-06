@@ -1,4 +1,9 @@
 <?php require_once ROOT . '/views/layouts/header.php'; ?>
+<div class="row">
+    <div class="col">
+        <?php echo $this->breadcrumb->getBreadcrumb(); ?>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-sm-12">

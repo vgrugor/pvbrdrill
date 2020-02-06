@@ -2,16 +2,7 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <nav aria-label="breadcrump">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="/admin">Адміністрування</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Керування буровими
-                </li>
-            </ol>
-        </nav>
+        <?php echo $this->breadcrumb->getBreadcrumb(); ?>
     </div>
 </div>
     <div class="row">

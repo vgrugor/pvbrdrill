@@ -1,19 +1,7 @@
 <?php require_once ROOT . '/views/layouts/header.php'; ?>
 <div class="row">
     <div class="col">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="/admin">Адміністрування</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="/admin/internetstatus">Керування статусами інтернету</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Додати новий статус
-                </li>
-            </ol>
-        </nav>
+        <?php echo $this->breadcrumb->getBreadcrumb(); ?>
     </div>
 </div>
 <div class="row">

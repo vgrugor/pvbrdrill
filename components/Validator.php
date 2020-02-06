@@ -7,6 +7,12 @@
  */
 class Validator {
     
+    /**
+     * Запуск валидации
+     * @param mixed $value <p>значение для валидации</p>
+     * @param array $params <p>массив с правилами валидации, первый элемент тип данных</p>
+     * @return boolean <p>true - прошли валидацию, false - не прошли</p>
+     */
     public function make($value, $params)
     {
         $methodName = array_shift($params);
@@ -20,7 +26,7 @@ class Validator {
      * @param string $value <p>Строка для проверки</p>
      * @param integer $maxLen <p>максимально допустимая длинна</p>
      * @param integer $minLen <p>минимально допустимая длинна</p>
-     * @return boolean
+     * @return boolean <p>true - прошли валидацию, false - не прошли</p>
      */
     private function validateString($value, $minLen = 0, $maxLen = 0)
     {
@@ -32,11 +38,11 @@ class Validator {
     }
     
     /**
-     * Валидация целочисленных значений
-     * @param integer $value <p>значение для проверки</p>
+     * Валидация числовых значений
+     * @param integer|float $value <p>значение для проверки</p>
      * @param integer $maxVal <p>максимально допустимое значение</p>
      * @param integer $minVal <p>минимально допустимое значение</p>
-     * @return boolean
+     * @return boolean <p>true - прошли валидацию, false - не прошли</p>
      */
     private function validateNumeric($value, $minVal = 0, $maxVal = 0)
     {
@@ -53,7 +59,7 @@ class Validator {
     /**
      * Проверка даты в формате ГГГГ-ММ-ДД
      * @param string $value <p>строка с датой для проверки</p>
-     * @return boolean
+     * @return boolean <p>true - прошли валидацию, false - не прошли</p>
      */
     private function validateDate($value)
     {
