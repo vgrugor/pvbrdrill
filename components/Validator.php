@@ -1,77 +1,91 @@
 <?php
 
 /**
- * Description of Validator
+ * Description of Validator2
  *
  * @author Zver
  */
 class Validator {
     
+    public function make($value, $params)
+    {
+        $methodName = array_shift($params);
+        $methodName = 'validate' . $methodName;
+        
+        return $this->$methodName($value, ...$params);
+    }
+    
     /**
-     * Валидация статуса VPN
-     * @param string $vpnName <p>название нового статуса</p>
+     * Валидация строковых значений
+     * @param string $value <p>Строка для проверки</p>
+     * @param integer $maxLen <p>максимально допустимая длинна</p>
+     * @param integer $minLen <p>минимально допустимая длинна</p>
      * @return boolean
      */
-    public static function validationVpnStatusName($vpnName)
+    private function validateString($value, $minLen = 0, $maxLen = 0)
     {
-        $lenVpn = mb_strlen($vpnName);
-        if ($lenVpn > 4 && $lenVpn <= 50) {
-            return true;
+        $lenString = mb_strlen($value);
+        if ($lenString > $maxLen || $lenString < $minLen) {
+            return false;
         }
-        return false;
+        return true;
     }
     
     /**
-     * Валидация статуса для интернета
-     * @param string $internetStatusName <p>имя нового статуса интернета</p>
-     * @return boolean <p>true - прошел валидацию, false - нет</p>
+     * Валидация целочисленных значений
+     * @param integer $value <p>значение для проверки</p>
+     * @param integer $maxVal <p>максимально допустимое значение</p>
+     * @param integer $minVal <p>минимально допустимое значение</p>
+     * @return boolean
      */
-    public static function validationInternetStatusName($internetStatusName)
+    private function validateNumeric($value, $minVal = 0, $maxVal = 0)
     {
-        $lenInternetStatus = mb_strlen($internetStatusName);
-        if ($lenInternetStatus > 4 && $lenInternetStatus <= 50) {
-            return true;
+        if (!is_numeric($value) && !$value == '') {
+            return false;
         }
-        return false;
+       
+        if ($value > $maxVal && $value < $minVal) {
+            return false;
+        }
+        return true;
     }
     
     /**
-     * Валидация названия типа буровой
-     * @param string $drillTypeName <p>название нового типа буровых</p>
+     * Проверка даты в формате ГГГГ-ММ-ДД
+     * @param string $value <p>строка с датой для проверки</p>
+     * @return boolean
+     */
+    private function validateDate($value)
+    {
+        $pattern = "~^[0-9]{4}-[0-9]{2}-[0-9]{2}$~";
+        if (!preg_match($pattern, $value) && !$value == '') {
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Валидация email пользователя
+     * @param string $email <p>email пользователя</p>
      * @return boolean <p>true - прошло валидацию, false - не прошел</p>
      */
-    public static function validationDrillTypeName($drillTypeName)
+    private function validateEmail($email) 
     {
-        $lenDrillType = mb_strlen($drillTypeName);
-        if ($lenDrillType > 4 && $lenDrillType <= 10) {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) || $email == '') {
             return true;
         }
         return false;
     }
     
     /**
-     * Валидация названия организации
-     * @param string $organizationName <p>название организации</p>
+     * Валидация мобильного телефона (ХХХ)ХХХ-ХХ-ХХ
+     * @param string $phoneNumber <p>номер телефона</p>
      * @return boolean <p>true - прошло валидацию, false - не прошел</p>
      */
-    public static function validationOrganizationName($organizationName) 
+    private function validateMobileNumber($number)
     {
-        $lenOrganization = mb_strlen($organizationName);
-        if ($lenOrganization > 4 && $lenOrganization <= 50) {
-            return true;
-        }
-        return false;
-    }
-    
-    /**
-     * Валидация адреса организации
-     * @param string $addressOrganization <p>адрес организации</p>
-     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
-     */
-    public static function validationAddressOrganization($addressOrganization)
-    {
-        $lenAddressOrganization = mb_strlen($addressOrganization);
-        if ($lenAddressOrganization <= 200) {
+        $pattern = "~\([0-9]{3}\)[0-9]{3}-[0-9]{2}-[0-9]{2}~";
+        if (preg_match($pattern, $number) || $number == '') {
             return true;
         }
         return false;

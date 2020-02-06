@@ -43,4 +43,49 @@ class AdminUserController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница создания пользователя
+     * @return boolean
+     */
+    public function actionCreate()
+    {
+        self::checkAdmin();
+        
+        $options['login'] = '';
+        $options['password'] = '';
+        $options['role'] = '';
+        
+        if (isset($_POST['submit'])) {
+            $options['login'] = $_POST['login'];
+            $options['password'] = $_POST['password'];
+            $options['role'] = $_POST['role'];
+            
+            $errors = false;
+            
+            if (!$this->validator->make($options['login'], ['string', 5, 20])) {
+                $errors[] = 'Логін має містити від 5 до 20 символів';
+            }
+            
+            if (!$this->validator->make($options['password'], ['string', 5, 15])) {
+                $errors[] = 'Пароль має містити від 5 до 15 символів';
+            }
+            
+            if (User::checkUserExists($options['login'], $options['password'])) {
+                $errors[] = 'Користувача з таким логіном і паролем вже зареєстровано';
+            } elseif (User::checkLoginExists($options['login'])) {
+                $errors[] = 'Користувач з таким логіном вже існує';
+            }
+            
+            if ($errors == false) {
+                User::createUser($options);
+                
+                header('Location: /admin/user');
+            }
+        }
+        
+        require_once ROOT . '/views/admin_user/create.php';
+        
+        return true;
+    }
 }

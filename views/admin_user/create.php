@@ -1,4 +1,4 @@
-<?php require_once $this->getAdminHeader() ?>
+<?php require_once $this->getAdminHeader(); ?>
 <div class="row">
     <div class="col">
         <nav aria-label="breadcrumb">
@@ -7,10 +7,10 @@
                     <a href="/admin">Адміністрування</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="/admin/organization">Керування організаціями</a>
+                    <a href="/admin/user">Керування користувачами</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Додати організацію
+                    Додати користувача
                 </li>
             </ol>
         </nav>
@@ -18,7 +18,7 @@
 </div>
 <div class="row">
     <div class="col text-center">
-        <h1>Додати нову організацію</h1>
+        <h1>Додати нового користувача</h1>
         <br/>
     </div>
 </div>
@@ -33,16 +33,19 @@
         <?php endif; ?>
         <form method="post">
             <div class="form-group">
-                <label for="name">Введіть назву організації</label>
-                <input type="text" name="name" id="name" class="form-control" value="<?=$options['name']?>">
+                <label for="login">Введіть логін користувача</label>
+                <input type="text" name="login" id="login" value="<?=$options['login']?>" class="form-control">
             </div>
             <div class="form-group">
-                <label for="address">Вкажіть адресу</label>
-                <input type="text" name="address" id="address" class="form-control" value="<?=$options['address']?>">
+                <label for="password">Введіть пароль користувача</label>
+                <input type="password" name="password" value="<?=$options['password']?>" class="form-control" id="password">
             </div>
             <div class="form-group">
-                <label for="note">Примітка</label>
-                <textarea name="note" id="note" class="form-control"><?=$options['note']?></textarea>
+                <label for="role">Вкажіть роль користувача</label>
+                <select name="role" id="role" class="form-control">
+                    <option value="user" <?= $options['role'] == 'user' ? 'selected' : '' ?>>Користувач</option>
+                    <option value="admin" <?= $options['role'] == 'admin' ? 'selected' : '' ?>>Адміністратор</option>
+                </select>
             </div>
             <input type="submit" name="submit" value="Додати" class="btn btn-success" role="button">
         </form>

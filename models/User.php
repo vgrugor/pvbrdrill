@@ -172,4 +172,45 @@ class User {
         
         return $result->execute();
     }
+    
+    /**
+     * Добавление нового пользователя
+     * @param array $options <p>свойства пользователя</p>
+     * @return boolean <p>результат выполнения запроса INSERT</p>
+     */
+    public static function createUser($options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'INSERT INTO users (login, password, role) '
+                . 'VALUES (:login, :password, :role)';
+        $result = $db->prepare($sql);
+        $result->bindParam(':login', $options['login'], PDO::PARAM_STR);
+        $result->bindParam(':password', $options['password'], PDO::PARAM_STR);
+        $result->bindParam(':role', $options['role'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
+    
+    /**
+     * Проверка существования логина в БД
+     * @param string $login <p>логин</p>
+     * @return integer|boolean <p>id пользователя или false</p>
+     */
+    public static function checkLoginExists($login)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'SELECT id FROM users WHERE login = :login';
+        
+        $result = $db->prepare($sql);
+        
+        $result->bindParam(':login', $login, PDO::PARAM_STR);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+        
+        $userId = $result->fetch();
+        
+        return $userId['id'];
+    }
 }

@@ -57,9 +57,8 @@ class AdminVpnStatusController extends AdminBase {
             
             $options['name'] = $_POST['name'];
             
-            if (!Validator::validationVpnStatusName($options['name'])) {
+            if (!$this->validator->make($options['name'], ['string', 4, 50])) {
                 $errors[] = 'Статус для VPN має бути в межах від 4-ох до 50 символів.';
-                echo Validator::validationVpnStatusName($options['name']);
             }
             
             if ($errors == false) {

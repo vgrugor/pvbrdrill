@@ -78,4 +78,26 @@ class Department {
         
         return $result->execute();
     }
+    
+    /**
+     * Добавление нового отдела
+     * @param array $options <p>свойства нового отдела</p>
+     * @return boolean <p>результат выполнения запроса INSERT</p>
+     */
+    public static function createDepartment($options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'INSERT INTO department (organization_id, name, phone_number, note) '
+                . 'VALUES (:organization_id, :name, :phone_number, :note)';
+        
+        $result = $db->prepare($sql);
+        
+        $result->bindParam(':organization_id', $options['organization_id'], PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':phone_number', $options['phone_number'], PDO::PARAM_STR);
+        $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
 }

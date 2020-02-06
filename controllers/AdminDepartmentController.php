@@ -43,4 +43,46 @@ class AdminDepartmentController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница создания отдела
+     * @return boolean
+     */
+    public function actionCreate()
+    {
+        self::checkAdmin();
+        
+        $organizationsList = Organization::getOrganizationsList();
+        
+        $options['organization_id'] = '';
+        $options['name'] = '';
+        $options['phone_number'] = '';
+        $options['note'] = '';
+        
+        if (isset($_POST['submit'])) {
+            $options['organization_id'] = $_POST['organization_id'];
+            $options['name'] = $_POST['name'];
+            $options['phone_number'] = $_POST['phone_number'];
+            $options['note'] = $_POST['note'];
+            
+            $errors = false;
+            
+            if(!$this->validator->make($options['name'], ['string', 5, 100])) {
+                $errors[] = 'Назва організації має містити від 5 до 100 символів';
+            }
+            
+            if (!$this->validator->make($options['phone_number'], ['mobileNumber'])) {
+                $errors[] = 'Номер телефону не відповідає встановленому формату';
+            }
+            
+            if ($errors == false) {
+                Department::createDepartment($options);
+                
+                header('Location: /admin/department');
+            }
+        }
+        require_once ROOT . '/views/admin_department/create.php';
+        
+        return true;
+    }
 }
