@@ -1,10 +1,5 @@
 <?php require_once $this->getAdminHeader() ?>
 <div class="row">
-    <div class="col">
-        <?php echo $this->breadcrumb->getBreadcrumb(); ?>
-    </div>
-</div>
-<div class="row">
     <div class="col text-center">
         <h1>Додати нову організацію</h1>
         <br/>

@@ -1,9 +1,5 @@
 <?php require_once $this->getAdminHeader(); ?>
-<div class="row">
-    <div class="col">
-        <?php echo $this->breadcrumb->getBreadcrumb(); ?>
-    </div>
-</div>
+
 <div class="row">
     <div class="col">
         <h1 class="text-center">Додати нову бурову</h1>

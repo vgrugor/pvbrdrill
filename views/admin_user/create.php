@@ -1,9 +1,5 @@
 <?php require_once $this->getAdminHeader(); ?>
-<div class="row">
-    <div class="col">
-        <?php echo $this->breadcrumb->getBreadcrumb(); ?>
-    </div>
-</div>
+
 <div class="row">
     <div class="col text-center">
         <h1>Додати нового користувача</h1>
@@ -39,5 +35,6 @@
         </form>
     </div>
 </div>
+
 <?php require_once $this->getAdminFooter(); ?>
 

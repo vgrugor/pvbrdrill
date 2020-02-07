@@ -1,10 +1,4 @@
-<?php require_once ROOT . '/views/layouts/header.php'; ?>
-<div class="row">
-    <div class="col-sm-12">
-        <?php echo $this->breadcrumb->getBreadcrumb(); ?>
-        <br/>
-    </div>
-</div>
+<?php require_once $this->getAdminHeader(); ?>
 <div class="row">
     <div class="col-sm-12 text-center">
         <h1>
@@ -17,4 +11,4 @@
         </form>
     </div>
 </div>
-<?php require_once ROOT . '/views/layouts/footer.php'; ?>
+<?php require_once $this->getAdminFooter(); ?>

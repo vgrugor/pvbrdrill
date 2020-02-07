@@ -15,10 +15,10 @@ class Breadcrumb {
     }
     
     /**
-     * Формирует массив страниц для хлебных крошек без лишних элементов из url
+     * Формирует массив с английскими названиями страниц
      * @return array <p>массив с названиями страниц</p>
      */
-    private function getPagesInArray()
+    public function getPagesInArray()
     {
         $pagesArray = explode('/', $this->uri);
         foreach ($pagesArray as $page) {
@@ -30,32 +30,25 @@ class Breadcrumb {
     }
     
     /**
-     * Формирует оформление для хлебных крошек
-     * @return string <p>bootstrap элемент breadcrumb</p>
+     * Преобразовать английское название страницы в украинское
+     * @param string $pageIndex <p>английское название страницы</p>
+     * @return string <p>украинское название страницы</p>
      */
-    public function getBreadcrumb()
+    public function getPageName($pageIndex)
     {
-        $arrayPages = $this->getPagesInArray();
-        $uri = '';
-        
-        $breadcrumb = '<nav aria-label="breadcrumb">';
-        $breadcrumb .= '<ol class="breadcrumb">';
-        
-        foreach ($arrayPages as $page) {
-            $uri .= '/' . $page; 
-            if ($page == end($arrayPages)) {
-                $breadcrumb .= '<li class="breadcrumb-item active" aria-current="page">';
-                $breadcrumb .= $this->pageName[$page];
-                $breadcrumb .= '</li>';
-            } else {
-                $breadcrumb .= '<li class="breadcrumb-item">';
-                $breadcrumb .= '<a href="' . $uri . '">';
-                $breadcrumb .= $this->pageName[$page];
-                $breadcrumb .='</a></li>';
-            }
-        }
-        $breadcrumb .= '</ol></nav>';
-        
-        return $breadcrumb;
+        return $this->pageName[$pageIndex];
+    }
+    
+    /**
+     * 
+     * @staticvar string $uri <p></p>
+     * @param string $pageUri <p>английское название страницы</p>
+     * @return string <p>uri для ссылки</p>
+     */
+    public function getUri($pageUri)
+    {
+        static $uri = '';
+        $uri .= '/' . $pageUri;
+        return $uri;
     }
 }

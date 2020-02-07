@@ -1,10 +1,5 @@
-<?php require_once ROOT . '/views/layouts/header.php'; ?>
-<div class="row">
-    <div class="col-sm-12">
-        <?php echo $this->breadcrumb->getBreadcrumb(); ?>
-        <br/>
-    </div>
-</div>
+<?php require_once $this->getAdminHeader(); ?>
+
 <div class="row">
     <div class="col-sm-12">
         <h2 class="text-center">Керування посадами</h2>
@@ -50,5 +45,6 @@
         </table>
     </div>
 </div>
-<?php require_once ROOT . '/views/layouts/footer.php'; ?>
+
+<?php require_once $this->getAdminFooter(); ?>
 

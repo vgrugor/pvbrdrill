@@ -38,7 +38,7 @@ class AdminBase {
      */
     public function getAdminHeader()
     {
-        return ROOT . '/views/layouts/header.php';
+        return ROOT . '/views/layouts/admin_header.php';
     }
     
     /**
@@ -47,6 +47,6 @@ class AdminBase {
      */
     public function getAdminFooter()
     {
-        return ROOT . '/views/layouts/footer.php';
+        return ROOT . '/views/layouts/admin_footer.php';
     }
 }
