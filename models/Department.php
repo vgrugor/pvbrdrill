@@ -9,9 +9,10 @@ class Department {
     
     /**
      * Возвращает список всех отделов и информацию о них
+     * @param integer $id <p>необязательный. id организации для выборки отделов</p>
      * @return array <p>Массив с информацией о отделах</p>
      */
-    public static function getDepartmentsList()
+    public static function getDepartmentsList($id = 0)
     {
         $db = Db::getConnection();
         
@@ -23,12 +24,18 @@ class Department {
                 . 'organization.name as org_name '
                 . 'FROM department '
                 . 'LEFT JOIN organization '
-                . 'ON department.organization_id = organization.id '
-                . 'ORDER BY organization_id ASC';
+                . 'ON department.organization_id = organization.id ';
         
-        $result = $db->query($sql);
+        if ($id) {
+            $sql .= 'WHERE department.organization_id = :id ';
+        }
+                
+        $sql .= 'ORDER BY org_name ASC';
         
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
         
         $i=0;
         while ($row = $result->fetch()) {

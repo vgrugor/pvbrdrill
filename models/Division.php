@@ -29,7 +29,7 @@ class Division {
                 . 'LEFT JOIN organization '
                 . 'ON '
                 . 'division.organization_id = organization.id '
-                . 'ORDER BY department_id ASC';
+                . 'ORDER BY org_name ASC';
         
         $result = $db->query($sql);
         

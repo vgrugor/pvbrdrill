@@ -85,4 +85,18 @@ class AdminDepartmentController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Заполнение выпадающего списка отделов через ajax
+     * @param int $id <p>id организации, чьи отделы нужно выбрать</p>
+     * @return boolean
+     */
+    public function actionAjaxlist($id)
+    {
+        $departments = Department::getDepartmentsList($id);
+        
+        require_once ROOT . '/views/admin_department/ajaxlist.php';
+        
+        return true;
+    }
 }
