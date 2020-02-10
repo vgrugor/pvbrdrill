@@ -20,11 +20,15 @@ class Division {
         $sql = 'SELECT division.id as div_id, '
                 . 'division.name as div_name, '
                 . 'division.note as div_note, '
+                . 'organization.name as org_name, '
                 . 'department.name as dep_name '
                 . 'FROM division '
                 . 'LEFT JOIN department '
                 . 'ON '
                 . 'division.department_id = department.id '
+                . 'LEFT JOIN organization '
+                . 'ON '
+                . 'division.organization_id = organization.id '
                 . 'ORDER BY department_id ASC';
         
         $result = $db->query($sql);
@@ -34,6 +38,7 @@ class Division {
         $i=0;
         while ($row = $result->fetch()) {
             $divisions[$i]['id'] = $row['div_id'];
+            $divisions[$i]['organization'] = $row['org_name'];
             $divisions[$i]['department'] = $row['dep_name'];
             $divisions[$i]['name'] = $row['div_name'];
             $divisions[$i]['note'] = $row['div_note'];
@@ -75,6 +80,29 @@ class Division {
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        return $result->execute();
+    }
+    
+    /**
+     * Добавление подразделения
+     * @param array $options <p>свойства нового подразделения</p>
+     * @return boolean <p>результат выполнения запроса INSERT</p>
+     */
+    public static function createDivision($options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'INSERT INTO division (organization_id, department_id, name, note) '
+                . 'VALUES '
+                . '(:organization_id, :department_id, :name, :note)';
+        
+        $result = $db->prepare($sql);
+        
+        $result->bindParam(':organization_id', $options['organization_id'], PDO::PARAM_INT);
+        $result->bindParam(':department_id', $options['department_id'], PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
         
         return $result->execute();
     }

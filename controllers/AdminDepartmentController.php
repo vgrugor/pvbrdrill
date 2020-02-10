@@ -68,7 +68,7 @@ class AdminDepartmentController extends AdminBase {
             $errors = false;
             
             if(!$this->validator->make($options['name'], ['string', 5, 100])) {
-                $errors[] = 'Назва організації має містити від 5 до 100 символів';
+                $errors[] = 'Назва відділу має містити від 5 до 100 символів';
             }
             
             if (!$this->validator->make($options['phone_number'], ['mobileNumber'])) {

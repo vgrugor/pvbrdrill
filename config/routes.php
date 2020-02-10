@@ -30,6 +30,7 @@
         'admin/department/delete/([0-9]+)' => 'AdminDepartment/delete/$1',  //Удаление отдела
         'admin/department' => 'AdminDepartment/index',                      //Админка со списком отделов
         
+        'admin/division/create' => 'AdminDivision/create',                  //Создание подразделения
         'admin/division/delete/([0-9]+)' => 'AdminDivision/delete/$1',      //Удаление подразделения
         'admin/division' => 'AdminDivision/index',                          //Админка со списком подразделений
         

@@ -18,6 +18,7 @@
             <thead>
                 <tr>
                     <th scope="col">id</th>
+                    <th scope="col">Організація</th>
                     <th scope="col">Відділ</th>
                     <th scope="col">Підрозділ</th>
                     <th scope="col">Примітка</th>
@@ -29,6 +30,7 @@
                 <?php foreach ($divisions as $division): ?>
                 <tr>
                     <th scope="row"><?=$division['id']?></th>
+                    <td><?=$division['organization']?></td>
                     <td><?=$division['department']?></td>
                     <td><?=$division['name']?></td>
                     <td><?=$division['note']?></td>

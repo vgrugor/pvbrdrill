@@ -45,4 +45,43 @@ class AdminDivisionController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница создания нового подразделения
+     * @return boolean
+     */
+    public function actionCreate()
+    {
+        self::checkAdmin();
+        
+        $organizations = Organization::getOrganizationsList();
+        $departments = Department::getDepartmentsList();
+        
+        $options['organization_id'] = '';
+        $options['department_id'] = '';
+        $options['name'] = '';
+        $options['note'] = '';
+        
+        if (isset($_POST['submit'])) {
+            $options['organization_id'] = $_POST['organization_id'];
+            $options['department_id'] = $_POST['department_id'];
+            $options['name'] = $_POST['name'];
+            $options['note'] = $_POST['note'];
+            
+            $errors = false;
+            
+            if (!$this->validator->make($options['name'],['string', 4, 100])) {
+                $errors[] = 'Назва підрозділу має містити від 4 до 100 символів';
+            }
+            
+            if ($errors == false) {
+                Division::createDivision($options);
+            
+                header('Location: /admin/division');
+            }
+        }
+        require_once ROOT . '/views/admin_division/create.php';
+        
+        return true;
+    }
 }
