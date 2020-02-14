@@ -54,8 +54,14 @@ class AdminDivisionController extends AdminBase {
     {
         self::checkAdmin();
         
+        $organizations = [];
         $organizations = Organization::getOrganizationsList();
-        $departments = Department::getDepartmentsList();
+        #организация, выбранная в select при первой загрузке страницы
+        $selectedOrganizations = $organizations[0]['id'];       
+        
+        $departments = [];
+        #список отделом для выбраной организации при первой загрузке страницы
+        $departments = Department::getDepartmentsList($selectedOrganizations);
         
         $options['organization_id'] = '';
         $options['department_id'] = '';
@@ -67,6 +73,9 @@ class AdminDivisionController extends AdminBase {
             $options['department_id'] = $_POST['department_id'];
             $options['name'] = $_POST['name'];
             $options['note'] = $_POST['note'];
+            
+            //список отделов, для выбраной организации
+            $departments = Department::getDepartmentsList($options['organization_id']);
             
             $errors = false;
             
