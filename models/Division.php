@@ -11,7 +11,7 @@ class Division {
      * Возвращает информацию о подразделениях
      * @return array <p>Массив с информацией о подразделениях</p>
      */
-    public static function getDivisionsList()
+    public static function getDivisionsList($departmentId = 0)
     {
         $db = Db::getConnection();
         
@@ -28,12 +28,18 @@ class Division {
                 . 'division.department_id = department.id '
                 . 'LEFT JOIN organization '
                 . 'ON '
-                . 'division.organization_id = organization.id '
-                . 'ORDER BY org_name ASC';
+                . 'division.organization_id = organization.id ';
         
-        $result = $db->query($sql);
+        if ($departmentId) {
+            $sql .= 'WHERE department_id = :departmentId ';
+        }
         
+        $sql .= 'ORDER BY org_name ASC';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':departmentId', $departmentId, PDO::PARAM_INT);
         $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
         
         $i=0;
         while ($row = $result->fetch()) {

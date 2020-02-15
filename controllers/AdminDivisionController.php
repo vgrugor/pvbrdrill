@@ -93,4 +93,19 @@ class AdminDivisionController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Заполнение выпадающего списка подразделений в зависимости от отдела
+     * через ajax
+     * @param integer $departmentId <p>id отдела, принадлежащие к которому подразделения будут добавлены</p>
+     * @return boolean <p>результат выполнения INSERT IGNORE</p>
+     */
+    public function actionAjaxlist($departmentId)
+    {
+        $divisions = Division::getDivisionsList($departmentId);
+        
+        require_once ROOT . '/views/admin_division/ajaxlist.php';
+        
+        return true;
+    }
 }

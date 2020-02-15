@@ -94,4 +94,26 @@ class Position {
         
         return $result->execute();
     }
+    
+    /**
+     * Добавление новой должности
+     * @param array $options <p>свойства добавляемой должности</p>
+     * @return boolean <p>результат выполнения запроса INSERT</p>
+     */
+    public static function createPosition($options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'INSERT IGNORE INTO position (organization_id, department_id, division_id, name) '
+                . 'VALUES (:organization_id, :department_id, :division_id, :name)';
+        
+        $result = $db->prepare($sql);
+        
+        $result->bindParam(':organization_id', $options['organization_id'], PDO::PARAM_INT);
+        $result->bindParam(':department_id', $options['department_id'], PDO::PARAM_INT);
+        $result->bindParam(':division_id', $options['division_id'], PDO::PARAM_INT);
+        $result->bindParam('name', $options['name'], PDO::PARAM_INT);
+        
+        return $result->execute();
+    }
 }
