@@ -22,24 +22,26 @@
         'admin/drill/delete/([0-9]+)' => 'AdminDrill/delete/$1',            //Удаление буровых
         'admin/drill' => 'AdminDrill/index',                                //Админка со списком буровых
         
-        'admin/organization/create' => 'AdminOrganization/create',    //создание организации
+        'admin/organization/create' => 'AdminOrganization/create',              //создание организации
         'admin/organization/delete/([0-9]+)' => 'AdminOrganization/delete/$1',  //Удаление организации
-        'admin/organization' => 'AdminOrganization/index',                  //Админка со списком организаций
+        'admin/organization' => 'AdminOrganization/index',                      //Админка со списком организаций
         
         'admin/department/ajaxlist/([0-9]+)' => 'AdminDepartment/ajaxlist/$1', //заполнение выпадающего списка ajax
         'admin/department/create' => 'AdminDepartment/create',              //Создание отдела
         'admin/department/delete/([0-9]+)' => 'AdminDepartment/delete/$1',  //Удаление отдела
         'admin/department' => 'AdminDepartment/index',                      //Админка со списком отделов
         
-        'admin/division/ajaxlist' => 'AdminDivision/ajaxlist',               //заполнение выпадающего списка ajax
+        'admin/division/ajaxlist' => 'AdminDivision/ajaxlist',              //заполнение выпадающего списка ajax
         'admin/division/create' => 'AdminDivision/create',                  //Создание подразделения
         'admin/division/delete/([0-9]+)' => 'AdminDivision/delete/$1',      //Удаление подразделения
         'admin/division' => 'AdminDivision/index',                          //Админка со списком подразделений
         
+        'admin/position/ajaxlist/([0-9]+)/([0-9]+)' => 'AdminPosition/ajaxlist/$1/$2',  //заполнение выпадающего списка ajax
         'admin/position/create' => 'AdminPosition/create',                  //Добавление должности
         'admin/position/delete/([0-9]+)' => 'AdminPosition/delete/$1',      //Удаление должностей
         'admin/position' => 'AdminPosition/index',                          //Админка со списком должностей
         
+        'admin/worker/create' => 'AdminWorker/create',                      //Добавление работника
         'admin/worker/page-([0-9]+)' => 'AdminWorker/index/$1',             //Админка со списком работников постранично
         'admin/worker/delete/([0-9]+)' => 'AdminWorker/delete/$1',          //Удаление работников
         'admin/worker' => 'AdminWorker/index',                              //Админка со списком работников

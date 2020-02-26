@@ -34,7 +34,7 @@
             <div class="form-group">
                 <label for="division_id">Оберіть підрозділ</label>
                 <select name="division_id" class="form-control" id="division_id">
-                    <option value="NULL"></option>
+                    <option value="0"></option>
                     <?php foreach ($divisions as $division): ?>
                         <option value="<?=$division['id']?>" <?=$division['id'] == $options['division_id'] ? 'selected': '' ?>><?=$division['name']?></option>
                     <?php endforeach; ?>

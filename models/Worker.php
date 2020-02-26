@@ -2,7 +2,7 @@
 
 class Worker {
     
-    const SHOW_BY_DEFAULT = 2;  //работников на странице
+    const SHOW_BY_DEFAULT = 10;  //работников на странице
     
     /**
      * Возвращает информацию о одном работнике в виде массива
@@ -258,4 +258,32 @@ class Worker {
         return $result->execute();
     }
     
+    /**
+     * Добавление нового сотрудника
+     * @param type $options <p>свойства сотрудника</p>
+     * @return type <p>результат выполнения запроса INSERT</p>
+     */
+    public static function createWorker($options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'INSERT INTO worker (drill_id, position_id, name, account_ad, '
+                . 'phone_number, email, vpn_status_id, date_refresh, note) '
+                . 'VALUES '
+                . '(:drill_id, :position_id, :name, :account_ad, :phone_number, '
+                . ':email, :vpn_status_id, :date_refresh, :note)';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':drill_id', $options['drill_id'], PDO::PARAM_INT);
+        $result->bindParam(':position_id', $options['position_id'], PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':account_ad', $options['account_ad'], PDO::PARAM_STR);
+        $result->bindParam(':phone_number', $options['phone_number'], PDO::PARAM_STR);
+        $result->bindParam(':email', $options['email'], PDO::PARAM_STR);
+        $result->bindParam(':vpn_status_id', $options['vpn_status_id'], PDO::PARAM_STR);
+        $result->bindParam(':date_refresh', $options['date_refresh'], PDO::PARAM_STR);
+        $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
 }

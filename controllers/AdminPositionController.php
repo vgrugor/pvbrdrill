@@ -97,4 +97,19 @@ class AdminPositionController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Заполняет выпадающий список с названиями должностей
+     * @param integer $departmentId <p>id отдела, из которого следует выбрать должности</p>
+     * @param integer $divisionId <p>id подразделения, из которого следует выбрать должности</p>
+     * @return boolean
+     */
+    public function actionAjaxlist($departmentId, $divisionId)
+    {
+        $positions = Position::getPositionsList($departmentId, $divisionId);
+        
+        require_once ROOT . '/views/admin_position/ajaxlist.php';
+        
+        return true;
+    }
 }

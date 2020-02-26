@@ -6,6 +6,10 @@
     $( "#department_id" ).change(function () {
         addItemDivisionDropDown();
     });
+    
+    $( "#division_id" ).change(function () {
+        addItemPositionDropDown();
+    });
 });
 
 //заполнения выпадающего списка с названиями отделов
@@ -33,6 +37,23 @@ function addItemDivisionDropDown() {
 
         success: function(result){
             $('#division_id').html(result);
+            
+            var element=document.getElementById('position_id');
+            if(element){addItemPositionDropDown();}
+        }
+    });
+}
+
+//заполнения выпадающего списка с должностями
+function addItemPositionDropDown() {
+    var departmentId =  $( "#department_id" ).val();
+    var divisionId =  $( "#division_id" ).val();
+        $.ajax({
+        type: "POST",
+        url: "/admin/position/ajaxlist/" + departmentId + "/" + divisionId,
+
+        success: function(result){
+            $('#position_id').html(result);
         }
     });
 }

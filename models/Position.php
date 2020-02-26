@@ -8,14 +8,35 @@
 class Position {
     
     /**
-     * 
-     * @return array <p>массив с информаций </p>
+     * Получить список должностей вместе с организациями, отделами, подразделениями
+     * @return array <p>массив с информаций о должностях</p>
      */
-    public static function getPositionsList()
+    public static function getPositionsList($department_id = NULL, $division_id = NULL)
     {
-        $db = Db::getConnection();
+        //если указан и отдел и подразделение, формируем фильтр по отделу 
+        if ($department_id && $division_id) {
+            $filterDepartment =  'position.department_id = :department_id AND ';
+        } else {
+            $filterDepartment = '';
+        }
+        
+        //если передано подразделение, формируем фильтр по подразделению
+        if ($division_id) {
+            $filterDivision = 'division.id = :division_id AND ';
+        } else {
+            $filterDivision = '';
+        }
+        
+        //если передан только отдел, показать по ид отдела без подразделений
+        if ($department_id && !$division_id) {
+            $filterDepartment =  'position.department_id = :department_id AND position.division_id = 0 AND ';
+        } else {
+            $filterDepartment = '';
+        }
         
         $positions = [];
+        
+        $db = Db::getConnection();
         
         $sql = 'SELECT position.id as pos_id, '
                 . 'position.name as pos_name, '
@@ -29,11 +50,18 @@ class Position {
                 . 'ON department.id = position.department_id '
                 . 'LEFT JOIN division '
                 . 'ON division.id = position.division_id '
+                . 'WHERE '
+                . $filterDepartment
+                . $filterDivision
+                . 'position.id > 0 '
                 . 'ORDER BY org_name ASC';
         
-        $result = $db->query($sql);
+        $result = $db->prepare($sql);
         
+        $filterDepartment ? $result->bindParam(':department_id', $department_id, PDO::PARAM_INT) : '';
+        $filterDivision ? $result->bindParam(':division_id', $division_id, PDO::PARAM_INT): '';
         $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
         
         $i=0;
         while ($row = $result->fetch()) {
@@ -104,7 +132,7 @@ class Position {
     {
         $db = Db::getConnection();
         
-        $sql = 'INSERT IGNORE INTO position (organization_id, department_id, division_id, name) '
+        $sql = 'INSERT INTO position (organization_id, department_id, division_id, name) '
                 . 'VALUES (:organization_id, :department_id, :division_id, :name)';
         
         $result = $db->prepare($sql);
@@ -112,7 +140,7 @@ class Position {
         $result->bindParam(':organization_id', $options['organization_id'], PDO::PARAM_INT);
         $result->bindParam(':department_id', $options['department_id'], PDO::PARAM_INT);
         $result->bindParam(':division_id', $options['division_id'], PDO::PARAM_INT);
-        $result->bindParam('name', $options['name'], PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
         
         return $result->execute();
     }
