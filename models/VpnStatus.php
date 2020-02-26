@@ -83,4 +83,26 @@ class VpnStatus {
         
         return $result->execute();
     }
+    
+    /**
+     * Обновление информации о статусе VPN по его id
+     * @param integer $id <p>ид редактируемого статуса</p>
+     * @param array $options <p>массив со свойствами статуса для обновления</p>
+     * @return type
+     */
+    public static function updateVpnStatusById($id, $options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'UPDATE vpn_status SET '
+                . 'name = :name '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
 }

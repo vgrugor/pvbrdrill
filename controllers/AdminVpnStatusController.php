@@ -72,4 +72,36 @@ class AdminVpnStatusController extends AdminBase {
         
         return true;
     }
+    
+    
+    /**
+     * Редактирование статуса VPN 
+     * @param integer $id <p>id статуса для обновления</p>
+     * @return boolean
+     */
+    public function actionUpdate($id)
+    {
+        self::checkAdmin();
+        
+        $vpnStatus = VpnStatus::getVpnStatusById($id);
+        
+        if (isset($_POST['submit'])) {
+            $errors = false;
+            
+            $options['name'] = $_POST['name'];
+            
+            if (!$this->validator->make($options['name'], ['string', 4, 50])) {
+                $errors[] = 'Статус для VPN має бути в межах від 4-ох до 50 символів.';
+            }
+            
+            if ($errors == false) {
+                VpnStatus::updateVpnStatusById($id, $options);
+                
+                header('Location: /admin/vpnstatus');
+            }
+        }
+        require_once ROOT . '/views/admin_vpnstatus/update.php';
+        
+        return true;
+    }
 }
