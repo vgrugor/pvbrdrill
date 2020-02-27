@@ -86,16 +86,16 @@ class AdminInternetStatusController extends AdminBase {
         $internetStatus = InternetStatus::getInternetStatusById($id);
         
         if (isset($_POST['submit'])) {
-            $options['name'] = $_POST['name'];
+            $internetStatus['name'] = $_POST['name'];
             
             $errors = false;
             
-            if (!$this->validator->make($options['name'], ['string', 4, 50])) {
+            if (!$this->validator->make($internetStatus['name'], ['string', 4, 50])) {
                 $errors[] = 'Довжина назви статусу інтернету має бути в межах від 4-х до 50-и символи.';
             }
             
             if ($errors == false) {
-                InternetStatus::updateInternetStatusById($id, $options);
+                InternetStatus::updateInternetStatusById($id, $internetStatus);
                 
                 header('Location: /admin/internetstatus');
             }
