@@ -14,6 +14,7 @@
         
         'contacts' => 'site/contact',                                       //форма обратной связи
         
+        'admin/drilltype/update/([0-9]+)' => 'AdminDrillType/update/$1',    //Редактирование типа буровой
         'admin/drilltype/create' => 'AdminDrillType/create',                //Добавление нового типа буровой
         'admin/drilltype/delete/([0-9]+)' => 'AdminDrilltype/delete/$1',    //Удаление типов буровых
         'admin/drilltype' => 'AdminDrillType/index',                        //Админка со списком типов буровых
