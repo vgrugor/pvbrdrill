@@ -88,14 +88,14 @@ class AdminVpnStatusController extends AdminBase {
         if (isset($_POST['submit'])) {
             $errors = false;
             
-            $options['name'] = $_POST['name'];
+            $vpnStatus['name'] = $_POST['name'];
             
-            if (!$this->validator->make($options['name'], ['string', 4, 50])) {
+            if (!$this->validator->make($vpnStatus['name'], ['string', 4, 50])) {
                 $errors[] = 'Статус для VPN має бути в межах від 4-ох до 50 символів.';
             }
             
             if ($errors == false) {
-                VpnStatus::updateVpnStatusById($id, $options);
+                VpnStatus::updateVpnStatusById($id, $vpnStatus);
                 
                 header('Location: /admin/vpnstatus');
             }
