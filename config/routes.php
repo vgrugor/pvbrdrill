@@ -46,6 +46,7 @@
         'admin/worker/delete/([0-9]+)' => 'AdminWorker/delete/$1',          //Удаление работников
         'admin/worker' => 'AdminWorker/index',                              //Админка со списком работников
         
+        'admin/internetstatus/update/([0-9]+)' => 'AdminInternetStatus/update/$1',  //редактирование статуса
         'admin/internetstatus/create' => 'AdminInternetStatus/create',      //создание нового статуса для интернета
         'admin/internetstatus/delete/([0-9]+)' => 'AdminInternetStatus/delete/$1',    //Удаление статуса интернета
         'admin/internetstatus' => 'AdminInternetStatus/index',              //Админка со списком состояний для интернета на буровой
