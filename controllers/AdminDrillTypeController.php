@@ -84,19 +84,19 @@ class AdminDrillTypeController extends AdminBase {
     {
         self::checkAdmin();
         
-        $options = DrillType::getDrillTypeById($id);
+        $drillType = DrillType::getDrillTypeById($id);
         
         if (isset($_POST['submit'])) {
-            $options['name'] = $_POST['name'];
+            $drillType['name'] = $_POST['name'];
             
             $errors = false;
             
-            if (!$this->validator->make($options['name'], ['string', 4, 10])) {
+            if (!$this->validator->make($drillType['name'], ['string', 4, 10])) {
                 $errors[] = 'Назва типу бурової має бути в межах від 4-х до 10 символів';
             }
             
             if ($errors == false) {
-                DrillType::updateDrillTypeById($id, $options);
+                DrillType::updateDrillTypeById($id, $drillType);
                 
                 header("Location: /admin/drilltype");
             }

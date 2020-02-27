@@ -18,7 +18,7 @@
         <form method="post">
             <div class="form-group">
                 <label for="name">Відредагуйте назву типу бурової</label>
-                <input type="text" name="name" id="name" class="form-control" value="<?=$options['name']?>" placeholder="">
+                <input type="text" name="name" id="name" class="form-control" value="<?=$drillType['name']?>" placeholder="">
             </div>
             <input type="submit" name="submit" value="Зберегти" class="btn btn-warning">
         </form>
