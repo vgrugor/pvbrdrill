@@ -89,4 +89,29 @@ class Organization {
         
         return $result->execute();
     }
+    
+    /**
+     * Обновление информации о организации по ее id
+     * @param integer $id <p>id организации, которую нужно изменить</p>
+     * @param array $options <p>массив с измененной информацией о организации</p>
+     * @return boolean <p>результат выполнения запроса UPDATE</p>
+     */
+    public static function updateOrganizationById($id, $options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'UPDATE organization SET '
+                . 'name = :name, '
+                . 'address = :address, '
+                . 'note = :note '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':address', $options['address'], PDO::PARAM_STR);
+        $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
 }

@@ -213,4 +213,30 @@ class User {
         
         return $userId['id'];
     }
+    
+    /**
+     * Обновление информации о пользователе
+     * @param integer $id <p>id пользователя, информацию о котором нужно отредактировать</p>
+     * @param array $options <p>массив с информацией о пользователе</p>
+     * @return boolean <p>результат выполнения запроса UPDATE</p>
+     */
+    public static function updateUserById($id, $options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'UPDATE users SET '
+                . 'login = :login, '
+                . 'password = :password, '
+                . 'role = :role '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':login', $options['login'], PDO::PARAM_INT);
+        $result->bindParam(':password', $options['password'], PDO::PARAM_STR);
+        $result->bindParam(':role', $options['role'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
+    
 }
