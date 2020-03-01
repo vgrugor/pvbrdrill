@@ -29,6 +29,7 @@
         'admin/organization' => 'AdminOrganization/index',                      //Админка со списком организаций
         
         'admin/department/ajaxlist/([0-9]+)' => 'AdminDepartment/ajaxlist/$1', //заполнение выпадающего списка ajax
+        'admin/department/update/([0-9]+)' => 'AdminDepartment/update/$1',  //редактирование отдела
         'admin/department/create' => 'AdminDepartment/create',              //Создание отдела
         'admin/department/delete/([0-9]+)' => 'AdminDepartment/delete/$1',  //Удаление отдела
         'admin/department' => 'AdminDepartment/index',                      //Админка со списком отделов

@@ -115,14 +115,6 @@ class AdminUserController extends AdminBase {
                 $errors[] = 'Пароль має містити від 5 до 15 символів';
             }
             
-            /*
-            if (User::checkUserExists($user['login'], $user['password'])) {
-                $errors[] = 'Користувача з таким логіном і паролем вже зареєстровано';
-            } elseif (User::checkLoginExists($user['login'])) {
-                $errors[] = 'Користувач з таким логіном вже існує';
-            }
-             */
-            
             if (!$this->validator->make($user['login'], ['loginForUpdate', $user['id']])) {
                 $errors[] = 'Інший користувач з таким логіном вже існує';
             }
