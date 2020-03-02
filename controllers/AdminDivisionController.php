@@ -126,7 +126,6 @@ class AdminDivisionController extends AdminBase {
         $departments = [];
         #список отделом для выбраной организации при первой загрузке страницы
         $departments = Department::getDepartmentsList($selectedOrganizations);
-        //$departments = Department::getDepartmentsList();
         
         $division = Division::getDivisionById($id);
         
@@ -135,6 +134,9 @@ class AdminDivisionController extends AdminBase {
             $division['department_id'] = $_POST['department_id'];
             $division['name'] = $_POST['name'];
             $division['note'] = $_POST['note'];
+            
+            //список отделов, для выбраной организации
+            $departments = Department::getDepartmentsList($division['organization_id']);
             
             //список отделов, для выбраной организации
             $departments = Department::getDepartmentsList($division['organization_id']);
