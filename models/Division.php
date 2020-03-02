@@ -62,7 +62,8 @@ class Division {
     {
         $db = Db::getConnection();
         
-        $sql = 'SELECT id, name, note FROM division ORDER BY id ASC';
+        $sql = 'SELECT id, organization_id, department_id, '
+                . 'name, note FROM division WHERE id = :id';
         
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
@@ -109,6 +110,33 @@ class Division {
         $result->bindParam(':department_id', $options['department_id'], PDO::PARAM_INT);
         $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
         $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
+    
+    /**
+     * Редактирование подразделения
+     * @param integer $id <p>id подразделения, которое нужно изменить</p>
+     * @param array $options <p>массив со свойствами подразделения</p>
+     * @return boolean  <p>результат выполнения запроса UPDATE</p>
+     */
+    public static function updateDivisionById($id, $options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'UPDATE division SET '
+                . 'organization_id = :organization_id, '
+                . 'department_id = :department_id, '
+                . 'name = :name, '
+                . 'note = :note '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':organization_id', $options['organization_id'], PDO::PARAM_INT);
+        $result->bindParam(':department_id', $options['department_id'], PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_INT);
+        $result->bindParam(':note', $options['note'], PDO::PARAM_INT);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
         
         return $result->execute();
     }

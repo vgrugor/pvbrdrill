@@ -108,4 +108,52 @@ class AdminDivisionController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница редактирования подразделения
+     * @param integer $id <p>id подразделения, которое необходимо отредактировать</p>
+     * @return boolean <p>для роутера</p>
+     */
+    public function actionUpdate($id)
+    {
+        self::checkAdmin();
+        
+        $organizations = [];
+        $organizations = Organization::getOrganizationsList();
+        #организация, выбранная в select при первой загрузке страницы
+        $selectedOrganizations = $organizations[0]['id'];       
+        
+        $departments = [];
+        #список отделом для выбраной организации при первой загрузке страницы
+        $departments = Department::getDepartmentsList($selectedOrganizations);
+        //$departments = Department::getDepartmentsList();
+        
+        $division = Division::getDivisionById($id);
+        
+        if (isset($_POST['submit'])) {
+            $division['organization_id'] = $_POST['organization_id'];
+            $division['department_id'] = $_POST['department_id'];
+            $division['name'] = $_POST['name'];
+            $division['note'] = $_POST['note'];
+            
+            //список отделов, для выбраной организации
+            $departments = Department::getDepartmentsList($division['organization_id']);
+            
+            $errors = false;
+            
+            if (!$this->validator->make($division['name'],['string', 4, 100])) {
+                $errors[] = 'Назва підрозділу має містити від 4 до 100 символів';
+            }
+            
+            if ($errors == false) {
+                Division::updateDivisionById($id, $division);
+            
+                header('Location: /admin/division');
+            }
+        }
+        
+        require_once ROOT . '/views/admin_division/update.php';
+        
+        return true;
+    }
 }
