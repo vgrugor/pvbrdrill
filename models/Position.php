@@ -16,6 +16,9 @@ class Position {
         //если указан и отдел и подразделение, формируем фильтр по отделу 
         if ($department_id && $division_id) {
             $filterDepartment =  'position.department_id = :department_id AND ';
+        //если передан только отдел, показать по ид отдела без подразделений
+        } elseif ($department_id && !$division_id) {
+            $filterDepartment =  'position.department_id = :department_id AND position.division_id = 0 AND ';
         } else {
             $filterDepartment = '';
         }
@@ -25,13 +28,6 @@ class Position {
             $filterDivision = 'division.id = :division_id AND ';
         } else {
             $filterDivision = '';
-        }
-        
-        //если передан только отдел, показать по ид отдела без подразделений
-        if ($department_id && !$division_id) {
-            $filterDepartment =  'position.department_id = :department_id AND position.division_id = 0 AND ';
-        } else {
-            $filterDepartment = '';
         }
         
         $positions = [];
@@ -84,11 +80,14 @@ class Position {
     {
         $db = Db::getConnection();
         
-        $sql = 'SELECT position.id as pos_id, '
-                . 'position.name as pos_name, '
-                . 'organization.name as org_name,'
-                . 'department.name as dep_name, '
-                . 'division.name as div_name '
+        $sql = 'SELECT position.id as position_id, '
+                . 'position.name as name, '
+                . 'organization.name as organization_name,'
+                . 'organization.id as organization_id,'
+                . 'department.id as department_id, '
+                . 'department.name as department_name, '
+                . 'division.name as division_name, '
+                . 'division.id as division_id '
                 . 'FROM position '
                 . 'LEFT JOIN organization '
                 . 'ON position.organization_id = organization.id '
@@ -141,6 +140,33 @@ class Position {
         $result->bindParam(':department_id', $options['department_id'], PDO::PARAM_INT);
         $result->bindParam(':division_id', $options['division_id'], PDO::PARAM_INT);
         $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
+    
+    /**
+     * Обновление информации о должности
+     * @param integer $id <p>id должности, информацию о которой нужно обновить</p>
+     * @param array $options <p>свойства должности</p>
+     * @return boolean <p>результат выполнения запроса UPDATE</p>
+     */
+    public static function updatePositionById($id, $options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'UPDATE position SET '
+                . 'organization_id = :organization_id, '
+                . 'department_id = :department_id, '
+                . 'division_id = :division_id, '
+                . 'name = :name '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':organization_id', $options['organization_id'], PDO::PARAM_INT);
+        $result->bindParam(':department_id', $options['department_id'], PDO::PARAM_INT);
+        $result->bindParam(':division_id', $options['division_id'], PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
         
         return $result->execute();
     }

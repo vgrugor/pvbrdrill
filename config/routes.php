@@ -41,6 +41,7 @@
         'admin/division' => 'AdminDivision/index',                          //Админка со списком подразделений
         
         'admin/position/ajaxlist/([0-9]+)/([0-9]+)' => 'AdminPosition/ajaxlist/$1/$2',  //заполнение выпадающего списка ajax
+        'admin/position/update/([0-9]+)' => 'AdminPosition/update/$1',      //Редактирование должности
         'admin/position/create' => 'AdminPosition/create',                  //Добавление должности
         'admin/position/delete/([0-9]+)' => 'AdminPosition/delete/$1',      //Удаление должностей
         'admin/position' => 'AdminPosition/index',                          //Админка со списком должностей

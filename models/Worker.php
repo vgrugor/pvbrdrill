@@ -19,7 +19,7 @@ class Worker {
             $result = $db->query('SELECT drill.id as drill_id, '
                     . 'worker.name as name, '
                     . 'drill.name as drill, '
-                    . 'position.name as position,'
+                    . 'position.name as position, '
                     . 'vpn_status.name as vpn_status, '
                     . 'worker.phone_number as phone_number, '
                     . 'worker.email, worker.note as note, '

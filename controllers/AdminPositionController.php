@@ -112,4 +112,53 @@ class AdminPositionController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница обновления должности
+     * @param integer $id <p>id должности, которую нужно отредактировать</p>
+     * @return boolean <p>для роутера</p>
+     */
+    public function actionUpdate($id)
+    {
+        self::checkAdmin();
+        
+        $position = Position::getPositionById($id);
+        
+        $organizations = Organization::getOrganizationsList();
+        $selectedOrganization = $position['organization_id'];
+        
+        $departments = Department::getDepartmentsList($selectedOrganization);
+        $selectedDepartment = $position['department_id'];
+
+        $divisions = Division::getDivisionsList($selectedDepartment);
+        
+        if (isset($_POST['submit'])) {
+            
+            $position['organization_id'] = $_POST['organization_id'];
+            $position['department_id'] = $_POST['department_id'];
+            $position['division_id'] = $_POST['division_id'];
+            $position['name'] = $_POST['name'];
+            
+            //список отделов, если должность не прошла валидацию
+            $departments = Department::getDepartmentsList($position['organization_id']);
+            
+            //список подразделений, если должность не прошла валидацию
+            $divisions = Division::getDivisionsList($position['department_id']);
+            
+            $errors = false;
+            
+            if (!$this->validator->make($position['name'], ['string', 4, 256])) {
+                $errors[] = 'Назва посади має містити від 4 до 256 символів';
+            }
+            
+            if ($errors == false) {
+                Position::updatePositionById($id, $position);
+                
+                header('Location: /admin/position');
+            }
+        }
+        require_once ROOT . '/views/admin_position/update.php';
+        
+        return true;
+    }
 }
