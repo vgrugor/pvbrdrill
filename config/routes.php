@@ -47,6 +47,7 @@
         'admin/position' => 'AdminPosition/index',                          //Админка со списком должностей
         
         'admin/worker/create' => 'AdminWorker/create',                      //Добавление работника
+        'admin/worker/update/([0-9]+)' => 'AdminWorker/update/$1',          //Редактирование информации о работнике
         'admin/worker/page-([0-9]+)' => 'AdminWorker/index/$1',             //Админка со списком работников постранично
         'admin/worker/delete/([0-9]+)' => 'AdminWorker/delete/$1',          //Удаление работников
         'admin/worker' => 'AdminWorker/index',                              //Админка со списком работников
