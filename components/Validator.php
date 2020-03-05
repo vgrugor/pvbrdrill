@@ -96,4 +96,27 @@ class Validator {
         }
         return false;
     }
+    
+    /**
+     * Валидация логина при редактировании пользователя
+     * (если логин остается тем же, а другие параметры пользователя изменяются)
+     * @param string $login <p>логин пользователя</p>
+     * @param integer $userId <p>id пользователя, который редактируется</p>
+     * @return boolean <p>true - прошло валидацию, false - не прошел</p>
+     */
+    private function validateLoginForUpdate($login, $userId)
+    {
+        $idUserForDb = User::checkLoginExists($login);
+        
+        //если пользователя с таким логином в базе нет
+        if (!$idUserForDb) {
+            return true;
+        }
+        
+        //если сохраняется информация о пользователе с прежним логином
+        if ($idUserForDb == $userId) {
+            return true;
+        }
+        return false;
+    }
 }

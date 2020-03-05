@@ -83,4 +83,25 @@ class DrillType {
         
         return $result->execute();
     }
+    
+    /**
+     * Обновление информации о типе буровой по его id
+     * @param integer $id <p>id типа буровой, который нужно отредактировать</p>
+     * @param array $options <p>массив со свойствами типа буровой</p>
+     * @return boolean <p>результат выполнения запроса UPDATE</p>
+     */
+    public static function updateDrillTypeById($id, $options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'UPDATE drill_type SET '
+                . 'name = :name '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
 }

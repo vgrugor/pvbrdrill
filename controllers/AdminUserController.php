@@ -88,4 +88,45 @@ class AdminUserController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница редактирования пользователя
+     * @param integer $id <p>id пользователя, информацию о котором нужно отредактировать</p>
+     * @return boolean <p>для роутера</p>
+     */
+    public function actionUpdate($id)
+    {
+        self::checkAdmin();
+        
+        $user = User::getUserById($id);
+        
+        if (isset($_POST['submit'])) {
+            $user['login'] = $_POST['login'];
+            $user['password'] = $_POST['password'];
+            $user['role'] = $_POST['role'];
+            
+            $errors = false;
+            
+            if (!$this->validator->make($user['login'], ['string', 5, 20])) {
+                $errors[] = 'Логін має містити від 5 до 20 символів';
+            }
+            
+            if (!$this->validator->make($user['password'], ['string', 5, 15])) {
+                $errors[] = 'Пароль має містити від 5 до 15 символів';
+            }
+            
+            if (!$this->validator->make($user['login'], ['loginForUpdate', $user['id']])) {
+                $errors[] = 'Інший користувач з таким логіном вже існує';
+            }
+            
+            if ($errors == false) {
+                User::updateUserById($id, $user);
+                
+                header('Location: /admin/user');
+            }
+        }
+        require_once ROOT . '/views/admin_user/update.php';
+        
+        return true;
+    }
 }

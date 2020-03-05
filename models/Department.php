@@ -57,7 +57,7 @@ class Department {
     {
         $db = Db::getConnection();
         
-        $sql = 'SELECT id, name, phone_number, note '
+        $sql = 'SELECT id, name, organization_id, phone_number, note '
                 . 'FROM department '
                 . 'WHERE id = :id';
         
@@ -104,6 +104,34 @@ class Department {
         $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
         $result->bindParam(':phone_number', $options['phone_number'], PDO::PARAM_STR);
         $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
+    
+    /**
+     * Обновление информации о отделе по его id
+     * @param integer $id <p>id отдела, информацию о котором нужно изменить</p>
+     * @param array $options <p>массив с информацией о отделе</p>
+     * @return boolean <p>результат выполнения запроса UPDATE</p>
+     */
+    public static function updateDepartmentById($id, $options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'UPDATE department SET '
+                . 'organization_id = :organization_id, '
+                . 'name = :name, '
+                . 'phone_number = :phone_number, '
+                . 'note = :note '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        
+        $result->bindParam(':organization_id', $options['organization_id'], PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':phone_number', $options['phone_number'], PDO::PARAM_STR);
+        $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        $result->bindParam(':id', $options['id'], PDO::PARAM_INT);
         
         return $result->execute();
     }

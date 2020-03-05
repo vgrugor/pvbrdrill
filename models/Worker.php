@@ -10,36 +10,43 @@ class Worker {
      * @return array $workerItem Массив с информацией о одном работнике
      */
     public static function getWorkerById($id) {
-        
-        $id = intval($id);
-        
-        if ($id) {
-            $db = Db::getConnection();
+              
+        $db = Db::getConnection();
             
-            $result = $db->query('SELECT drill.id as drill_id, '
-                    . 'worker.name as name, '
-                    . 'drill.name as drill, '
-                    . 'position.name as position,'
-                    . 'vpn_status.name as vpn_status, '
-                    . 'worker.phone_number as phone_number, '
-                    . 'worker.email, worker.note as note, '
-                    . 'worker.date_refresh as worker_refresh '
-                    . 'FROM worker '
-                    . 'LEFT JOIN drill '
-                    . 'ON worker.drill_id = drill.id '
-                    . 'LEFT JOIN position '
-                    . 'ON worker.position_id = position.id '
-                    . 'LEFT JOIN vpn_status '
-                    . 'ON worker.vpn_status_id = vpn_status.id '
-                    . 'WHERE worker.id = ' . $id);
+        $sql = 'SELECT drill.id as drill_id, '
+                . 'worker.name as name, '
+                . 'drill.name as drill, '
+                . 'worker.position_id as position_id, '
+                . 'position.name as position, '
+                . 'position.division_id as division_id, '
+                . 'position.department_id as department_id, '
+                . 'position.organization_id as organization_id, '
+                . 'vpn_status.id as vpn_status_id, '
+                . 'vpn_status.name as vpn_status, '
+                . 'worker.phone_number as phone_number, '
+                . 'worker.email, worker.note as note, '
+                . 'worker.account_ad as account_ad, '
+                . 'worker.date_refresh as worker_refresh '
+                . 'FROM worker '
+                . 'LEFT JOIN drill '
+                . 'ON worker.drill_id = drill.id '
+                . 'LEFT JOIN position '
+                . 'ON worker.position_id = position.id '
+                . 'LEFT JOIN vpn_status '
+                . 'ON worker.vpn_status_id = vpn_status.id '
+                . 'WHERE worker.id = :id';
             
-            $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
             
-            $workerItem = $result->fetch();
-            $workerItem['worker_refresh'] = Worker::displayDate($workerItem['worker_refresh']);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
             
-            return $workerItem;
-        }
+        $result->execute();
+            
+        $workerItem = $result->fetch();
+        $workerItem['worker_refresh'] = Worker::displayDate($workerItem['worker_refresh']);
+            
+        return $workerItem;
     }
     
     /**
@@ -283,6 +290,43 @@ class Worker {
         $result->bindParam(':vpn_status_id', $options['vpn_status_id'], PDO::PARAM_STR);
         $result->bindParam(':date_refresh', $options['date_refresh'], PDO::PARAM_STR);
         $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
+    
+    /**
+     * Обновление информации о работнике по его id
+     * @param integer $id <p>id работника, информацию о котором нужно обновить</p>
+     * @param array $options <p>массив со свойствами работника</p>
+     * @return boolean <p>результат выполнения запроса UPDATE</p>
+     */
+    public static function updateWorkerById($id, $options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'UPDATE worker SET '
+                . 'drill_id = :drill_id, '
+                . 'position_id = :position_id, '
+                . 'name = :name, '
+                . 'account_ad = :account_ad, '
+                . 'phone_number = :phone_number, '
+                . 'email = :email, '
+                . 'vpn_status_id = :vpn_status_id, '
+                . 'date_refresh = :date_refresh, '
+                . 'note = :note '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':drill_id', $options['drill_id'], PDO::PARAM_INT);
+        $result->bindParam(':position_id', $options['position_id'], PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':account_ad', $options['account_ad'], PDO::PARAM_STR);
+        $result->bindParam(':phone_number', $options['phone_number'], PDO::PARAM_STR);
+        $result->bindParam(':email', $options['email'], PDO::PARAM_STR);
+        $result->bindParam(':vpn_status_id', $options['vpn_status_id'], PDO::PARAM_STR);
+        $result->bindParam(':date_refresh', $options['date_refresh'], PDO::PARAM_STR);
+        $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
         
         return $result->execute();
     }

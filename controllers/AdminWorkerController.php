@@ -137,4 +137,82 @@ class AdminWorkerController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница редактирования информации о работнике
+     * @param integer $id <p>id работника, информацию о котором нужно отредактировать</p>
+     * @return boolean <p>для роутера</p>
+     */
+    public function actionUpdate($id)
+    {
+        self::checkAdmin();
+        
+        $worker = Worker::getWorkerById($id);
+        
+        $organizations = Organization::getOrganizationsList();
+        $selectedOrganizationId = $worker['organization_id'];
+        
+        $departments = Department::getDepartmentsList($selectedOrganizationId);
+        $selectedDepartmentId = $worker['department_id'];
+        
+        $divisions = Division::getDivisionsList($selectedDepartmentId);
+        $selectedDivisionId = $worker['division_id'];
+        
+        $positions = Position::getPositionsList($selectedDepartmentId, $selectedDivisionId);
+        $drills = Drill::getDrillsList();
+        $vpnStatuses = VpnStatus::getVpnStatusesList();
+        
+        if (isset($_POST['submit'])) {
+            
+            $worker['position_id'] = $_POST['position_id'];
+            $worker['drill_id'] = $_POST['drill_id'];
+            $worker['name'] = $_POST['name'];
+            $worker['account_ad'] = $_POST['account_ad'];
+            $worker['phone_number'] = $_POST['phone_number'];
+            $worker['email'] = $_POST['email'];
+            $worker['vpn_status_id'] = $_POST['vpn_status_id'];
+            $worker['date_refresh'] = $_POST['date_refresh'];
+            $worker['note'] = $_POST['note'];
+            $worker['organization_id'] = $_POST['organization_id'];
+            $worker['department_id'] = $_POST['department_id'];
+            $worker['division_id'] = $_POST['division_id'];
+            
+            $selectedOrganizationId = $worker['organization_id'];
+            $departments = Department::getDepartmentsList($selectedOrganizationId);
+            
+            $selectedDepartmentId = $worker['department_id'];
+            $divisions = Division::getDivisionsList($selectedDepartmentId);
+            
+            $selectedDivisionId = $worker['division_id'];
+            $positions = Position::getPositionsList($selectedDepartmentId, $selectedDivisionId);
+            
+            $errors = false;
+            
+            if (!$this->validator->make($worker['name'], ['string', 4, 100])) {
+                $errors[] = "Прізвище, ім'я та побатькові має містити від 4 до 100 символів";
+            }
+            
+            if (!$this->validator->make($worker['phone_number'], ['mobileNumber'])) {
+                $errors[] = 'Номер телефону не відповідає вказаному шаблону';
+            }
+            
+            if (!$this->validator->make($worker['email'], ['email'])) {
+                $errors[] = 'email не відповідає шаблону';
+            }
+            
+            if (!$this->validator->make($worker['date_refresh'], ['date'])) {
+                $errors[] = 'Дата оновлення не відповідає встановленому формату';
+            }
+            
+            if ($errors == false) {
+                Worker::updateWorkerById($id, $worker);
+                
+                header('Location: /admin/worker');
+            }
+        }
+        
+        require_once ROOT . '/views/admin_worker/update.php';
+        
+        return true;
+    }
 }
