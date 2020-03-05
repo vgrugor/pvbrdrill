@@ -15,7 +15,8 @@ class Drill {
             $db = Db::getConnection();
             
             $result = $db->query('SELECT '
-                . 'drill.id, number, drill_type.name as type, drill.name, '
+                . 'drill.id, number, drill_type.name as type, drill_type.id as drill_type_id, '
+                . 'drill.name, '
                 . 'nld, nlm, nls, eld, elm, els, coordinate_stage, address, phone_number,  '
                 . 'date_building, date_drilling, date_demount, date_transfer, date_refresh, '
                 . 'email, note '
@@ -32,15 +33,9 @@ class Drill {
             $drillItem['gps'] = self::convertCoordinateGeoToGPS($drillItem['nld'], $drillItem['nlm'], $drillItem['nls'], $drillItem['eld'], $drillItem['elm'], $drillItem['els']);
             $drillItem['geo'] = self::convertGeoCoordinateToString($drillItem['nld'], $drillItem['nlm'], $drillItem['nls'], $drillItem['eld'], $drillItem['elm'], $drillItem['els']);
             $drillItem['coordinate_stage'] = self::getStepOfObtainingCoordinates($drillItem['coordinate_stage']);
-            $drillItem['date_building'] = self::displayDate($drillItem['date_building']);
-            $drillItem['date_drilling'] = self::displayDate($drillItem['date_drilling']);
-            $drillItem['date_demount'] = self::displayDate($drillItem['date_demount']);
-            $drillItem['date_transfer'] = self::displayDate($drillItem['date_transfer']);
-            $drillItem['date_refresh'] = self::displayDate($drillItem['date_refresh']);
             
             return $drillItem;
         }
-        
     }
     
     /**
@@ -278,5 +273,62 @@ class Drill {
         $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
         
         return $result->execute();;
+    }
+    
+    /**
+     * Обновление информации о сотруднике
+     * @param integer $id <p>id сотрудника, информацию о котором необходимо обновить</p>
+     * @param array $options <p>массив с информацией о сотруднике</p>
+     * @return boolean <p>результат выполнения запроса UPDATE</p>
+     */
+    public static function updateDrillById($id, $options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'UPDATE drill SET '
+                . 'number = :number, '
+                . 'drill_type_id = :drill_type_id, '
+                . 'name = :name, '
+                . 'nld = :nld, '
+                . 'nlm = :nlm, '
+                . 'nls = :nls, '
+                . 'eld = :eld, '
+                . 'elm = :elm, '
+                . 'els = :els, '
+                . 'coordinate_stage = :coordinate_stage, '
+                . 'address = :address, '
+                . 'phone_number = :phone_number, '
+                . 'date_building = :date_building, '
+                . 'date_drilling = :date_drilling, '
+                . 'date_demount = :date_demount, '
+                . 'date_transfer = :date_transfer, '
+                . 'date_refresh = :date_refresh, '
+                . 'email = :email, '
+                . 'note = :note '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':number', $options['number'], PDO::PARAM_STR);
+        $result->bindParam(':drill_type_id', $options['drill_type_id'], PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':nld', $options['nld'], PDO::PARAM_INT);
+        $result->bindParam(':nlm', $options['nlm'], PDO::PARAM_INT);
+        $result->bindParam(':nls', $options['nls'], PDO::PARAM_STR);
+        $result->bindParam(':eld', $options['eld'], PDO::PARAM_INT);
+        $result->bindParam(':elm', $options['elm'], PDO::PARAM_INT);
+        $result->bindParam(':els', $options['els'], PDO::PARAM_STR);
+        $result->bindParam(':coordinate_stage', $options['coordinate_stage'], PDO::PARAM_INT);
+        $result->bindParam(':address', $options['address'], PDO::PARAM_STR);
+        $result->bindParam(':phone_number', $options['phone_number'], PDO::PARAM_STR);
+        $result->bindParam(':date_building', $options['date_building'], PDO::PARAM_STR);
+        $result->bindParam(':date_drilling', $options['date_drilling'], PDO::PARAM_STR);
+        $result->bindParam(':date_demount', $options['date_demount'], PDO::PARAM_STR);
+        $result->bindParam(':date_transfer', $options['date_transfer'], PDO::PARAM_STR);
+        $result->bindParam(':date_refresh', $options['date_refresh'], PDO::PARAM_STR);
+        $result->bindParam(':email', $options['email'], PDO::PARAM_STR);
+        $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        
+        return $result->execute();
     }
 }

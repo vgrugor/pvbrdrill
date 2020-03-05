@@ -20,6 +20,7 @@
         'admin/drilltype' => 'AdminDrillType/index',                        //Админка со списком типов буровых
         
         'admin/drill/create' => 'AdminDrill/create',                        //Добавление буровой
+        'admin/drill/update/([0-9]+)' => 'AdminDrill/update/$1',            //Редактирование информации о буровой
         'admin/drill/delete/([0-9]+)' => 'AdminDrill/delete/$1',            //Удаление буровых
         'admin/drill' => 'AdminDrill/index',                                //Админка со списком буровых
         
