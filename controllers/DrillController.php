@@ -3,7 +3,7 @@
 class DrillController {
     
     /**
-     * 
+     * Общая информация о всех буровых
      * @return boolean
      */
     public function actionIndex() {
@@ -20,7 +20,7 @@ class DrillController {
     }
     
     /**
-     * Возвращает подробную информацию о буровой по ее id
+     * Страница подробной информации о буровой по ее id
      * @param type $id
      * @return boolean
      */

@@ -78,7 +78,7 @@
             <p><strong>Дата початку монтажу:</strong></p>
         </div>
         <div class="col-sm-5">
-            <?=$drillItem['date_building']?>
+            <?=Drill::getDate($drillItem['date_building'])?>
         </div>
     </div>
     <div class="row">
@@ -86,7 +86,7 @@
             <p><strong>Дата початку буріння:</strong></p>
         </div>
         <div class="col-sm-5">
-            <?=$drillItem['date_drilling']?>
+            <?=Drill::getDate($drillItem['date_drilling'])?>
         </div>
     </div>
     <div class="row">
@@ -94,7 +94,7 @@
             <p><strong>Дата початку демонтажу:</strong></p>
         </div>
         <div class="col-sm-5">
-            <?=$drillItem['date_demount']?>
+            <?=Drill::getDate($drillItem['date_demount'])?>
         </div>
     </div>
     <div class="row">
@@ -102,7 +102,7 @@
             <p><strong>Дата передачі в експлуатацію:</strong></p>
         </div>
         <div class="col-sm-5">
-            <?=$drillItem['date_transfer']?>
+            <?=Drill::getDate($drillItem['date_transfer'])?>
         </div>
     </div>
     <div class="row">
@@ -110,7 +110,7 @@
             <p><strong>Дата оновлення інформації:</strong></p>
         </div>
         <div class="col-sm-5">
-            <?=$drillItem['date_refresh']?>
+            <?=Drill::getDate($drillItem['date_refresh'])?>
         </div>
     </div>
     <hr>
@@ -147,7 +147,7 @@
                           <td><a href="/worker/<?=$worker['id']?>"><?=$worker['name']?></a></td>
                           <td><?=$worker['phone_number']?></td>
                           <td><?=$worker['email']?></td>
-                          <td><?=$worker['date_refresh']?></td>
+                          <td><?=Drill::getDate($worker['date_refresh'])?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

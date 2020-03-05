@@ -1,7 +1,7 @@
 <?php
 
 
-class Drill {
+class Drill extends ModelBase {
     
     /**
      * Возвращает информацию о одной буровой по ее id
@@ -71,11 +71,11 @@ class Drill {
             $drillList[$i]['coordinate_stage'] = self::getStepOfObtainingCoordinates($row['coordinate_stage']);
             $drillList[$i]['address'] = $row['address'];
             $drillList[$i]['phone_number'] = $row['phone_number'];
-            $drillList[$i]['date_building'] = self::displayDate($row['date_building']);
-            $drillList[$i]['date_drilling'] = self::displayDate($row['date_drilling']);
-            $drillList[$i]['date_demount'] = self::displayDate($row['date_demount']);
-            $drillList[$i]['date_transfer'] = self::displayDate($row['date_transfer']);
-            $drillList[$i]['date_refresh'] = self::displayDate($row['date_refresh']);
+            $drillList[$i]['date_building'] = $row['date_building'];
+            $drillList[$i]['date_drilling'] = $row['date_drilling'];
+            $drillList[$i]['date_demount'] = $row['date_demount'];
+            $drillList[$i]['date_transfer'] = $row['date_transfer'];
+            $drillList[$i]['date_refresh'] = $row['date_refresh'];
             $drillList[$i]['stage'] = self::getStageDrilling($row['date_building'], $row['date_drilling'], $row['date_demount'], $row['date_transfer']);
             $drillList[$i]['email'] = $row['email'];
             $drillList[$i]['note'] = $row['note'];
@@ -176,16 +176,21 @@ class Drill {
         
         $date = time();
         
+        $timestampDateBuilding = strtotime($dateBuilding);
+        $timestampDateDrilling = strtotime($dateDrilling);
+        $timestampDateDemount = strtotime($dateDemount);
+        $timestampDateTransfer = strtotime($dateTransfer);
+        
         //если не заданы значения
-        if ($dateTransfer == 0) return '-';
+        if ($timestampDateTransfer == 0) return '-';
         
-        if ($date > $dateTransfer) return 'Передано';
+        if ($date > $timestampDateTransfer) return 'Передано';
         
-        if ($date > $dateDemount) return 'Демонтаж';
+        if ($date > $timestampDateDemount) return 'Демонтаж';
         
-        if ($date > $dateDrilling) return 'Буріння';
+        if ($date > $timestampDateDrilling) return 'Буріння';
         
-        if ($date > $dateBuilding) return 'Монтаж';
+        if ($date > $timestampDateBuilding) return 'Монтаж';
         
         return  'Планується';
     }

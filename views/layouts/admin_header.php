@@ -16,8 +16,17 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="/">Головна</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/drilllist">Бурові</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Свердловини</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/drilllist">Загальна інформація</a>
+                        <a class="dropdown-item" href="#">Стан інтернету</a>
+                        <a class="dropdown-item" href="#">Килим буріння</a>
+                        <a class="dropdown-item" href="#">Контакти</a>
+                        <a class="dropdown-item" href="#">Розташування</a>
+                        <a class="dropdown-item" href="#">Матриця відстаней</a>
+                        <a class="dropdown-item" href="#">Карта</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/workerlist">Працівники</a>

@@ -1,6 +1,6 @@
 <?php
 
-class Worker {
+class Worker extends ModelBase {
     
     const SHOW_BY_DEFAULT = 10;  //работников на странице
     
@@ -44,7 +44,6 @@ class Worker {
         $result->execute();
             
         $workerItem = $result->fetch();
-        $workerItem['worker_refresh'] = Worker::displayDate($workerItem['worker_refresh']);
             
         return $workerItem;
     }
@@ -84,7 +83,7 @@ class Worker {
                 $workers[$i]['position_name'] = $row['position_name'];
                 $workers[$i]['phone_number'] = $row['phone_number'];
                 $workers[$i]['email'] = $row['email'];
-                $workers[$i]['date_refresh'] = self::displayDate($row['date_refresh']);
+                $workers[$i]['date_refresh'] = $row['date_refresh'];
                 $i++;
             }
             

@@ -93,7 +93,7 @@
             </div>
             <div class="form-group">
                 <label for="date_refresh">Дата оновлення інформації</label>
-                <input type="date" name="date_refresh" value="<?=$worker['date_refresh']?>" id="date_refresh" class="form-control">
+                <input type="date" name="date_refresh" value="<?=$worker['worker_refresh']?>" id="date_refresh" class="form-control">
             </div>
             <div class="form-group">
                 <label for="note">Примітка</label>

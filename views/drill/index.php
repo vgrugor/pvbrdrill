@@ -2,6 +2,7 @@
 
                     <div class="row">
                          <div class="col-sm-12">
+                             <h1 class="text-center">Свердловини Полтавського ВБР</h1>
                             <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
@@ -76,11 +77,11 @@
                                             <tr>
                                                 <td><a href="drill/<?=$drillItem['id']?>"> <?=$drillItem['name']?></a></td>
                                                 <td><?=$drillItem['stage']?></td>
-                                                <td><?=$drillItem['date_building']?></td>
-                                                <td><?=$drillItem['date_drilling']?></td>
-                                                <td><?=$drillItem['date_demount']?></td>
-                                                <td><?=$drillItem['date_transfer']?></td>
-                                                <td><?=$drillItem['date_refresh']?></td>
+                                                <td><?=Drill::getDate($drillItem['date_building'])?></td>
+                                                <td><?=Drill::getDate($drillItem['date_drilling'])?></td>
+                                                <td><?=Drill::getDate($drillItem['date_demount'])?></td>
+                                                <td><?=Drill::getDate($drillItem['date_transfer'])?></td>
+                                                <td><?=Drill::getDate($drillItem['date_refresh'])?></td>
                                                 <td><?=$drillItem['note']?></td>
                                             </tr>
                                             <?php endforeach; ?>
