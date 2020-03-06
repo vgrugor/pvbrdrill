@@ -147,23 +147,7 @@ class Drill extends ModelBase {
         
         return 'В бурінні';
     }
-    
-    /**
-     * Преобразовывает timestamp int в формат dd.mm.yyyy
-     * @param int $timestamp
-     * @return string
-     */
-    public static function displayDate($timestamp) {
-        
-        $timestamp = intval($timestamp);
-        
-        if (! $timestamp) {
-            return '-';
-        }
-        
-        return date('d.m.Y', $timestamp);
-    }
-    
+      
     /**
      * Возвращает этап бурения скважины
      * @param int $dateBuilding
