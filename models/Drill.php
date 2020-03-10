@@ -39,54 +39,6 @@ class Drill extends ModelBase {
     }
     
     /**
-     * Возвращает всю информацию о буровых с таблицы drill
-     * @return array
-     */
-    public static function getInfoAboutDrills() {
-        
-        $db = Db::getConnection();
-        
-        $drillList = [];
-        
-        $result = $db->query('SELECT '
-                . 'drill.id, number, drill_type.name as type_name, drill.name, '
-                . 'nld, nlm, nls, eld, elm, els, coordinate_stage, address, phone_number,  '
-                . 'date_building, date_drilling, date_demount, date_transfer, date_refresh, '
-                . 'email, note '
-                . 'FROM drill '
-                . 'LEFT JOIN drill_type '
-                . 'ON drill.drill_type_id = drill_type.id '
-                . 'ORDER BY type_name');
-        
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-        
-        $i = 0;
-        while ($row = $result->fetch()) {
-            $drillList[$i]['id'] = $row['id'];
-            $drillList[$i]['number'] = $row['number'];
-            $drillList[$i]['type_name'] = $row['type_name'];
-            $drillList[$i]['name'] = $row['name'];
-            $drillList[$i]['geo'] = self::convertGeoCoordinateToString($row['nld'], $row['nlm'], $row['nls'], $row['eld'], $row['elm'], $row['els']);
-            $drillList[$i]['gps'] = self::convertCoordinateGeoToGPS($row['nld'], $row['nlm'], $row['nls'], $row['eld'], $row['elm'], $row['els']);
-            $drillList[$i]['coordinate_stage'] = self::getStepOfObtainingCoordinates($row['coordinate_stage']);
-            $drillList[$i]['address'] = $row['address'];
-            $drillList[$i]['phone_number'] = $row['phone_number'];
-            $drillList[$i]['date_building'] = $row['date_building'];
-            $drillList[$i]['date_drilling'] = $row['date_drilling'];
-            $drillList[$i]['date_demount'] = $row['date_demount'];
-            $drillList[$i]['date_transfer'] = $row['date_transfer'];
-            $drillList[$i]['date_refresh'] = $row['date_refresh'];
-            $drillList[$i]['stage'] = self::getStageDrilling($row['date_building'], $row['date_drilling'], $row['date_demount'], $row['date_transfer']);
-            $drillList[$i]['email'] = $row['email'];
-            $drillList[$i]['note'] = $row['note'];
-            $i++;
-        }
-        
-        return $drillList;
-                
-    }
-    
-    /**
      * Преобразует геолокацию в GPS-координаты
      * @param int $nDegress - градусы северной долготы
      * @param int $nMinutes - минуты северной долготы
@@ -142,23 +94,28 @@ class Drill extends ModelBase {
     public static function getStepOfObtainingCoordinates($steep) {
         
         if ($steep == 1) {
-            return 'При плануванні';
+            return 'В бурінні';
         }
-        
-        return 'В бурінні';
+        return 'При плануванні';
     }
       
     /**
      * Возвращает этап бурения скважины
-     * @param int $dateBuilding
-     * @param int $dateDrilling
-     * @param int $dateDemount
-     * @param int $dateTransfer
-     * @return string
+     * @param array $allDate <p>массив с датами изменения состояний, должен содержать ключи:</p>
+     * <p>date_building - дата начала монтажа</p>
+     * <p>date_drilling - дата начала бурения</p>
+     * <p>date_demount - дата начала демонтажа</p>
+     * <p>date_transfer - дата передачи заказчику</p>
+     * <p>@return string</p>
      */
-    private static function getStageDrilling($dateBuilding, $dateDrilling, $dateDemount, $dateTransfer) {
+    private static function getStageDrilling($allDate) {
         
         $date = time();
+        
+        $dateBuilding = $allDate['date_building'];
+        $dateDrilling = $allDate['date_drilling'];
+        $dateDemount = $allDate['date_demount'];
+        $dateTransfer = $allDate['date_transfer'];
         
         $timestampDateBuilding = strtotime($dateBuilding);
         $timestampDateDrilling = strtotime($dateDrilling);
@@ -319,5 +276,164 @@ class Drill extends ModelBase {
         $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
         
         return $result->execute();
+    }
+    
+    /**
+     * Информация о интернете на буровых
+     * @return array <p>массив с информацией о интернете на буровых</p>
+     */
+    public static function getInfoAboutInternet()
+    {
+        $db = Db::getConnection();
+        
+        $internetInfo = [];
+        
+        $sql = 'SELECT drill.name as drill '
+                . 'FROM drill';
+        
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $internetInfo[$i]['drill'] = $row['drill'];
+            $i++;
+        }
+        return $internetInfo;
+    }
+    
+    /**
+     * Информация о ковре бурения
+     * @return array <p>массив с информацией о ковре бурения</p>
+     */
+    public static function getCarpetDrilling()
+    {
+        $db = Db::getConnection();
+        
+        $carpet = [];
+        
+        $sql = 'SELECT drill.name as drill, '
+                . 'date_building, '
+                . 'date_drilling, '
+                . 'date_demount, '
+                . 'date_transfer, '
+                . 'date_refresh, '
+                . 'note '
+                . 'FROM drill';
+        
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $carpet[$i]['drill'] = $row['drill'];
+            $carpet[$i]['date_building'] = $row['date_building'];
+            $carpet[$i]['date_drilling'] = $row['date_drilling'];
+            $carpet[$i]['date_demount'] = $row['date_demount'];
+            $carpet[$i]['date_transfer'] = $row['date_transfer'];
+            $carpet[$i]['date_refresh'] = $row['date_refresh'];
+            $carpet[$i]['note'] = $row['note'];
+            $carpet[$i]['stage'] = Drill::getStageDrilling($row);
+            $i++;
+        }
+        return $carpet;
+    }
+    
+    /**
+     * Получение контактов буровой
+     * @return array <p>массив с контактами буровой</p>
+     */
+    public static function getContacts()
+    {
+        $db = Db::getConnection();
+        
+        $contacts = [];
+        
+        $sql = 'SELECT name as drill, '
+                . 'phone_number, '
+                . 'email, '
+                . 'address '
+                . 'FROM drill';
+        
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $contacts[$i]['drill'] = $row['drill'];
+            $contacts[$i]['phone_number'] = $row['phone_number'];
+            $contacts[$i]['email'] = $row['email'];
+            $contacts[$i]['address'] = $row['address'];
+            $i++;
+        }
+        return $contacts;
+    }
+    
+    /**
+     * Получение информации о расположении буровых
+     * @return array $location <p>массив с информациэй о расположении буровых</p>
+     */
+    public static function getLocation()
+    {
+        $db = Db::getConnection();
+        
+        $location = [];
+        
+        $sql = 'SELECT name as drill, '
+                . 'nld, nlm, nls, eld, elm, els, '
+                . 'coordinate_stage '
+                . 'FROM drill';
+        
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $location[$i]['drill'] = $row['drill'];
+            $location[$i]['coordinate_stage'] = self::getStepOfObtainingCoordinates($row['coordinate_stage']);
+            $location[$i]['geo'] = self::convertGeoCoordinateToString($row['nld'], $row['nlm'], $row['nls'], $row['eld'], $row['elm'], $row['els']);
+            $location[$i]['gps'] = self::convertCoordinateGeoToGPS($row['nld'], $row['nlm'], $row['nls'], $row['eld'], $row['elm'], $row['els']);
+            $i++;
+        }
+        return $location;
+    }
+    
+    /**
+     * Получение общей информации о буровой
+     * @return array <p>массив со свойствами буровой</p>
+     */
+    public static function getGeneralInfo()
+    {
+        $db = Db::getConnection();
+        
+        $general = [];
+        
+        $sql = 'SELECT drill.id as drill_id, '
+                . 'drill.name as drill, '
+                . 'number, '
+                . 'note, '
+                . 'date_building, '
+                . 'date_drilling, '
+                . 'date_demount, '
+                . 'date_transfer, '
+                . 'drill_type.name as type '
+                . 'FROM drill '
+                . 'LEFT JOIN drill_type '
+                . 'ON drill_type.id = drill.drill_type_id';
+        
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $general[$i]['id'] = $row['drill_id'];
+            $general[$i]['number'] = $row['number'];
+            $general[$i]['type'] = $row['type'];
+            $general[$i]['drill'] = $row['drill'];
+            $general[$i]['note'] = $row['note'];
+            $general[$i]['stage'] = Drill::getStageDrilling($row);
+            $i++;
+        }
+        return $general;
     }
 }

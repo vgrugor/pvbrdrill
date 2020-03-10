@@ -134,7 +134,7 @@ class Worker extends ModelBase {
             $workerList[$i]['phone_number'] = $row['phone_number'];
             $workerList[$i]['email'] = $row['email'];
             $workerList[$i]['vpn_status_name'] = $row['vpn_status_name'];
-            $workerList[$i]['date_refresh'] = self::displayDate($row['date_refresh']);
+            $workerList[$i]['date_refresh'] = $row['date_refresh'];
             $workerList[$i]['note'] = $row['note'];
             $i++;
         }
@@ -160,24 +160,6 @@ class Worker extends ModelBase {
         
     }
 
-    /**
-    * Преобразовывает timestamp int в формат dd.mm.yyyy
-    * @param int $timestamp Таймштамп времени
-    * @return string $date Дата в формате dd.mm.yyyy
-    */
-    private static function displayDate($timestamp) {
-        
-        $timestamp = intval($timestamp);
-        
-        if (! $timestamp) {
-            return '-';
-        }
-        
-        $date = date('d.m.Y', $timestamp);
-        
-        return $date;
-    }
-    
     /**
      * Транслитерация ФИО сотрудника
      * @param str $workerName ФИО сотрудника

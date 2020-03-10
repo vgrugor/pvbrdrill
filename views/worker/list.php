@@ -22,7 +22,7 @@
                   <td><?=$worker['position_name']?></td>
                   <td><?=$worker['email']?></td>
                   <td><?=$worker['vpn_status_name']?></td>
-                  <td><?=$worker['date_refresh']?></td>
+                  <td><?=Worker::getDate($worker['date_refresh'])?></td>
                   <td><?=$worker['note']?></td>
                 </tr>
             <?php endforeach; ?>

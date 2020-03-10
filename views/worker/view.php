@@ -108,7 +108,7 @@
 <hr>
 <div class="row">
     <div class="col-sm-4">
-        <p><strong>Працюэ за ПК:</strong></p>
+        <p><strong>Працює за ПК:</strong></p>
     </div>
     <div class="col">
         

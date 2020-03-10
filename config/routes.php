@@ -3,7 +3,12 @@
     return [
         
         'drill/([0-9]+)' => 'drill/view/$1',                                //детально о буровой
-        'drilllist' => 'drill/index',                                       //экшен actionList в контроллере DrillController
+        'drill/general' => 'drill/general',                      //экшен actionList в контроллере DrillController
+        'drill/internet' => 'drill/internet',                               //информация о состоянии интернета на буровых
+        'drill/carpet' => 'drill/carpetDrilling',                           //ковер бурения
+        'drill/contacts' => 'drill/contacts',                              //контакты буровой
+        'drill/location' => 'drill/location',                               //местонахождения буровых
+        'drill/distance' => 'drill/distance',                               //расстояния к буровым
         
         'workerlist/page-([0-9]+)' => 'worker/list/$1',                     //постраничный вывод списка работников
         'worker/([0-9]+)' => 'worker/view/$1', //
