@@ -55,6 +55,8 @@ class AdminDrillController extends AdminBase {
         
         $drillTypeList = DrillType::getDrillTypesList();
         
+        $actualStageList = ActualStage::getActualStageList();
+        
         $options['number'] = '';
         $options['drill_type_id'] = '';
         $options['name'] = '';
@@ -72,6 +74,8 @@ class AdminDrillController extends AdminBase {
         $options['date_demount'] = '';
         $options['date_transfer'] = '';
         $options['date_refresh'] = '';
+        $options['actual_stage_id'] = '';
+        $options['date_actual_stage_refresh'] = '';
         $options['email'] = '';
         $options['note'] = '';
         
@@ -93,6 +97,8 @@ class AdminDrillController extends AdminBase {
             $options['date_demount'] = $_POST['date_demount'];
             $options['date_transfer'] = $_POST['date_transfer'];
             $options['date_refresh'] = $_POST['date_refresh'];
+            $options['actual_stage_id'] = $_POST['actual_stage_id'];
+            $options['date_actual_stage_refresh'] = $_POST['date_actual_stage_refresh'];
             $options['email'] = $_POST['email'];
             $options['note'] = $_POST['note'];
             
@@ -154,6 +160,10 @@ class AdminDrillController extends AdminBase {
                 $errors[] = 'Дата оновлення інформації повинна відповідати формату дд.мм.рррр';
             }
             
+            if (!$this->validator->make($options['date_actual_stage_refresh'], ['date'])) {
+                $errors[] = 'Дата оновлення інформації про фактичний етап буріння повинна відповідати формату дд.мм.рррр';
+            }
+            
             if (!$this->validator->make($options['email'], ['email'])) {
                 $errors[] = 'Некоректний email';
             }
@@ -180,6 +190,8 @@ class AdminDrillController extends AdminBase {
         
         $drillTypeList = DrillType::getDrillTypesList();
         
+        $actualStageList = ActualStage::getActualStageList();
+        
         $drill = Drill::getDrillById($id);
         
         if (isset($_POST['submit'])) {
@@ -200,6 +212,8 @@ class AdminDrillController extends AdminBase {
             $drill['date_demount'] = $_POST['date_demount'];
             $drill['date_transfer'] = $_POST['date_transfer'];
             $drill['date_refresh'] = $_POST['date_refresh'];
+            $drill['actual_stage_id'] = $_POST['actual_stage_id'];
+            $drill['date_actual_stage_refresh'] = $_POST['date_actual_stage_refresh'];
             $drill['email'] = $_POST['email'];
             $drill['note'] = $_POST['note'];
             
@@ -259,6 +273,10 @@ class AdminDrillController extends AdminBase {
             
             if (!$this->validator->make($drill['date_refresh'], ['date'])) {
                 $errors[] = 'Дата оновлення інформації повинна відповідати формату дд.мм.рррр';
+            }
+            
+            if (!$this->validator->make($drill['date_actual_stage_refresh'], ['date'])) {
+                $errors[] = 'Дата оновлення інформації про фактичний етап буріння повинна відповідати формату дд.мм.рррр';
             }
             
             if (!$this->validator->make($drill['email'], ['email'])) {

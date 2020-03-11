@@ -98,6 +98,20 @@
                 <input type="date" name="date_refresh" value="<?=$options['date_refresh']?>" class="form-control" id="date_refresh">
             </div>
             <div class="form-group">
+                <label for="actual_stage_id">Вкажіть фактичний етап буріння</label>
+                <select name="actual_stage_id" id="actual_stage_id" class="form-control">
+                    <?php foreach ($actualStageList as $actualStageItem): ?>
+                        <option value="<?=$actualStageItem['id']?>" <?= $actualStageItem['id'] == $options['actual_stage_id'] ? 'selected' : ''?>>
+                            <?=$actualStageItem['name']?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date_actual_stage_refresh">Дата оновлення інформації про фактичний етап буріння</label>
+                <input type="date" name="date_actual_stage_refresh" value="<?=$options['date_actual_stage_refresh']?>" class="form-control" id="date_actual_stage_refresh">
+            </div>
+            <div class="form-group">
                 <label for="note">Примітка</label>
                 <textarea name="note" class="form-control" id="note"><?=$options['note']?></textarea>
             </div>

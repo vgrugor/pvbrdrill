@@ -19,6 +19,7 @@ class Drill extends ModelBase {
                 . 'drill.name, '
                 . 'nld, nlm, nls, eld, elm, els, coordinate_stage, address, phone_number,  '
                 . 'date_building, date_drilling, date_demount, date_transfer, date_refresh, '
+                . 'actual_stage_id, date_actual_stage_refresh, '
                 . 'email, note '
                 . 'FROM drill '
                 . 'LEFT JOIN drill_type '
@@ -191,11 +192,12 @@ class Drill extends ModelBase {
         $sql = 'INSERT IGNORE INTO drill (number, drill_type_id, name, nld, nlm, nls, '
                 . 'eld, elm, els, coordinate_stage, address, phone_number, '
                 . 'date_building, date_drilling, date_demount, date_transfer, '
-                . 'date_refresh, email, note) '
+                . 'date_refresh, actual_stage_id, date_actual_stage_refresh, email, note) '
                 . 'VALUES '
                 . '(:number, :drill_type_id, :name, :nld, :nlm, :nls, :eld, :elm, :els, '
                 . ':coordinate_stage, :address, :phone_number, :date_building, :date_drilling, '
-                . ':date_demount, :date_transfer, :date_refresh, :email, :note)';
+                . ':date_demount, :date_transfer, :date_refresh, :actual_stage_id, '
+                . ':date_actual_stage_refresh, :email, :note)';
         
         $result = $db->prepare($sql);
         $result->bindParam(':number', $options['number'], PDO::PARAM_STR);
@@ -215,6 +217,8 @@ class Drill extends ModelBase {
         $result->bindParam(':date_demount', $options['date_demount'], PDO::PARAM_STR);
         $result->bindParam(':date_transfer', $options['date_transfer'], PDO::PARAM_STR);
         $result->bindParam(':date_refresh', $options['date_refresh'], PDO::PARAM_STR);
+        $result->bindParam(':actual_stage_id', $options['actual_stage_id'], PDO::PARAM_INT);
+        $result->bindParam(':date_actual_stage_refresh', $options['date_actual_stage_refresh'], PDO::PARAM_STR);
         $result->bindParam(':email', $options['email'], PDO::PARAM_STR);
         $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
         
@@ -231,7 +235,7 @@ class Drill extends ModelBase {
     {
         $db = Db::getConnection();
         
-        $sql = 'UPDATE drill SET '
+        $sql = 'UPDATE IGNORE drill SET '
                 . 'number = :number, '
                 . 'drill_type_id = :drill_type_id, '
                 . 'name = :name, '
@@ -249,6 +253,8 @@ class Drill extends ModelBase {
                 . 'date_demount = :date_demount, '
                 . 'date_transfer = :date_transfer, '
                 . 'date_refresh = :date_refresh, '
+                . 'actual_stage_id = :actual_stage_id, '
+                . 'date_actual_stage_refresh = :date_actual_stage_refresh, '
                 . 'email = :email, '
                 . 'note = :note '
                 . 'WHERE id = :id';
@@ -272,6 +278,8 @@ class Drill extends ModelBase {
         $result->bindParam(':date_demount', $options['date_demount'], PDO::PARAM_STR);
         $result->bindParam(':date_transfer', $options['date_transfer'], PDO::PARAM_STR);
         $result->bindParam(':date_refresh', $options['date_refresh'], PDO::PARAM_STR);
+        $result->bindParam(':actual_stage_id', $options['actual_stage_id'], PDO::PARAM_INT);
+        $result->bindParam(':date_actual_stage_refresh', $options['date_actual_stage_refresh'], PDO::PARAM_STR);
         $result->bindParam(':email', $options['email'], PDO::PARAM_STR);
         $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
         
