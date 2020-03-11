@@ -17,7 +17,7 @@ class ModelBase {
     {
         $timestamp = strtotime($date);
         
-        if ($timestamp) {
+        if ($timestamp > 0) {
             $date = date('d.m.Y', $timestamp);
             return $date;
         }

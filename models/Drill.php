@@ -424,10 +424,15 @@ class Drill extends ModelBase {
                 . 'date_drilling, '
                 . 'date_demount, '
                 . 'date_transfer, '
+                . 'actual_stage_id, '
+                . 'date_actual_stage_refresh, '
+                . 'actual_stage.name as stage_actual, '
                 . 'drill_type.name as type '
                 . 'FROM drill '
                 . 'LEFT JOIN drill_type '
-                . 'ON drill_type.id = drill.drill_type_id';
+                . 'ON drill_type.id = drill.drill_type_id '
+                . 'LEFT JOIN actual_stage '
+                . 'ON drill.actual_stage_id = actual_stage.id';
         
         $result = $db->query($sql);
         $result->setFetchMode(PDO::FETCH_ASSOC);
@@ -440,6 +445,8 @@ class Drill extends ModelBase {
             $general[$i]['drill'] = $row['drill'];
             $general[$i]['note'] = $row['note'];
             $general[$i]['stage'] = Drill::getStageDrilling($row);
+            $general[$i]['stage_actual'] = $row['stage_actual'];
+            $general[$i]['date_actual_stage_refresh'] = Drill::getDate($row['date_actual_stage_refresh']);
             $i++;
         }
         return $general;

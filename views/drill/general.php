@@ -9,7 +9,8 @@
                     <th scope="col">№</th>
                     <th scope="col">Тип</th>
                     <th scope="col">Назва</th>
-                    <th scope="col">Етап</th>
+                    <th scope="col">Етап за килимом</th>
+                    <th scope="col">Етап фактично</th>
                     <th scope="col">Примітка</th>
                 </tr>
             </thead>
@@ -20,6 +21,7 @@
                         <td><?=$drillItem['type']?></td>
                         <td><a href="/drill/<?=$drillItem['id']?>"> <?=$drillItem['drill']?></a></td>
                         <td><?=$drillItem['stage']?></td>
+                        <td><?=$drillItem['stage_actual']?><br/>(<?=$drillItem['date_actual_stage_refresh']?>)</td>
                         <td><?=$drillItem['note']?></td>
                     </tr>
                 <?php endforeach; ?>
