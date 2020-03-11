@@ -44,6 +44,10 @@
                 <span class="badge">25</span>
             </li>
             <li class="list-group-item">
+                <a href="/admin/actualstage">Фактичні стадії буріння</a>
+                <span class="badge">25</span>
+            </li>
+            <li class="list-group-item">
                 <a href="/admin/user">Керування користувачами сайту</a>
                 <span class="badge">25</span>
             </li>

@@ -2,12 +2,12 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <h1 class="text-center">Керування статусами VPN</h1>
+        <h1 class="text-center">Керування фактичними стадіями буріння</h1>
         <br/>
         <p class="text-right">
-            <a href="/admin/vpnstatus/create">
+            <a href="/admin/actualstage/create">
                 <i class="fas fa-plus-circle"></i>
-                Додати статус для VPN
+                Додати фактичну стадію буріння
             </a>
         </p>
     </div>
@@ -24,15 +24,15 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($vpnStatuses as $vpnStatus): ?>
+                <?php foreach ($actualStageList as $actualStageItem): ?>
                 <tr>
-                    <th scope="row"><?=$vpnStatus['id']?></th>
-                    <td><?=$vpnStatus['name']?></td>
+                    <th scope="row"><?=$actualStageItem['id']?></th>
+                    <td><?=$actualStageItem['name']?></td>
                     <td>
-                        <a href="/admin/vpnstatus/update/<?=$vpnStatus['id']?>" title="Редагувати"><i class="far fa-edit"></i></a>
+                        <a href="/admin/actualstage/update/<?=$actualStageItem['id']?>" title="Редагувати"><i class="far fa-edit"></i></a>
                     </td>
                     <td>
-                        <a href="/admin/vpnstatus/delete/<?=$vpnStatus['id']?>" title="Видалити"><i class="far fa-trash-alt"></i></a>
+                        <a href="/admin/actualstage/delete/<?=$actualStageItem['id']?>" title="Видалити"><i class="far fa-trash-alt"></i></a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

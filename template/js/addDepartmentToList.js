@@ -1,6 +1,8 @@
  $( document ).ready(function() {
     $( "#organization_id" ).change(function () {
         addItemDepartmentsDropDown();
+        var now = new Date();
+        alert( now );
     });
     
     $( "#department_id" ).change(function () {

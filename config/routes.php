@@ -3,7 +3,7 @@
     return [
         
         'drill/([0-9]+)' => 'drill/view/$1',                                //детально о буровой
-        'drill/general' => 'drill/general',                      //экшен actionList в контроллере DrillController
+        'drill/general' => 'drill/general',                                 //экшен actionList в контроллере DrillController
         'drill/internet' => 'drill/internet',                               //информация о состоянии интернета на буровых
         'drill/carpet' => 'drill/carpetDrilling',                           //ковер бурения
         'drill/contacts' => 'drill/contacts',                              //контакты буровой
@@ -67,6 +67,11 @@
         'admin/vpnstatus/create' => 'AdminVpnStatus/create',                //создание статуса VPN
         'admin/vpnstatus/delete/([0-9]+)' => 'AdminVpnStatus/delete/$1',    //удаление статуса vpn
         'admin/vpnstatus' => 'AdminVpnStatus/index',                        //Админка со списком работников
+        
+        'admin/actualstage/update/([0-9]+)' => 'AdminActualStage/update/$1',//редактирование фактической стадий бурения
+        'admin/actualstage/create' => 'AdminActualStage/create',            //добавление фактической стадий бурения
+        'admin/actualstage/delete/([0-9]+)' => 'AdminActualStage/delete/$1', //удаление фактической стадий бурения
+        'admin/actualstage' => 'AdminActualStage/index',                    //админка со списком фактических стадий бурения
         
         'admin/user/update/([0-9]+)' => 'AdminUser/update/$1',              //Редактирование информации о пользователе
         'admin/user/create' => 'AdminUser/create',                          //добавление пользователя
