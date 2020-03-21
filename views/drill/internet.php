@@ -18,7 +18,7 @@
             <tbody class="table-striped">
                 <?php foreach ($internetInfoList as $internetInfoItem): ?>
                     <tr>
-                        <td><a href="drill/<?=$internetInfoItem['id']?>"> <?=$internetInfoItem['drill']?></a></td>
+                        <td><a href="/drill/<?=$internetInfoItem['id']?>"> <?=$internetInfoItem['drill']?></a></td>
                         <td><?=$internetInfoItem['drill']?></td>
                         <td><?=$internetInfoItem['drill']?></td>
                         <td><?=$internetInfoItem['drill']?></td>

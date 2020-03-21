@@ -19,7 +19,7 @@
         <p><strong>Обліковий запис в AD:</strong></p>
     </div>
     <div class="col">
-        
+        <?=$workerItem['account_ad']?>
     </div>
 </div>
 <hr>

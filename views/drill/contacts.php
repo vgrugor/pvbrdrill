@@ -15,7 +15,7 @@
             <tbody class="table-striped">
                 <?php foreach ($contactsList as $contactsItem): ?>
                     <tr>
-                        <td><a href="drill/<?=$contactsItem['id']?>"> <?=$contactsItem['drill']?></a></td>
+                        <td><a href="/drill/<?=$contactsItem['id']?>"> <?=$contactsItem['drill']?></a></td>
                         <td><?=$contactsItem['phone_number']?></td>
                         <td><a href="mailto:<?=$contactsItem['email']?>"><?=$contactsItem['email']?></a></td>
                         <td><?=$contactsItem['address']?></td>

@@ -2,6 +2,8 @@
 
 <div class="row">
     <div class="col-sm-12">
+        <h1 class="text-center">Список працівників</h1>
+        <br/>
         <table class="table">
           <thead class="thead-dark">
             <tr>

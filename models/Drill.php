@@ -124,7 +124,7 @@ class Drill extends ModelBase {
         $timestampDateTransfer = strtotime($dateTransfer);
         
         //если не заданы значения
-        if ($timestampDateTransfer == 0) return '-';
+        if ($dateTransfer == 0) return '-';
         
         if ($date > $timestampDateTransfer) return 'Передано';
         
@@ -296,7 +296,7 @@ class Drill extends ModelBase {
         
         $internetInfo = [];
         
-        $sql = 'SELECT drill.name as drill '
+        $sql = 'SELECT drill.id as id, drill.name as drill '
                 . 'FROM drill';
         
         $result = $db->query($sql);
@@ -304,6 +304,7 @@ class Drill extends ModelBase {
         
         $i = 0;
         while ($row = $result->fetch()) {
+            $internetInfo[$i]['id'] = $row['id'];
             $internetInfo[$i]['drill'] = $row['drill'];
             $i++;
         }
@@ -320,7 +321,7 @@ class Drill extends ModelBase {
         
         $carpet = [];
         
-        $sql = 'SELECT drill.name as drill, '
+        $sql = 'SELECT id, drill.name as drill, '
                 . 'date_building, '
                 . 'date_drilling, '
                 . 'date_demount, '
@@ -334,6 +335,7 @@ class Drill extends ModelBase {
         
         $i = 0;
         while ($row = $result->fetch()) {
+            $carpet[$i]['id'] = $row['id'];
             $carpet[$i]['drill'] = $row['drill'];
             $carpet[$i]['date_building'] = $row['date_building'];
             $carpet[$i]['date_drilling'] = $row['date_drilling'];
@@ -357,7 +359,7 @@ class Drill extends ModelBase {
         
         $contacts = [];
         
-        $sql = 'SELECT name as drill, '
+        $sql = 'SELECT id, name as drill, '
                 . 'phone_number, '
                 . 'email, '
                 . 'address '
@@ -368,6 +370,7 @@ class Drill extends ModelBase {
         
         $i = 0;
         while ($row = $result->fetch()) {
+            $contacts[$i]['id'] = $row['id'];
             $contacts[$i]['drill'] = $row['drill'];
             $contacts[$i]['phone_number'] = $row['phone_number'];
             $contacts[$i]['email'] = $row['email'];
@@ -387,7 +390,7 @@ class Drill extends ModelBase {
         
         $location = [];
         
-        $sql = 'SELECT name as drill, '
+        $sql = 'SELECT id, name as drill, '
                 . 'nld, nlm, nls, eld, elm, els, '
                 . 'coordinate_stage '
                 . 'FROM drill';
@@ -397,6 +400,7 @@ class Drill extends ModelBase {
         
         $i = 0;
         while ($row = $result->fetch()) {
+            $location[$i]['id'] = $row['id'];
             $location[$i]['drill'] = $row['drill'];
             $location[$i]['coordinate_stage'] = self::getStepOfObtainingCoordinates($row['coordinate_stage']);
             $location[$i]['geo'] = self::convertGeoCoordinateToString($row['nld'], $row['nlm'], $row['nls'], $row['eld'], $row['elm'], $row['els']);

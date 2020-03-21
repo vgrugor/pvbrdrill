@@ -104,10 +104,7 @@ class Worker extends ModelBase {
         
         $workerList = [];
         
-        //$result = $db->query('SELECT * '
-        //        . 'FROM worker ');
-        
-        $result = $db->query('SELECT '
+        $sql = 'SELECT '
                 . 'worker.id, worker.name, worker.phone_number, worker.email, '
                 . 'worker.date_refresh, worker.note, '
                 . 'drill.name AS drill_name, '
@@ -120,8 +117,12 @@ class Worker extends ModelBase {
                 . 'ON worker.position_id = position.id '
                 . 'LEFT JOIN vpn_status '
                 . 'ON worker.vpn_status_id = vpn_status.id '
+                . ' ORDER BY worker.name ASC '
                 . 'LIMIT ' . self::SHOW_BY_DEFAULT
-                . ' OFFSET ' . $offset);
+                . ' OFFSET ' . $offset
+                ;
+        
+        $result = $db->query($sql);
         
         $result->setFetchMode(PDO::FETCH_ASSOC);
         

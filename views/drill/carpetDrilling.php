@@ -20,7 +20,7 @@
             <tbody class="table-striped">
                 <?php foreach ($coverInfoList as $coverInfoItem): ?>
                     <tr>
-                        <td><a href="drill/<?=$coverInfoItem['id']?>"> <?=$coverInfoItem['drill']?></a></td>
+                        <td><a href="/drill/<?=$coverInfoItem['id']?>"> <?=$coverInfoItem['drill']?></a></td>
                         <td><?=$coverInfoItem['stage']?></td>
                         <td><?=Drill::getDate($coverInfoItem['date_building'])?></td>
                         <td><?=Drill::getDate($coverInfoItem['date_drilling'])?></td>

@@ -15,7 +15,7 @@
             <tbody class="table-striped">
                 <?php foreach ($locationList as $locationItem): ?>
                     <tr>
-                        <td><a href="drill/<?=$locationItem['id']?>"> <?=$locationItem['drill']?></a></td>
+                        <td><a href="/drill/<?=$locationItem['id']?>"> <?=$locationItem['drill']?></a></td>
                         <td><?=$locationItem['geo']?></td>
                         <td><?=$locationItem['gps']?></td>
                         <td><?=$locationItem['coordinate_stage']?></td>

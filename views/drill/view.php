@@ -1,7 +1,7 @@
 <?php require ROOT . '/views/layouts/header.php'; ?>
     
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-12">
             <h1><?=$drillItem['name']?></h1>
         </div>
     </div>
