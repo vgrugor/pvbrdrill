@@ -9,9 +9,10 @@ class Department {
     
     /**
      * Возвращает список всех отделов и информацию о них
+     * @param integer $id <p>необязательный. id организации для выборки отделов</p>
      * @return array <p>Массив с информацией о отделах</p>
      */
-    public static function getDepartmentsList()
+    public static function getDepartmentsList($id = 0)
     {
         $db = Db::getConnection();
         
@@ -23,12 +24,18 @@ class Department {
                 . 'organization.name as org_name '
                 . 'FROM department '
                 . 'LEFT JOIN organization '
-                . 'ON department.organization_id = organization.id '
-                . 'ORDER BY organization_id ASC';
+                . 'ON department.organization_id = organization.id ';
         
-        $result = $db->query($sql);
+        if ($id) {
+            $sql .= 'WHERE department.organization_id = :id ';
+        }
+                
+        $sql .= 'ORDER BY org_name ASC';
         
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
         
         $i=0;
         while ($row = $result->fetch()) {
@@ -50,7 +57,7 @@ class Department {
     {
         $db = Db::getConnection();
         
-        $sql = 'SELECT id, name, phone_number, note '
+        $sql = 'SELECT id, name, organization_id, phone_number, note '
                 . 'FROM department '
                 . 'WHERE id = :id';
         
@@ -97,6 +104,34 @@ class Department {
         $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
         $result->bindParam(':phone_number', $options['phone_number'], PDO::PARAM_STR);
         $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
+    
+    /**
+     * Обновление информации о отделе по его id
+     * @param integer $id <p>id отдела, информацию о котором нужно изменить</p>
+     * @param array $options <p>массив с информацией о отделе</p>
+     * @return boolean <p>результат выполнения запроса UPDATE</p>
+     */
+    public static function updateDepartmentById($id, $options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'UPDATE department SET '
+                . 'organization_id = :organization_id, '
+                . 'name = :name, '
+                . 'phone_number = :phone_number, '
+                . 'note = :note '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        
+        $result->bindParam(':organization_id', $options['organization_id'], PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':phone_number', $options['phone_number'], PDO::PARAM_STR);
+        $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        $result->bindParam(':id', $options['id'], PDO::PARAM_INT);
         
         return $result->execute();
     }

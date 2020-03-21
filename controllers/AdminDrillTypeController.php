@@ -74,4 +74,36 @@ class AdminDrillTypeController extends AdminBase {
         
         return true;
     }
+    
+    /**
+     * Страница редактирования типа буровой
+     * @param integer $id <p>id типа буровой, который следует отредактировать</p>
+     * @return boolean <p>для роутера</p>
+     */
+    public function actionUpdate($id)
+    {
+        self::checkAdmin();
+        
+        $drillType = DrillType::getDrillTypeById($id);
+        
+        if (isset($_POST['submit'])) {
+            $drillType['name'] = $_POST['name'];
+            
+            $errors = false;
+            
+            if (!$this->validator->make($drillType['name'], ['string', 4, 10])) {
+                $errors[] = 'Назва типу бурової має бути в межах від 4-х до 10 символів';
+            }
+            
+            if ($errors == false) {
+                DrillType::updateDrillTypeById($id, $drillType);
+                
+                header("Location: /admin/drilltype");
+            }
+        }
+        
+        require_once ROOT . '/views/admin_drilltype/update.php';
+        
+        return true;
+    }
 }

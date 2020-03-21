@@ -31,6 +31,12 @@ class WorkerController {
             
             $workerItem = Worker::getWorkerById($id);
             
+            $organization = Organization::getOrganizationById($workerItem['organization_id']);
+            
+            $department = Department::getDepartmentById($workerItem['department_id']);
+            
+            $division = Division::getDivisionById($workerItem['division_id']);
+            
             require_once ROOT . '/views/worker/view.php';
         }
         

@@ -1,18 +1,5 @@
-<?php require_once ROOT . '/views/layouts/header.php'; ?>
-<div class="row">
-    <div class="col-sm-12">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="/admin">Адміністрування</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Керування підрозділами
-                </li>
-            </ol>
-        </nav>
-    </div>
-</div>
+<?php require_once $this->getAdminHeader(); ?>
+
 <div class="row">
     <div class="col-sm-12">
         <br/>
@@ -31,6 +18,7 @@
             <thead>
                 <tr>
                     <th scope="col">id</th>
+                    <th scope="col">Організація</th>
                     <th scope="col">Відділ</th>
                     <th scope="col">Підрозділ</th>
                     <th scope="col">Примітка</th>
@@ -42,6 +30,7 @@
                 <?php foreach ($divisions as $division): ?>
                 <tr>
                     <th scope="row"><?=$division['id']?></th>
+                    <td><?=$division['organization']?></td>
                     <td><?=$division['department']?></td>
                     <td><?=$division['name']?></td>
                     <td><?=$division['note']?></td>
@@ -58,6 +47,6 @@
     </div>
 </div>
 
-<?php require_once ROOT . '/views/layouts/footer.php'; ?>
+<?php require_once $this->getAdminFooter(); ?>
 
 

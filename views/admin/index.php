@@ -1,4 +1,4 @@
-<?php require_once ROOT . '/views/layouts/header.php'; ?>
+<?php require_once $this->getAdminHeader(); ?>
 
 <div class="row">
     <div class="col-sm-12">
@@ -44,6 +44,10 @@
                 <span class="badge">25</span>
             </li>
             <li class="list-group-item">
+                <a href="/admin/actualstage">Фактичні стадії буріння</a>
+                <span class="badge">25</span>
+            </li>
+            <li class="list-group-item">
                 <a href="/admin/user">Керування користувачами сайту</a>
                 <span class="badge">25</span>
             </li>
@@ -51,6 +55,6 @@
     </div>
 </div>
 
-<?php require_once ROOT . '/views/layouts/footer.php'; ?>
+<?php require_once $this->getAdminFooter(); ?>
 
 

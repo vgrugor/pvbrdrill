@@ -1,21 +1,5 @@
 <?php require_once $this->getAdminHeader(); ?>
-<div class="row">
-    <div class="col">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="/admin">Адміністрування</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="/admin/user">Керування користувачами</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Додати користувача
-                </li>
-            </ol>
-        </nav>
-    </div>
-</div>
+
 <div class="row">
     <div class="col text-center">
         <h1>Додати нового користувача</h1>
@@ -51,5 +35,6 @@
         </form>
     </div>
 </div>
+
 <?php require_once $this->getAdminFooter(); ?>
 

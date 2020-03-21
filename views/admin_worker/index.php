@@ -1,18 +1,5 @@
-<?php require_once ROOT . '/views/layouts/header.php'; ?>
-<div class="row">
-    <div class="col-sm-12">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="/admin">Адміністрування</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Керування працівниками
-                </li>
-            </ol>
-        </nav>
-    </div>
-</div>
+<?php require_once $this->getAdminHeader(); ?>
+
 <div class="row">
         <div class="col-sm-12">
             <h2 class="text-center">Керування працівниками</h2>
@@ -46,7 +33,7 @@
                         <td><?=$worker['position_name']?></td>
                         <td><?=$worker['name']?></td>
                         <td><?=$worker['note']?></td>
-                        <td><a href="#" title="Створити заявку/">VPN</a></td>
+                        <td><a href="#" title="Створити заявку">+VPN</a></td>
                         <td>
                             <a href="/admin/worker/update/<?=$worker['id']?>" title="Редагувати"><i class="far fa-edit"></i></a>
                         </td>
@@ -62,5 +49,5 @@
             </nav>
         </div>
     </div>
-<?php require_once ROOT . '/views/layouts/footer.php'; ?>
 
+<?php require_once $this->getAdminFooter(); ?>

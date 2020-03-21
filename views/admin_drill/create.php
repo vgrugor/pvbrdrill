@@ -1,21 +1,5 @@
 <?php require_once $this->getAdminHeader(); ?>
-<div class="row">
-    <div class="col">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="/admin">Адміністрування</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="/admin/drill">Керування буровими</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Додати бурову
-                </li>
-            </ol>
-        </nav>
-    </div>
-</div>
+
 <div class="row">
     <div class="col">
         <h1 class="text-center">Додати нову бурову</h1>
@@ -112,6 +96,20 @@
             <div class="form-group">
                 <label for="date_refresh">Дата оновлення інформації</label>
                 <input type="date" name="date_refresh" value="<?=$options['date_refresh']?>" class="form-control" id="date_refresh">
+            </div>
+            <div class="form-group">
+                <label for="actual_stage_id">Вкажіть фактичний етап буріння</label>
+                <select name="actual_stage_id" id="actual_stage_id" class="form-control">
+                    <?php foreach ($actualStageList as $actualStageItem): ?>
+                        <option value="<?=$actualStageItem['id']?>" <?= $actualStageItem['id'] == $options['actual_stage_id'] ? 'selected' : ''?>>
+                            <?=$actualStageItem['name']?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date_actual_stage_refresh">Дата оновлення інформації про фактичний етап буріння</label>
+                <input type="date" name="date_actual_stage_refresh" value="<?=$options['date_actual_stage_refresh']?>" class="form-control" id="date_actual_stage_refresh">
             </div>
             <div class="form-group">
                 <label for="note">Примітка</label>

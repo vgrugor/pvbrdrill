@@ -1,21 +1,5 @@
-<?php require_once ROOT . '/views/layouts/header.php'; ?>
-<div class="row">
-    <div class="col">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="/admin">Адміністрування</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="/admin/internetstatus">Керування статусами інтернету</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Додати новий статус
-                </li>
-            </ol>
-        </nav>
-    </div>
-</div>
+<?php require_once $this->getAdminHeader(); ?>
+
 <div class="row">
     <div class="col text-center">
         <h1>Додавання нового статусу інтернету</h1>
@@ -40,5 +24,5 @@
         </form>
     </div>
 </div>
-<?php require_once ROOT . '/views/layouts/footer.php'; ?>
 
+<?php require_once $this->getAdminFooter(); ?>

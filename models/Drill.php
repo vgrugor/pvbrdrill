@@ -1,7 +1,7 @@
 <?php
 
 
-class Drill {
+class Drill extends ModelBase {
     
     /**
      * Возвращает информацию о одной буровой по ее id
@@ -15,9 +15,11 @@ class Drill {
             $db = Db::getConnection();
             
             $result = $db->query('SELECT '
-                . 'drill.id, number, drill_type.name as type, drill.name, '
+                . 'drill.id, number, drill_type.name as type, drill_type.id as drill_type_id, '
+                . 'drill.name, '
                 . 'nld, nlm, nls, eld, elm, els, coordinate_stage, address, phone_number,  '
                 . 'date_building, date_drilling, date_demount, date_transfer, date_refresh, '
+                . 'actual_stage_id, date_actual_stage_refresh, '
                 . 'email, note '
                 . 'FROM drill '
                 . 'LEFT JOIN drill_type '
@@ -32,63 +34,9 @@ class Drill {
             $drillItem['gps'] = self::convertCoordinateGeoToGPS($drillItem['nld'], $drillItem['nlm'], $drillItem['nls'], $drillItem['eld'], $drillItem['elm'], $drillItem['els']);
             $drillItem['geo'] = self::convertGeoCoordinateToString($drillItem['nld'], $drillItem['nlm'], $drillItem['nls'], $drillItem['eld'], $drillItem['elm'], $drillItem['els']);
             $drillItem['coordinate_stage'] = self::getStepOfObtainingCoordinates($drillItem['coordinate_stage']);
-            $drillItem['date_building'] = self::displayDate($drillItem['date_building']);
-            $drillItem['date_drilling'] = self::displayDate($drillItem['date_drilling']);
-            $drillItem['date_demount'] = self::displayDate($drillItem['date_demount']);
-            $drillItem['date_transfer'] = self::displayDate($drillItem['date_transfer']);
-            $drillItem['date_refresh'] = self::displayDate($drillItem['date_refresh']);
             
             return $drillItem;
         }
-        
-    }
-    
-    /**
-     * Возвращает всю информацию о буровых с таблицы drill
-     * @return array
-     */
-    public static function getInfoAboutDrills() {
-        
-        $db = Db::getConnection();
-        
-        $drillList = [];
-        
-        $result = $db->query('SELECT '
-                . 'drill.id, number, drill_type.name as type_name, drill.name, '
-                . 'nld, nlm, nls, eld, elm, els, coordinate_stage, address, phone_number,  '
-                . 'date_building, date_drilling, date_demount, date_transfer, date_refresh, '
-                . 'email, note '
-                . 'FROM drill '
-                . 'LEFT JOIN drill_type '
-                . 'ON drill.drill_type_id = drill_type.id '
-                . 'ORDER BY type_name');
-        
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-        
-        $i = 0;
-        while ($row = $result->fetch()) {
-            $drillList[$i]['id'] = $row['id'];
-            $drillList[$i]['number'] = $row['number'];
-            $drillList[$i]['type_name'] = $row['type_name'];
-            $drillList[$i]['name'] = $row['name'];
-            $drillList[$i]['geo'] = self::convertGeoCoordinateToString($row['nld'], $row['nlm'], $row['nls'], $row['eld'], $row['elm'], $row['els']);
-            $drillList[$i]['gps'] = self::convertCoordinateGeoToGPS($row['nld'], $row['nlm'], $row['nls'], $row['eld'], $row['elm'], $row['els']);
-            $drillList[$i]['coordinate_stage'] = self::getStepOfObtainingCoordinates($row['coordinate_stage']);
-            $drillList[$i]['address'] = $row['address'];
-            $drillList[$i]['phone_number'] = $row['phone_number'];
-            $drillList[$i]['date_building'] = self::displayDate($row['date_building']);
-            $drillList[$i]['date_drilling'] = self::displayDate($row['date_drilling']);
-            $drillList[$i]['date_demount'] = self::displayDate($row['date_demount']);
-            $drillList[$i]['date_transfer'] = self::displayDate($row['date_transfer']);
-            $drillList[$i]['date_refresh'] = self::displayDate($row['date_refresh']);
-            $drillList[$i]['stage'] = self::getStageDrilling($row['date_building'], $row['date_drilling'], $row['date_demount'], $row['date_transfer']);
-            $drillList[$i]['email'] = $row['email'];
-            $drillList[$i]['note'] = $row['note'];
-            $i++;
-        }
-        
-        return $drillList;
-                
     }
     
     /**
@@ -147,50 +95,44 @@ class Drill {
     public static function getStepOfObtainingCoordinates($steep) {
         
         if ($steep == 1) {
-            return 'При плануванні';
+            return 'В бурінні';
         }
-        
-        return 'В бурінні';
+        return 'При плануванні';
     }
-    
-    /**
-     * Преобразовывает timestamp int в формат dd.mm.yyyy
-     * @param int $timestamp
-     * @return string
-     */
-    public static function displayDate($timestamp) {
-        
-        $timestamp = intval($timestamp);
-        
-        if (! $timestamp) {
-            return '-';
-        }
-        
-        return date('d.m.Y', $timestamp);
-    }
-    
+      
     /**
      * Возвращает этап бурения скважины
-     * @param int $dateBuilding
-     * @param int $dateDrilling
-     * @param int $dateDemount
-     * @param int $dateTransfer
-     * @return string
+     * @param array $allDate <p>массив с датами изменения состояний, должен содержать ключи:</p>
+     * <p>date_building - дата начала монтажа</p>
+     * <p>date_drilling - дата начала бурения</p>
+     * <p>date_demount - дата начала демонтажа</p>
+     * <p>date_transfer - дата передачи заказчику</p>
+     * <p>@return string</p>
      */
-    private static function getStageDrilling($dateBuilding, $dateDrilling, $dateDemount, $dateTransfer) {
+    private static function getStageDrilling($allDate) {
         
         $date = time();
+        
+        $dateBuilding = $allDate['date_building'];
+        $dateDrilling = $allDate['date_drilling'];
+        $dateDemount = $allDate['date_demount'];
+        $dateTransfer = $allDate['date_transfer'];
+        
+        $timestampDateBuilding = strtotime($dateBuilding);
+        $timestampDateDrilling = strtotime($dateDrilling);
+        $timestampDateDemount = strtotime($dateDemount);
+        $timestampDateTransfer = strtotime($dateTransfer);
         
         //если не заданы значения
         if ($dateTransfer == 0) return '-';
         
-        if ($date > $dateTransfer) return 'Передано';
+        if ($date > $timestampDateTransfer) return 'Передано';
         
-        if ($date > $dateDemount) return 'Демонтаж';
+        if ($date > $timestampDateDemount) return 'Демонтаж';
         
-        if ($date > $dateDrilling) return 'Буріння';
+        if ($date > $timestampDateDrilling) return 'Буріння';
         
-        if ($date > $dateBuilding) return 'Монтаж';
+        if ($date > $timestampDateBuilding) return 'Монтаж';
         
         return  'Планується';
     }
@@ -250,11 +192,12 @@ class Drill {
         $sql = 'INSERT IGNORE INTO drill (number, drill_type_id, name, nld, nlm, nls, '
                 . 'eld, elm, els, coordinate_stage, address, phone_number, '
                 . 'date_building, date_drilling, date_demount, date_transfer, '
-                . 'date_refresh, email, note) '
+                . 'date_refresh, actual_stage_id, date_actual_stage_refresh, email, note) '
                 . 'VALUES '
                 . '(:number, :drill_type_id, :name, :nld, :nlm, :nls, :eld, :elm, :els, '
                 . ':coordinate_stage, :address, :phone_number, :date_building, :date_drilling, '
-                . ':date_demount, :date_transfer, :date_refresh, :email, :note)';
+                . ':date_demount, :date_transfer, :date_refresh, :actual_stage_id, '
+                . ':date_actual_stage_refresh, :email, :note)';
         
         $result = $db->prepare($sql);
         $result->bindParam(':number', $options['number'], PDO::PARAM_STR);
@@ -274,9 +217,242 @@ class Drill {
         $result->bindParam(':date_demount', $options['date_demount'], PDO::PARAM_STR);
         $result->bindParam(':date_transfer', $options['date_transfer'], PDO::PARAM_STR);
         $result->bindParam(':date_refresh', $options['date_refresh'], PDO::PARAM_STR);
+        $result->bindParam(':actual_stage_id', $options['actual_stage_id'], PDO::PARAM_INT);
+        $result->bindParam(':date_actual_stage_refresh', $options['date_actual_stage_refresh'], PDO::PARAM_STR);
         $result->bindParam(':email', $options['email'], PDO::PARAM_STR);
         $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
         
         return $result->execute();;
+    }
+    
+    /**
+     * Обновление информации о сотруднике
+     * @param integer $id <p>id сотрудника, информацию о котором необходимо обновить</p>
+     * @param array $options <p>массив с информацией о сотруднике</p>
+     * @return boolean <p>результат выполнения запроса UPDATE</p>
+     */
+    public static function updateDrillById($id, $options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'UPDATE IGNORE drill SET '
+                . 'number = :number, '
+                . 'drill_type_id = :drill_type_id, '
+                . 'name = :name, '
+                . 'nld = :nld, '
+                . 'nlm = :nlm, '
+                . 'nls = :nls, '
+                . 'eld = :eld, '
+                . 'elm = :elm, '
+                . 'els = :els, '
+                . 'coordinate_stage = :coordinate_stage, '
+                . 'address = :address, '
+                . 'phone_number = :phone_number, '
+                . 'date_building = :date_building, '
+                . 'date_drilling = :date_drilling, '
+                . 'date_demount = :date_demount, '
+                . 'date_transfer = :date_transfer, '
+                . 'date_refresh = :date_refresh, '
+                . 'actual_stage_id = :actual_stage_id, '
+                . 'date_actual_stage_refresh = :date_actual_stage_refresh, '
+                . 'email = :email, '
+                . 'note = :note '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':number', $options['number'], PDO::PARAM_STR);
+        $result->bindParam(':drill_type_id', $options['drill_type_id'], PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':nld', $options['nld'], PDO::PARAM_INT);
+        $result->bindParam(':nlm', $options['nlm'], PDO::PARAM_INT);
+        $result->bindParam(':nls', $options['nls'], PDO::PARAM_STR);
+        $result->bindParam(':eld', $options['eld'], PDO::PARAM_INT);
+        $result->bindParam(':elm', $options['elm'], PDO::PARAM_INT);
+        $result->bindParam(':els', $options['els'], PDO::PARAM_STR);
+        $result->bindParam(':coordinate_stage', $options['coordinate_stage'], PDO::PARAM_INT);
+        $result->bindParam(':address', $options['address'], PDO::PARAM_STR);
+        $result->bindParam(':phone_number', $options['phone_number'], PDO::PARAM_STR);
+        $result->bindParam(':date_building', $options['date_building'], PDO::PARAM_STR);
+        $result->bindParam(':date_drilling', $options['date_drilling'], PDO::PARAM_STR);
+        $result->bindParam(':date_demount', $options['date_demount'], PDO::PARAM_STR);
+        $result->bindParam(':date_transfer', $options['date_transfer'], PDO::PARAM_STR);
+        $result->bindParam(':date_refresh', $options['date_refresh'], PDO::PARAM_STR);
+        $result->bindParam(':actual_stage_id', $options['actual_stage_id'], PDO::PARAM_INT);
+        $result->bindParam(':date_actual_stage_refresh', $options['date_actual_stage_refresh'], PDO::PARAM_STR);
+        $result->bindParam(':email', $options['email'], PDO::PARAM_STR);
+        $result->bindParam(':note', $options['note'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
+    
+    /**
+     * Информация о интернете на буровых
+     * @return array <p>массив с информацией о интернете на буровых</p>
+     */
+    public static function getInfoAboutInternet()
+    {
+        $db = Db::getConnection();
+        
+        $internetInfo = [];
+        
+        $sql = 'SELECT drill.id as id, drill.name as drill '
+                . 'FROM drill';
+        
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $internetInfo[$i]['id'] = $row['id'];
+            $internetInfo[$i]['drill'] = $row['drill'];
+            $i++;
+        }
+        return $internetInfo;
+    }
+    
+    /**
+     * Информация о ковре бурения
+     * @return array <p>массив с информацией о ковре бурения</p>
+     */
+    public static function getCarpetDrilling()
+    {
+        $db = Db::getConnection();
+        
+        $carpet = [];
+        
+        $sql = 'SELECT id, drill.name as drill, '
+                . 'date_building, '
+                . 'date_drilling, '
+                . 'date_demount, '
+                . 'date_transfer, '
+                . 'date_refresh, '
+                . 'note '
+                . 'FROM drill';
+        
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $carpet[$i]['id'] = $row['id'];
+            $carpet[$i]['drill'] = $row['drill'];
+            $carpet[$i]['date_building'] = $row['date_building'];
+            $carpet[$i]['date_drilling'] = $row['date_drilling'];
+            $carpet[$i]['date_demount'] = $row['date_demount'];
+            $carpet[$i]['date_transfer'] = $row['date_transfer'];
+            $carpet[$i]['date_refresh'] = $row['date_refresh'];
+            $carpet[$i]['note'] = $row['note'];
+            $carpet[$i]['stage'] = Drill::getStageDrilling($row);
+            $i++;
+        }
+        return $carpet;
+    }
+    
+    /**
+     * Получение контактов буровой
+     * @return array <p>массив с контактами буровой</p>
+     */
+    public static function getContacts()
+    {
+        $db = Db::getConnection();
+        
+        $contacts = [];
+        
+        $sql = 'SELECT id, name as drill, '
+                . 'phone_number, '
+                . 'email, '
+                . 'address '
+                . 'FROM drill';
+        
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $contacts[$i]['id'] = $row['id'];
+            $contacts[$i]['drill'] = $row['drill'];
+            $contacts[$i]['phone_number'] = $row['phone_number'];
+            $contacts[$i]['email'] = $row['email'];
+            $contacts[$i]['address'] = $row['address'];
+            $i++;
+        }
+        return $contacts;
+    }
+    
+    /**
+     * Получение информации о расположении буровых
+     * @return array $location <p>массив с информациэй о расположении буровых</p>
+     */
+    public static function getLocation()
+    {
+        $db = Db::getConnection();
+        
+        $location = [];
+        
+        $sql = 'SELECT id, name as drill, '
+                . 'nld, nlm, nls, eld, elm, els, '
+                . 'coordinate_stage '
+                . 'FROM drill';
+        
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $location[$i]['id'] = $row['id'];
+            $location[$i]['drill'] = $row['drill'];
+            $location[$i]['coordinate_stage'] = self::getStepOfObtainingCoordinates($row['coordinate_stage']);
+            $location[$i]['geo'] = self::convertGeoCoordinateToString($row['nld'], $row['nlm'], $row['nls'], $row['eld'], $row['elm'], $row['els']);
+            $location[$i]['gps'] = self::convertCoordinateGeoToGPS($row['nld'], $row['nlm'], $row['nls'], $row['eld'], $row['elm'], $row['els']);
+            $i++;
+        }
+        return $location;
+    }
+    
+    /**
+     * Получение общей информации о буровой
+     * @return array <p>массив со свойствами буровой</p>
+     */
+    public static function getGeneralInfo()
+    {
+        $db = Db::getConnection();
+        
+        $general = [];
+        
+        $sql = 'SELECT drill.id as drill_id, '
+                . 'drill.name as drill, '
+                . 'number, '
+                . 'note, '
+                . 'date_building, '
+                . 'date_drilling, '
+                . 'date_demount, '
+                . 'date_transfer, '
+                . 'actual_stage_id, '
+                . 'date_actual_stage_refresh, '
+                . 'actual_stage.name as stage_actual, '
+                . 'drill_type.name as type '
+                . 'FROM drill '
+                . 'LEFT JOIN drill_type '
+                . 'ON drill_type.id = drill.drill_type_id '
+                . 'LEFT JOIN actual_stage '
+                . 'ON drill.actual_stage_id = actual_stage.id';
+        
+        $result = $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $general[$i]['id'] = $row['drill_id'];
+            $general[$i]['number'] = $row['number'];
+            $general[$i]['type'] = $row['type'];
+            $general[$i]['drill'] = $row['drill'];
+            $general[$i]['note'] = $row['note'];
+            $general[$i]['stage'] = Drill::getStageDrilling($row);
+            $general[$i]['stage_actual'] = $row['stage_actual'];
+            $general[$i]['date_actual_stage_refresh'] = Drill::getDate($row['date_actual_stage_refresh']);
+            $i++;
+        }
+        return $general;
     }
 }

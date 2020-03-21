@@ -83,4 +83,25 @@ class InternetStatus {
         
         return $result->execute();
     }
+    
+    /**
+     * Обновление информации о статусе интернета по его id
+     * @param integer $id <p>id статуса, информацию о котором нужно обновить</p>
+     * @param array $options <p>массив со свойствами редактируемого статуса</p>
+     * @return boolean <p></p>
+     */
+    public static function updateInternetStatusById($id, $options)
+    {
+        $db = Db::getConnection();
+        
+        $sql = 'UPDATE internet_status SET '
+                . 'name = :name '
+                . 'WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
 }

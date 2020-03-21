@@ -19,16 +19,24 @@
         <p><strong>Обліковий запис в AD:</strong></p>
     </div>
     <div class="col">
-        
+        <?=$workerItem['account_ad']?>
     </div>
 </div>
 <hr>
 <div class="row">
     <div class="col-sm-4">
+        <p><strong>Організація:</strong></p>
+    </div>
+    <div class="col">
+        <?=$organization['name']?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
         <p><strong>Відділ:</strong></p>
     </div>
     <div class="col">
-        
+        <?=$department['name']?>
     </div>
 </div>
 <div class="row">
@@ -36,15 +44,7 @@
         <p><strong>Підрозділ:</strong></p>
     </div>
     <div class="col">
-        
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-4">
-        <p><strong>Бурова:</strong></p>
-    </div>
-    <div class="col">
-        <a href="/drill/<?=$workerItem['drill_id']?>"><?=$workerItem['drill']?></a>
+        <?=$division['name']?>
     </div>
 </div>
 <div class="row">
@@ -53,6 +53,14 @@
     </div>
     <div class="col">
         <?=$workerItem['position']?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <p><strong>Бурова:</strong></p>
+    </div>
+    <div class="col">
+        <a href="/drill/<?=$workerItem['drill_id']?>"><?=$workerItem['drill']?></a>
     </div>
 </div>
 <hr>
@@ -94,13 +102,13 @@
         <p><strong>Дата оновлення:</strong></p>
     </div>
     <div class="col">
-        <?=$workerItem['worker_refresh']?>
+        <?= Worker::getDate($workerItem['worker_refresh'])?>
     </div>
 </div>
 <hr>
 <div class="row">
     <div class="col-sm-4">
-        <p><strong>Працюэ за ПК:</strong></p>
+        <p><strong>Працює за ПК:</strong></p>
     </div>
     <div class="col">
         

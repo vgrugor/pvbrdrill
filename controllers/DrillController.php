@@ -3,26 +3,86 @@
 class DrillController {
     
     /**
-     * 
+     * Общая информация о всех буровых
      * @return boolean
      */
-    public function actionIndex() {
-        
-        //пустая переменная типа массив для получения списка буровых
-        $drillList = [];
-        
+    public function actionGeneral() {
+              
         //вызов метода модели для получения списка буровых
-        $drillList = Drill::getInfoAboutDrills();
+        $drillList = Drill::getGeneralInfo();
         
-        require_once ROOT . '/views/drill/index.php';
+        require_once ROOT . '/views/drill/general.php';
         
         return true;
     }
     
     /**
-     * Возвращает подробную информацию о буровой по ее id
+     * Страница с информацией о интернете на буровых
+     * @return boolean <p>Для роутера</p>
+     */
+    public function actionInternet()
+    {
+        $internetInfoList = Drill::getInfoAboutInternet();
+        
+        require_once ROOT . '/views/drill/internet.php';
+        
+        return true;
+    }
+    
+    /**
+     * Страница с ковром бурения
+     * @return boolean <p>Для роутера</p>
+     */
+    public function actionCarpetDrilling()
+    {
+        $coverInfoList = Drill::getCarpetDrilling();
+        
+        require_once ROOT . '/views/drill/carpetDrilling.php';
+        
+        return true;
+    }
+    
+    /**
+     * Страница контактов буровых
+     * @return boolean <p>Для роутера</p>
+     */
+    public function actionContacts()
+    {
+        $contactsList = Drill::getContacts();
+        
+        require_once ROOT . '/views/drill/contacts.php';
+        
+        return true;
+    }
+    
+    /**
+     * Страница с данными о местонахождении буровой
+     * @return boolean <p>Для роутера</p>
+     */
+    public function actionLocation()
+    {
+        $locationList = Drill::getLocation();
+        
+        require_once ROOT . '/views/drill/location.php';
+        
+        return true;
+    }
+    
+    /**
+     * Страница с матрицей расстояний от буровых
+     * @return boolean <p>Для роутера</p>
+     */
+    public function actionDistance()
+    {
+        require_once ROOT . '/views/drill/distance.php';
+        
+        return true;
+    }
+
+    /**
+     * Страница подробной информации о буровой по ее id
      * @param type $id
-     * @return boolean
+     * @return boolean <p>Для роутера</p>
      */
     public function actionView($id) {
         

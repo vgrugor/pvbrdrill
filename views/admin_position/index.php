@@ -1,24 +1,10 @@
-<?php require_once ROOT . '/views/layouts/header.php'; ?>
-<div class="row">
-    <div class="col-sm-12">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="/admin">Адміністрування</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Керування посадами
-                </li>
-            </ol>
-        </nav>
-        <br/>
-    </div>
-</div>
+<?php require_once $this->getAdminHeader(); ?>
+
 <div class="row">
     <div class="col-sm-12">
         <h2 class="text-center">Керування посадами</h2>
         <p class="text-right">
-            <a href="/admin/organization/create">
+            <a href="/admin/position/create">
                 <i class="fas fa-plus-circle"></i>
                 Додати посаду
             </a>
@@ -59,5 +45,6 @@
         </table>
     </div>
 </div>
-<?php require_once ROOT . '/views/layouts/footer.php'; ?>
+
+<?php require_once $this->getAdminFooter(); ?>
 

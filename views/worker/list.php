@@ -2,6 +2,8 @@
 
 <div class="row">
     <div class="col-sm-12">
+        <h1 class="text-center">Список працівників</h1>
+        <br/>
         <table class="table">
           <thead class="thead-dark">
             <tr>
@@ -22,7 +24,7 @@
                   <td><?=$worker['position_name']?></td>
                   <td><?=$worker['email']?></td>
                   <td><?=$worker['vpn_status_name']?></td>
-                  <td><?=$worker['date_refresh']?></td>
+                  <td><?=Worker::getDate($worker['date_refresh'])?></td>
                   <td><?=$worker['note']?></td>
                 </tr>
             <?php endforeach; ?>
